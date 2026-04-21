@@ -145,7 +145,7 @@ export default function Header() {
       <header className="sticky top-0 z-50 bg-white shadow-sm">                                               {/* Logo */}
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
-            <span className="relative block h-16 w-48 shrink-0 md:h-20 md:w-60">
+            <span className="relative block h-16 w-48 shrink-0 md:h-20 md:w-60">                                {/* Sets container size for the logo image */}
               <Image
                 src="/logo_alpha.png"
                 alt={`${STORE_NAME} logo`}
