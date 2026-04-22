@@ -88,5 +88,12 @@ fred-andongndou-poultry-web/
 
 ## Notes
 
-- Root config includes Windows-safe output settings (`distDir: .n`) to avoid long-path build failures.
+- Build output uses the Next.js default `.next` directory.
 - Existing legacy project remains the source of truth while features are moved one by one.
+
+## Vercel Deployment (Production)
+
+- Set **Root Directory** to this Next.js project folder.
+- Use **Framework Preset**: Next.js.
+- Use **Build Command**: `npm run build`.
+- Leave **Output Directory** empty/default (Next.js expects `.next`).
