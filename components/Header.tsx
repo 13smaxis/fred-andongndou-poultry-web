@@ -63,7 +63,8 @@ function InstagramIcon({ className }: { className?: string })
   );
 }
 
-export default function Header() {
+export default function Header() 
+{
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileShopOpen, setMobileShopOpen] = useState(false);
@@ -105,7 +106,7 @@ export default function Header() {
                           ${socialHoverLineClass}
                         `}
             >
-              <FacebookIcon className="w-5 h-5" />
+              <FacebookIcon className="w-6 h-6" />
             </a>
             <a
               href={STORE_INSTAGRAM_URL}
@@ -120,7 +121,7 @@ export default function Header() {
                           ${socialHoverLineClass}
                         `}
             >
-              <InstagramIcon className="w-5 h-5" />
+              <InstagramIcon className="w-6 h-6" />
             </a>
             <a
               href={`https://wa.me/${STORE_WHATSAPP}`}
@@ -135,26 +136,24 @@ export default function Header() {
                           ${socialHoverLineClass}
                         `}
             >
-              <MessageCircle className="w-3.5 h-3.5" />
+              <MessageCircle className="w-4.5 h-4.5" />
             </a>
           </div>
           <p className="hidden md:block text-amber-100 text-xs sm:text-sm">{SHIPPING_RULES}</p>
         </div>
       </section>
 
-      <header className="sticky top-0 z-50 bg-white shadow-sm">                                               {/* Logo */}
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
-            <span className="relative block h-16 w-48 shrink-0 md:h-20 md:w-60">                                {/* Sets container size for the logo image */}
-              <Image
-                src="/logo_alpha.png"
-                alt={`${STORE_NAME} logo`}
-                fill
-                sizes="(min-width: 768px) 240px, 192px"
-                className="object-contain"
-                priority
-              />
-            </span>
+      <header className="sticky top-0 z-50 bg-white shadow-sm">                                               
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">                         {/* Navbar */}
+          <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>                         {/* Logo link for mobile*/}
+            <Image
+              src="/logo_alpha.png"
+              alt={`${STORE_NAME} logo`}
+              width={1024}
+              height={1024}
+              className="h-34 w-auto shrink-0 object-contain"
+              priority
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">                                                   {/* Desktop Navigation */}
@@ -167,16 +166,51 @@ export default function Header() {
             >
               Home
           </Link>
-            <Link href="/shop" className={`${navLinkClass} ${navHoverLineClass} ${isActive("/shop") ? "text-green-700" : ""}`}>Shop</Link>
-            <Link href="/about" className={`${navLinkClass} ${navHoverLineClass} ${isActive("/about") ? "text-green-700" : ""}`}>About</Link>
-            <Link href="/knowledge" className={`${navLinkClass} ${navHoverLineClass} ${isActive("/knowledge") ? "text-green-700" : ""}`}>Guides</Link>
-            <Link href="/contact" className={`${navLinkClass} ${navHoverLineClass} ${isActive("/contact") ? "text-green-700" : ""}`}>Contact</Link>
+          
+            <Link href="/shop" 
+                  className={`
+                              ${navLinkClass} 
+                              ${navHoverLineClass} 
+                              ${isActive("/shop") ? "text-green-700" : ""}
+                            `}
+            >
+              Shop
+            </Link>
+            <Link href="/about" className={`
+                              ${navLinkClass} 
+                              ${navHoverLineClass} 
+                              ${isActive("/about") ? "text-green-700" : ""}`}
+            >
+              About
+            </Link>
+            <Link href="/knowledge" className={`
+                              ${navLinkClass} 
+                              ${navHoverLineClass} 
+                              ${isActive("/knowledge") ? "text-green-700" : ""}`}>
+              Guides
+            </Link>
+            <Link href="/contact" className={`
+                              ${navLinkClass} 
+                              ${navHoverLineClass} 
+                              ${isActive("/contact") ? "text-green-700" : ""}`}>Contact</Link>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3">                                                             {/* Shopping cart */}
             <Link
               href="/shop/cart"
-              className="relative h-12 w-12 rounded-2xl bg-linear-to-br from-green-600 to-emerald-700 text-white shadow-[0_10px_25px_rgba(22,163,74,0.35)] ring-1 ring-green-400/30 transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:from-green-500 hover:to-emerald-600 flex items-center justify-center"
+              className="
+                          relative h-12 w-12 
+                          rounded-2xl 
+                          bg-linear-to-br from-green-600 to-emerald-700 
+                          text-white 
+                          shadow-[0_10px_25px_rgba(22,163,74,0.35)] 
+                          ring-1 ring-green-400/30 
+                          transition-all duration-300 
+                          hover:-translate-y-0.5 
+                          hover:scale-105 hover:from-green-500 hover:to-emerald-600 
+                          flex items-center 
+                          justify-center
+                        "
               aria-label="Open cart"
               title="Open cart"
             >
@@ -205,7 +239,14 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setMobileShopOpen(!mobileShopOpen)}
-                className="px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 rounded-lg font-medium inline-flex items-center justify-between"
+                className="
+                            px-4 py-3 
+                            text-gray-700 
+                            hover:bg-green-50 hover:text-green-700 
+                            rounded-lg font-medium 
+                            inline-flex items-center 
+                            justify-between
+                          "
                 aria-expanded={mobileShopOpen}
               >
                 Shop
