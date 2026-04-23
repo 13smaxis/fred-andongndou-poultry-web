@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { supabase } from '@/lib/supabase';
 import ProductCard from '@/components/ProductCard';
 import 
 {
@@ -13,9 +12,9 @@ import
   STORE_WHATSAPP,
   STORE_PHONE,
   SHIPPING_RULES,
-  SHOP_COLLECTIONS,
   HERO_IMAGE,
 } from '@/lib/constants';
+import { SHOP_CATEGORIES, SHOP_PRODUCTS } from '@/lib/shop-data';
 import 
 {
   ArrowRight, Phone, MessageCircle, Truck, Shield, Award, Leaf, ChevronRight, Star, MapPin, Clock, BookOpen,
@@ -159,96 +158,19 @@ export function TrustBadgeMarquee()
  */
 export default function Home() 
 {
-  const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
-  const [collections, setCollections] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [galleryModal, setGalleryModal] = useState<number | null>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data: featuredCollection } = await supabase                                                       //-Fetch featured products
-        .from('ecom_collections')
-        .select('id')
-        .eq('handle', 'featured')
-        .single();
-
-      if (featuredCollection)                                                                                   //-If the featured collection exists, fetch the linked products and their variants
-      {
-        const { data: productLinks } = await supabase 
-          .from('ecom_product_collections')
-          .select('product_id, position')
-          .eq('collection_id', featuredCollection.id)
-          .order('position');
-
-        if (productLinks && productLinks.length > 0) 
-        {
-          const productIds = productLinks.map((pl) => pl.product_id);
-          const { data: products } = await supabase
-            .from('ecom_products')
-            .select('*, variants:ecom_product_variants(*)')
-            .in('id', productIds)
-            .eq('status', 'active')
-            .neq('product_type', 'Equipment');
-
-          const sorted = productIds.map((id) => products?.find((p) => p.id === id)).filter(Boolean);
-          const filtered = sorted.filter((product: any) => {
-            const type = (product?.product_type || '').toString().toLowerCase();
-            return type !== 'equipment';
-          });
-          setFeaturedProducts(filtered as any[]);
-        }
-      }
-
-      const { data: cols } = await supabase                                                                     //-Fetch collections for category cards
-        .from('ecom_collections')
-        .select('*')
-        .eq('is_visible', true)
-        .order('created_at');
-
-      if (cols)                                                                                                 //-If collections are fetched successfully, filter out 'featured' and 'equipment',
-      {
-        const normalized = cols
-          .filter((c) => c.handle !== 'featured' && c.handle !== 'equipment')
-          .map((c) =>
-            c.handle === 'poultry-feed'
-              ? { ...c, title: 'Chicken Mixed Portions', handle: 'chicken-mixed-portions' }                     //-Else if the collection is "poultry-feed", rename it to "Chicken Mixed Portions" for better clarity on the homepage, but keep the handle for linking
-              : c
-          );
-        setCollections(normalized);
-      }
-
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-
-
-  /*
-   * Auto-rotate testimonials every 5 seconds. 
-   * This is a simple implementation that cycles through the testimonials array.
-   */
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTestimonialIdx((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+  const featuredProducts = SHOP_PRODUCTS.filter((product) => product.tags?.includes('featured'));
 
   /*
    * This object maps collection handles to specific category images for the "Shop by Category" section.
    * If a collection handle does not have a specific image, it falls back to the first image in the GALLERY_IMAGES array.
    */
   const categoryImages: Record<string, string> = {
-    'live-birds':
-      'https://d64gsuwffb70l.cloudfront.net/69b01c4429e71c971920f7e9_1773149379892_7b828d6e.jpg',
-    'day-old-chicks':
-      'https://d64gsuwffb70l.cloudfront.net/69b01c4429e71c971920f7e9_1773149402000_5117ccea.jpg',
-    'farm-fresh-eggs':
-      'https://d64gsuwffb70l.cloudfront.net/69b01c4429e71c971920f7e9_1773149433872_fe919a5d.jpg',
-    'chicken-mixed-portions':
-      'https://d64gsuwffb70l.cloudfront.net/69b01c4429e71c971920f7e9_1773149464626_8d57be9f.png',
+    Chicken: SHOP_PRODUCTS.find((product) => product.category === 'Chicken')?.image || GALLERY_IMAGES[0],
+    Eggs: SHOP_PRODUCTS.find((product) => product.category === 'Eggs')?.image || GALLERY_IMAGES[0],
+    Feed: SHOP_PRODUCTS.find((product) => product.category === 'Feed')?.image || GALLERY_IMAGES[0],
+    Equipment: SHOP_PRODUCTS.find((product) => product.category === 'Equipment')?.image || GALLERY_IMAGES[0],
   };
 
   return (
@@ -297,7 +219,7 @@ export default function Home()
               </p>
               <div className="flex flex-row gap-2 sm:gap-3">
                 <button
-                  onClick={() => router.push('/shop/collections/live-birds')}
+                  onClick={() => router.push('/shop')}
                   className="
                             bg-amber-500 
                             hover:bg-amber-600 
@@ -374,20 +296,20 @@ export default function Home()
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {collections.map((col) => (
+            {SHOP_CATEGORIES.filter((category) => category !== 'All').map((category) => (
               <Link
-                key={col.id}
-                href={`/shop/collections/${col.handle}`}
+                key={category}
+                href={`/shop?category=${encodeURIComponent(category)}`}
                 className="group relative rounded-xl overflow-hidden aspect-square shadow-sm hover:shadow-lg transition-all"
               >
                 <img
-                  src={categoryImages[col.handle] || GALLERY_IMAGES[0]}
-                  alt={col.title}
+                  src={categoryImages[category] || GALLERY_IMAGES[0]}
+                  alt={category}
                   className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" /> {/* Gradient overlay for better text visibility */}
                 <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-white font-bold text-lg">{col.title}</h3>
+                  <h3 className="text-white font-bold text-lg">{category}</h3>
                   <span className="text-green-300 text-sm flex items-center gap-1 mt-1 group-hover:text-amber-400 transition-colors">
                     Shop Now <ArrowRight className="w-4 h-4" />
                   </span>
@@ -406,34 +328,20 @@ export default function Home()
               <p className="text-gray-600 mt-2">Our most popular items, handpicked for you</p>
             </div>
             <Link
-              href="/shop/collections/featured"
+              href="/shop"
               className="hidden md:flex items-center gap-1 text-green-700 font-semibold hover:text-green-800"
             >
               View All <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="bg-gray-50 rounded-xl animate-pulse">
-                  <div className="aspect-square bg-gray-200 rounded-t-xl" />
-                  <div className="p-4 space-y-2">
-                    <div className="h-4 bg-gray-200 rounded w-3/4" />
-                    <div className="h-4 bg-gray-200 rounded w-1/2" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {featuredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
           <div className="text-center mt-8 md:hidden">
             <Link
-              href="/shop/collections/featured"
+              href="/shop"
               className="inline-flex items-center gap-1 text-green-700 font-semibold hover:text-green-800"
             >
               View All Products <ArrowRight className="w-4 h-4" />
@@ -649,7 +557,7 @@ export default function Home()
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={() => router.push('/shop/collections/live-birds')}
+              onClick={() => router.push('/shop')}
               className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors text-lg"
             >
               <ShoppingCart className="w-5 h-5" />

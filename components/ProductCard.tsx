@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
 import { STORE_WHATSAPP } from "@/lib/constants";
@@ -29,11 +28,6 @@ export default function ProductCard({ product }: ProductCardProps) {
     e.stopPropagation();
     if (!inStock) return;
 
-    if (product.has_variants && product.variants?.length > 0) {
-      window.location.href = `/shop/products/${product.handle}`;
-      return;
-    }
-
     addToCart({
       product_id: product.id,
       variant_id: undefined,
@@ -56,10 +50,10 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="group overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg">
-      <Link href={`/shop/products/${product.handle}`} className="block">
+      <div className="block">
         <div className="relative aspect-square overflow-hidden bg-gray-50">
           <Image
-            src={product.images?.[0] || ""}
+            src={product.images?.[0] || product.image || ""}
             alt={product.name}
             fill
             unoptimized
@@ -80,7 +74,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               Bestseller
             </span>
           )}
-          <div className="absolute bottom-0 left-0 right-0 translate-y-full bg-gradient-to-t from-black/60 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
+          <div className="absolute bottom-0 left-0 right-0 translate-y-full bg-linear-to-t from-black/60 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
             <div className="flex gap-2">
               <button
                 onClick={handleQuickAdd}
@@ -88,7 +82,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-white px-3 py-2 text-sm font-semibold text-green-800 transition-colors hover:bg-green-50 disabled:opacity-50"
               >
                 <ShoppingCart className="h-4 w-4" />
-                {product.has_variants ? "View Options" : "Add to Cart"}
+                Add to Cart
               </button>
               <button
                 onClick={handleWhatsApp}
@@ -120,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </p>
           )}
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

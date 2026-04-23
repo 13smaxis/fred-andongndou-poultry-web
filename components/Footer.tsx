@@ -10,7 +10,6 @@ import {
   STORE_ADDRESS,
   STORE_WHATSAPP,
   SHIPPING_RULES,
-  SHOP_COLLECTIONS,
 } from "@/lib/constants";
 import { Phone, Mail, MapPin, MessageCircle, Send, Clock, Truck } from "lucide-react";
 
@@ -91,13 +90,8 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-bold mb-4">Shop</h4>
           <ul className="space-y-2">
-            {SHOP_COLLECTIONS.map((col) => (
-              <li key={col.id}>
-                <Link href={`/shop/collections/${col.handle}`} className="text-green-300 hover:text-white text-sm transition-colors">
-                  {col.title}
-                </Link>
-              </li>
-            ))}
+            <li><Link href="/shop" className="text-green-300 hover:text-white text-sm transition-colors">All Products</Link></li>
+            <li><Link href="/shop/cart" className="text-green-300 hover:text-white text-sm transition-colors">Shopping Cart</Link></li>
           </ul>
         </div>
 

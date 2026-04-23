@@ -11,7 +11,6 @@ import
   STORE_FACEBOOK_URL,
   STORE_INSTAGRAM_URL,
   SHIPPING_RULES,
-  SHOP_COLLECTIONS,
 } from "@/lib/constants";
 import 
 {
@@ -19,7 +18,6 @@ import
   Menu,
   X,
   MessageCircle,
-  ChevronDown,
 } from "lucide-react";
 
 /*
@@ -67,11 +65,9 @@ export default function Header()
 {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileShopOpen, setMobileShopOpen] = useState(false);
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
-    setMobileShopOpen(false);
   };
 
   const navLinkClass =
@@ -238,12 +234,7 @@ export default function Header()
 
           <button
             className="lg:hidden p-2 text-gray-700 hover:bg-green-50 rounded-lg"
-            onClick={() => {
-              setMobileMenuOpen(!mobileMenuOpen);
-              if (mobileMenuOpen) {
-                setMobileShopOpen(false);
-              }
-            }}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -254,36 +245,7 @@ export default function Header()
           <div className="lg:hidden border-t bg-white shadow-lg">
             <nav className="flex flex-col p-4 gap-1">
               <Link href="/" onClick={closeMobileMenu} className={mobileNavLinkClass}>Home</Link>
-              <button
-                type="button"
-                onClick={() => setMobileShopOpen(!mobileShopOpen)}
-                className="
-                            px-4 py-3 
-                            text-gray-700 
-                            hover:bg-green-50 hover:text-green-700 
-                            rounded-lg font-medium 
-                            inline-flex items-center 
-                            justify-between
-                          "
-                aria-expanded={mobileShopOpen}
-              >
-                Shop
-                <ChevronDown className={`h-4 w-4 transition-transform ${mobileShopOpen ? "rotate-180" : ""}`} />
-              </button>
-              {mobileShopOpen && (
-                <div className="flex flex-col gap-1 pl-4">
-                  {SHOP_COLLECTIONS.map((col) => (
-                    <Link
-                      key={col.id}
-                      href={`/shop/collections/${col.handle}`}
-                      onClick={closeMobileMenu}
-                      className={mobileNavLinkClass}
-                    >
-                      {col.title}
-                    </Link>
-                  ))}
-                </div>
-              )}
+              <Link href="/shop" onClick={closeMobileMenu} className={mobileNavLinkClass}>Shop</Link>
               <Link href="/about" onClick={closeMobileMenu} className={mobileNavLinkClass}>About</Link>
               <Link href="/knowledge" onClick={closeMobileMenu} className={mobileNavLinkClass}>Guides</Link>
               <Link href="/contact" onClick={closeMobileMenu} className={mobileNavLinkClass}>Contact</Link>

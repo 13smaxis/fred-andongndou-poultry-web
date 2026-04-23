@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useCart } from "@/contexts/CartContext";
 import { STORE_WHATSAPP } from "@/lib/constants";
 import 
@@ -19,7 +18,6 @@ import
 export default function CartPage() 
 {
   const { cart, cartCount, removeFromCart, updateQuantity, clearCart } = useCart();
-  const router = useRouter();
 
   const handleWhatsAppOrder = () => {
     const items = cart
@@ -48,7 +46,7 @@ export default function CartPage()
           <h2 className="mb-2 text-xl font-semibold text-gray-700">Your cart is empty</h2>
           <p className="mb-6 text-gray-500">Browse our products and add items to your cart.</p>
           <Link
-            href="/"
+            href="/shop"
             className="inline-flex items-center gap-2 rounded-lg bg-green-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-green-800"
           >
             <ArrowLeft className="h-4 w-4" /> Continue Shopping
@@ -124,19 +122,13 @@ export default function CartPage()
               </div>
 
               <button
-                onClick={() => router.push("/shop/checkout")}
-                className="mb-3 w-full rounded-lg bg-green-700 py-3.5 font-semibold text-white transition-colors hover:bg-green-800"
-              >
-                Proceed to Checkout
-              </button>
-              <button
                 onClick={handleWhatsAppOrder}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-green-500 py-3.5 font-semibold text-white transition-colors hover:bg-green-600"
+                className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg bg-green-500 py-3.5 font-semibold text-white transition-colors hover:bg-green-600"
               >
                 <MessageCircle className="h-5 w-5" />
                 Order via WhatsApp
               </button>
-              <Link href="/" className="mt-4 block text-center text-sm font-medium text-green-600 hover:underline">
+              <Link href="/shop" className="mt-4 block text-center text-sm font-medium text-green-600 hover:underline">
                 Continue Shopping
               </Link>
             </div>
