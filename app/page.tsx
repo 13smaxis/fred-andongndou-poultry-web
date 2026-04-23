@@ -167,10 +167,10 @@ export default function Home()
    * If a collection handle does not have a specific image, it falls back to the first image in the GALLERY_IMAGES array.
    */
   const categoryImages: Record<string, string> = {
-    Chicken: SHOP_PRODUCTS.find((product) => product.category === 'Chicken')?.image || GALLERY_IMAGES[0],
+    Live_Chicken: SHOP_PRODUCTS.find((product) => product.category === 'Live Chicken')?.image || GALLERY_IMAGES[0],
+    Tender_Chicken_Portions: SHOP_PRODUCTS.find((product) => product.category === 'Tender Chicken Portions')?.image || GALLERY_IMAGES[0],
     Eggs: SHOP_PRODUCTS.find((product) => product.category === 'Eggs')?.image || GALLERY_IMAGES[0],
     Feed: SHOP_PRODUCTS.find((product) => product.category === 'Feed')?.image || GALLERY_IMAGES[0],
-    Equipment: SHOP_PRODUCTS.find((product) => product.category === 'Equipment')?.image || GALLERY_IMAGES[0],
   };
 
   return (
