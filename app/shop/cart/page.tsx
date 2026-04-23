@@ -5,7 +5,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/contexts/CartContext";
 import { STORE_WHATSAPP } from "@/lib/constants";
-import {
+import 
+{
   Minus,
   Plus,
   Trash2,
@@ -15,7 +16,8 @@ import {
   Truck,
 } from "lucide-react";
 
-export default function CartPage() {
+export default function CartPage() 
+{
   const { cart, cartCount, removeFromCart, updateQuantity, clearCart } = useCart();
   const router = useRouter();
 

@@ -139,6 +139,24 @@ export default function Header()
               <MessageCircle className="w-4.5 h-4.5" />
             </a>
           </div>
+          <Link
+            href="/shop/cart"
+            className="
+                        md:hidden
+                        relative h-10 w-10
+                        rounded-xl
+                        bg-gradient-to-br from-green-600 to-emerald-700
+                        text-white
+                        shadow-[0_8px_20px_rgba(22,163,74,0.3)]
+                        ring-1 ring-green-400/30
+                        flex items-center
+                        justify-center
+                      "
+            aria-label="Open cart"
+            title="Open cart"
+          >
+            <ShoppingCart className="h-5 w-5" />
+          </Link>
           <p className="hidden md:block text-amber-100 text-xs sm:text-sm">{SHIPPING_RULES}</p>
         </div>
       </section>
@@ -151,7 +169,7 @@ export default function Header()
               alt={`${STORE_NAME} logo`}
               width={1024}
               height={1024}
-              className="h-34 w-auto shrink-0 object-contain"
+              className="h-14 sm:h-16 md:h-20 lg:h-34 w-auto shrink-0 object-contain"
               priority
             />
           </Link>
@@ -195,13 +213,13 @@ export default function Header()
                               ${isActive("/contact") ? "text-green-700" : ""}`}>Contact</Link>
           </nav>
 
-          <div className="flex items-center gap-3">                                                             {/* Shopping cart */}
+          <div className="hidden lg:flex items-center gap-3">                                                   {/* Desktop shopping cart */}
             <Link
               href="/shop/cart"
               className="
                           relative h-12 w-12 
                           rounded-2xl 
-                          bg-linear-to-br from-green-600 to-emerald-700 
+                          bg-gradient-to-br from-green-600 to-emerald-700 
                           text-white 
                           shadow-[0_10px_25px_rgba(22,163,74,0.35)] 
                           ring-1 ring-green-400/30 
@@ -216,20 +234,20 @@ export default function Header()
             >
               <ShoppingCart className="h-6 w-6" />
             </Link>
-
-            <button
-              className="lg:hidden p-2 text-gray-700 hover:bg-green-50 rounded-lg"
-              onClick={() => {
-                setMobileMenuOpen(!mobileMenuOpen);
-                if (mobileMenuOpen) {
-                  setMobileShopOpen(false);
-                }
-              }}
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
           </div>
+
+          <button
+            className="lg:hidden p-2 text-gray-700 hover:bg-green-50 rounded-lg"
+            onClick={() => {
+              setMobileMenuOpen(!mobileMenuOpen);
+              if (mobileMenuOpen) {
+                setMobileShopOpen(false);
+              }
+            }}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
 
         {mobileMenuOpen && (

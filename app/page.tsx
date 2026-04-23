@@ -96,7 +96,7 @@ const badges = [
   { icon: Shield,        text: 'Health Guaranteed', sub: 'Vaccinated birds' },
   { icon: Award,         text: '15+ Years',         sub: 'Of experience' },
   { icon: Leaf,          text: 'Farm Fresh',        sub: 'Daily collection' },
-  { icon: MapPin,        text: 'Locally Sourced',   sub: 'South African farms' },
+  { icon: MapPin,        text: 'Locally Sourced',   sub: 'Local farms' },
   { icon: MessageCircle, text: 'WhatsApp Orders',   sub: 'Instant response' },
   { icon: Phone, text: 'Call Orders',   sub: 'Quick Delivery' },
   { icon: ShoppingCart, text: 'Online Shop',   sub: 'Instant Ordering' },
@@ -272,7 +272,7 @@ export default function Home()
                         via-green-900/60 to-transparent
                       "
         />
-        <div className="absolute inset-0 flex items-center">
+        <div className="absolute inset-0 flex items-end md:items-center pb-4 md:pb-0">
           <div className="max-w-7xl mx-auto px-4 w-full">
             <div className="max-w-xl">
               <span className="
@@ -295,23 +295,25 @@ export default function Home()
                 Premium poultry products from our family farm to your table. Broilers, layers, day-old chicks, 
                 eggs, and chicken mixed portions.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-row gap-2 sm:gap-3">
                 <button
                   onClick={() => router.push('/shop/collections/live-birds')}
                   className="
                             bg-amber-500 
                             hover:bg-amber-600 
                             text-white 
-                            px-8 py-4 
-                            rounded-lg 
+                            px-3 py-2 sm:px-8 sm:py-4
+                            rounded-md sm:rounded-lg
                             font-semibold 
+                            flex-1 sm:flex-none
                             flex items-center justify-center 
                             gap-2 transition-colors 
-                            text-lg
+                            text-xs sm:text-lg
                           "
                 >
-                  <ShoppingCart className="w-5 h-5" />
-                  Shop Now
+                  <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="sm:hidden">Shop</span>
+                  <span className="hidden sm:inline">Shop Now</span>
                 </button>
                 <a
                   href={`
@@ -323,15 +325,17 @@ export default function Home()
                             bg-green-500 
                             hover:bg-green-600 
                             text-white 
-                            px-8 py-4 rounded-lg 
+                            px-3 py-2 sm:px-8 sm:py-4 rounded-md sm:rounded-lg
                             font-semibold 
+                            flex-1 sm:flex-none
                             flex items-center justify-center 
                             gap-2 transition-colors 
-                            text-lg
+                            text-xs sm:text-lg
                           "
                 >
-                  <MessageCircle className="w-5 h-5" />
-                  WhatsApp Order
+                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="sm:hidden">WhatsApp</span>
+                  <span className="hidden sm:inline">WhatsApp Order</span>
                 </a>
                 <a
                   href={`tel:${STORE_PHONE}`}
@@ -339,16 +343,19 @@ export default function Home()
                             bg-white/20 
                             hover:bg-white/30 
                             text-white 
-                            px-6 py-4 
-                            rounded-lg 
+                            px-3 py-2 sm:px-6 sm:py-4
+                            rounded-md sm:rounded-lg
                             font-semibold 
+                            flex-1 sm:flex-none
                             flex items-center justify-center 
                             gap-2 transition-colors 
                             backdrop-blur-sm
+                            text-xs sm:text-base
                           "
                 >
-                  <Phone className="w-5 h-5" />
-                  Call Us
+                  <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="sm:hidden">Call</span>
+                  <span className="hidden sm:inline">Call Us</span>
                 </a>
               </div>
             </div>
