@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
-import {
+import ProductCard from '@/components/ProductCard';
+import 
+{
   STORE_NAME,
   GALLERY_IMAGES,
   STORE_WHATSAPP,
@@ -14,32 +16,18 @@ import {
   SHOP_COLLECTIONS,
   HERO_IMAGE,
 } from '@/lib/constants';
-import ProductCard from '@/components/ProductCard';
-import {
-  ArrowRight,
-  Phone,
-  MessageCircle,
-  Truck,
-  Shield,
-  Award,
-  Leaf,
-  ChevronRight,
-  Star,
-  MapPin,
-  Clock,
-  BookOpen,
-  Camera,
-  Calendar,
-  ShoppingCart,
-  Users,
-  Heart,
-  CheckCircle,
-  Egg,
-  Syringe,
-  Bug,
-  Utensils,
+import 
+{
+  ArrowRight, Phone, MessageCircle, Truck, Shield, Award, Leaf, ChevronRight, Star, MapPin, Clock, BookOpen,
+  Camera, Calendar, ShoppingCart, Users, Heart, CheckCircle, Egg, Syringe, Bug, Utensils,
 } from 'lucide-react';
 
+
+/*
+ * This is testimonial data for the Home page. 
+ * Each testimonial includes the customer's name, role, testimonial text, and a rating out of 5.
+ * The testimonials are displayed in a grid format on the Home page, with an auto-rotate feature that cycles through them every 5 seconds.
+ */
 const testimonials = [
   {
     name: 'James Okonkwo',
@@ -100,7 +88,77 @@ const stockUpdates = [
   { product: 'Free-Range Broilers', status: 'Limited Stock', qty: '50 birds', color: 'amber' },
 ];
 
-export default function Home() {
+/*
+ * This declares a list of trust badges that will be displayed in a marquee format on the Home page.
+ */
+const badges = [
+  { icon: Truck,         text: 'Free Delivery',    sub: 'On all orders' },
+  { icon: Shield,        text: 'Health Guaranteed', sub: 'Vaccinated birds' },
+  { icon: Award,         text: '15+ Years',         sub: 'Of experience' },
+  { icon: Leaf,          text: 'Farm Fresh',        sub: 'Daily collection' },
+  { icon: MapPin,        text: 'Locally Sourced',   sub: 'South African farms' },
+  { icon: MessageCircle, text: 'WhatsApp Orders',   sub: 'Instant response' },
+  { icon: Phone, text: 'Call Orders',   sub: 'Quick Delivery' },
+  { icon: ShoppingCart, text: 'Online Shop',   sub: 'Instant Ordering' },
+];
+
+/*
+ * Self contained TrustBadgeMarquee component creates a continuously scrolling marquee of trust badges. 
+ * It duplicates the badges array to create a seamless scrolling effect and fades both edges.
+ * The marquee pauses on hover, allowing users to read the badges without distraction.
+ */
+export function TrustBadgeMarquee()                                                                             
+{
+  const doubled = [...badges, ...badges];                                                                       
+
+  return (
+    <section className="trust-badge-marquee bg-white py-5 border-b overflow-hidden relative">                 {/* ← relative is required */}
+      <div className="
+                        pointer-events-none 
+                        absolute 
+                        inset-y-0 left-0 
+                        w-32 md:w-40
+                        bg-linear-to-r from-white to-transparent 
+                        z-10
+                      " 
+      />                                                                                                        {/* Fades edges on the left */}
+      <div className="
+                        pointer-events-none 
+                        absolute 
+                        inset-y-0 right-0 
+                        w-32 md:w-40
+                        bg-linear-to-l from-white to-transparent 
+                        z-10
+                      " 
+      />                                                                                                        {/* Fades edges on the right */}
+      <div className="flex w-max animate-marquee">                                                              {/* Scrolling track pauses on hover */}
+        {doubled.map((badge, i) => (
+          <div
+            key={i}
+            className="flex shrink-0 items-center gap-3 px-10 border-r border-gray-200 whitespace-nowrap"
+          >
+            <badge.icon className="w-8 h-8 text-green-600 shrink-0" />
+            <div>
+              <p className="font-semibold text-gray-900 text-sm">{badge.text}</p>
+              <p className="text-xs text-gray-500">{badge.sub}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/*
+ * The Home component fetches featured products and collections from Supabase on mount. 
+ * It also sets up an interval to auto-rotate testimonials every 5 seconds. 
+ * The page is structured into multiple sections: 
+ *    - Hero, Trust Badges, Shop by Category, Featured Products, Stock Availability, About Preview, Testimonials, 
+ *    - Knowledge Preview, Gallery, CTA, and Delivery Info. 
+ * Each section is designed to be visually appealing and informative, with clear calls to action for users to explore the shop or contact the farm.
+ */
+export default function Home() 
+{
   const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
   const [collections, setCollections] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -110,21 +168,22 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch featured products
-      const { data: featuredCollection } = await supabase
+      const { data: featuredCollection } = await supabase                                                       //-Fetch featured products
         .from('ecom_collections')
         .select('id')
         .eq('handle', 'featured')
         .single();
 
-      if (featuredCollection) {
-        const { data: productLinks } = await supabase
+      if (featuredCollection)                                                                                   //-If the featured collection exists, fetch the linked products and their variants
+      {
+        const { data: productLinks } = await supabase 
           .from('ecom_product_collections')
           .select('product_id, position')
           .eq('collection_id', featuredCollection.id)
           .order('position');
 
-        if (productLinks && productLinks.length > 0) {
+        if (productLinks && productLinks.length > 0) 
+        {
           const productIds = productLinks.map((pl) => pl.product_id);
           const { data: products } = await supabase
             .from('ecom_products')
@@ -142,18 +201,19 @@ export default function Home() {
         }
       }
 
-      // Fetch collections for category cards
-      const { data: cols } = await supabase
+      const { data: cols } = await supabase                                                                     //-Fetch collections for category cards
         .from('ecom_collections')
         .select('*')
         .eq('is_visible', true)
         .order('created_at');
-      if (cols) {
+
+      if (cols)                                                                                                 //-If collections are fetched successfully, filter out 'featured' and 'equipment',
+      {
         const normalized = cols
           .filter((c) => c.handle !== 'featured' && c.handle !== 'equipment')
           .map((c) =>
             c.handle === 'poultry-feed'
-              ? { ...c, title: 'Chicken Mixed Portions', handle: 'chicken-mixed-portions' }
+              ? { ...c, title: 'Chicken Mixed Portions', handle: 'chicken-mixed-portions' }                     //-Else if the collection is "poultry-feed", rename it to "Chicken Mixed Portions" for better clarity on the homepage, but keep the handle for linking
               : c
           );
         setCollections(normalized);
@@ -164,7 +224,11 @@ export default function Home() {
     fetchData();
   }, []);
 
-  // Auto-rotate testimonials
+
+  /*
+   * Auto-rotate testimonials every 5 seconds. 
+   * This is a simple implementation that cycles through the testimonials array.
+   */
   useEffect(() => {
     const timer = setInterval(() => {
       setTestimonialIdx((prev) => (prev + 1) % testimonials.length);
@@ -172,6 +236,10 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
+  /*
+   * This object maps collection handles to specific category images for the "Shop by Category" section.
+   * If a collection handle does not have a specific image, it falls back to the first image in the GALLERY_IMAGES array.
+   */
   const categoryImages: Record<string, string> = {
     'live-birds':
       'https://d64gsuwffb70l.cloudfront.net/69b01c4429e71c971920f7e9_1773149379892_7b828d6e.jpg',
@@ -184,19 +252,38 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* HERO SECTION */}
+    <div className="min-h-screen bg-gray-50"> 
+      
       <section
-        className="relative h-125 md:h-200 overflow-hidden bg-center bg-cover bg-scroll md:bg-fixed"
+        className="
+                    relative h-125 
+                    md:h-200 overflow-hidden 
+                    bg-center bg-cover bg-scroll 
+                    md:bg-fixed
+                  "
         style={{
           backgroundImage: `url(${HERO_IMAGE})`,
         }}
-      >
-        <div className="absolute inset-0 bg-linear-to-r from-green-900/85 via-green-900/60 to-transparent" />
+      >                                                                                                         {/* HERO SECTION */}
+        <div className="
+                        absolute 
+                        inset-0 bg-linear-to-r 
+                        from-green-900/85 
+                        via-green-900/60 to-transparent
+                      "
+        />
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 w-full">
             <div className="max-w-xl">
-              <span className="inline-block bg-amber-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+              <span className="
+                                inline-block 
+                                bg-amber-500 
+                                text-white 
+                                px-4 py-1.5 
+                                rounded-full 
+                                text-sm font-semibold mb-4
+                              "
+              >
                 Trusted Since 2009
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
@@ -205,29 +292,60 @@ export default function Home() {
                 <span className="text-amber-400">Trusted.</span>
               </h1>
               <p className="text-lg text-green-100 mb-8 leading-relaxed">
-                Premium poultry products from our family farm to your table. Broilers, layers, day-old chicks, eggs, and chicken
-                mixed portions.
+                Premium poultry products from our family farm to your table. Broilers, layers, day-old chicks, 
+                eggs, and chicken mixed portions.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={() => router.push('/shop/collections/live-birds')}
-                  className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors text-lg"
+                  className="
+                            bg-amber-500 
+                            hover:bg-amber-600 
+                            text-white 
+                            px-8 py-4 
+                            rounded-lg 
+                            font-semibold 
+                            flex items-center justify-center 
+                            gap-2 transition-colors 
+                            text-lg
+                          "
                 >
                   <ShoppingCart className="w-5 h-5" />
                   Shop Now
                 </button>
                 <a
-                  href={`https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent('Hi! I would like to place an order.')}`}
+                  href={`
+                          https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent('Hi! I would like to place an order.')}
+                       `}
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors text-lg"
+                  className="
+                            bg-green-500 
+                            hover:bg-green-600 
+                            text-white 
+                            px-8 py-4 rounded-lg 
+                            font-semibold 
+                            flex items-center justify-center 
+                            gap-2 transition-colors 
+                            text-lg
+                          "
                 >
                   <MessageCircle className="w-5 h-5" />
                   WhatsApp Order
                 </a>
                 <a
                   href={`tel:${STORE_PHONE}`}
-                  className="bg-white/20 hover:bg-white/30 text-white px-6 py-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors backdrop-blur-sm"
+                  className="
+                            bg-white/20 
+                            hover:bg-white/30 
+                            text-white 
+                            px-6 py-4 
+                            rounded-lg 
+                            font-semibold 
+                            flex items-center justify-center 
+                            gap-2 transition-colors 
+                            backdrop-blur-sm
+                          "
                 >
                   <Phone className="w-5 h-5" />
                   Call Us
@@ -237,25 +355,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <section className="bg-white py-6 border-b">                                                            {/* TRUST BADGES */}
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { icon: Truck, text: 'Free Shipping', sub: 'On all orders' },
-            { icon: Shield, text: 'Health Guaranteed', sub: 'Vaccinated birds' },
-            { icon: Award, text: '15+ Years', sub: 'Of experience' },
-            { icon: Leaf, text: 'Farm Fresh', sub: 'Daily collection' },
-          ].map((badge) => (
-            <div key={badge.text} className="flex items-center gap-3 justify-center">
-              <badge.icon className="w-8 h-8 text-green-600 shrink-0" />
-              <div>
-                <p className="font-semibold text-gray-900 text-sm">{badge.text}</p>
-                <p className="text-xs text-gray-500">{badge.sub}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+                                          
+        <TrustBadgeMarquee />                                                                                   {/* TRUST BADGES MARQUEE */}
 
       <section className="py-16">                                                                               {/* SHOP BY CATEGORY */}
         <div className="max-w-7xl mx-auto px-4">
@@ -277,7 +378,7 @@ export default function Home() {
                   alt={col.title}
                   className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" /> {/* Gradient overlay for better text visibility */}
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <h3 className="text-white font-bold text-lg">{col.title}</h3>
                   <span className="text-green-300 text-sm flex items-center gap-1 mt-1 group-hover:text-amber-400 transition-colors">
