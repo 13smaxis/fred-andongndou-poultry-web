@@ -4,6 +4,11 @@ import breastsImage from "@/images/breasts.png";
 import backsImage from "@/images/backs.png";
 import thighsImage from "@/images/thighs.png";
 import portionImage from "@/images/portions.png";
+import broilerImage from "@/images/broilers.jpg";
+import chicksImage from "@/images/day-old-broiler-chicks.jpg";
+import hensImage from "@/images/point-of-lay-hens.jpg";
+import freeRangeImage from "@/images/free-range-broilers.jpg";
+import feedImage from "@/images/broiler-feed.jpg";
 
 export type ShopCategory = "All" | "Live Chicken" | "Tender Chicken Portions" | "Eggs" | "Feed";
 
@@ -35,6 +40,11 @@ const breastsSrc = breastsImage.src;
 const backsSrc = backsImage.src;
 const thighsSrc = thighsImage.src;
 const mixedPortionSrc = portionImage.src;
+const broilersSrc = broilerImage.src;
+const chicksSrc = chicksImage.src;
+const hensSrc = hensImage.src;
+const freeRangeSrc = freeRangeImage.src;
+const feedSrc = feedImage.src;
 
 export const SHOP_CATEGORIES: ShopCategory[] = ["All", "Live Chicken", "Tender Chicken Portions", "Eggs", "Feed"];
 
@@ -115,7 +125,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         category: "Live Chicken",
         description: "Healthy live broilers, ready for pickup or delivery.",
         size: "1-2kg",
-        image: wingsSrc,
+        image: broilersSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
         price: 15.99,
@@ -126,7 +136,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         category: "Live Chicken",
         description: "Healthy live chicks, ready for pickup or delivery.",
         size: "0.5-1kg",
-        image: wingsSrc,
+        image: chicksSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
         price: 12.99,
@@ -137,7 +147,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         category: "Live Chicken",
         description: "Healthy live layer hens, ready for pickup or delivery.",
         size: "1-2kg",
-        image: wingsSrc,
+        image: hensSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
         price: 14.99,
@@ -148,7 +158,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         category: "Live Chicken",
         description: "Healthy live free-range broilers, ready for pickup or delivery.",
         size: "1-2kg",
-        image: wingsSrc,
+        image: freeRangeSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
         price: 15.99,
