@@ -9,6 +9,9 @@ import chicksImage from "@/images/day-old-broiler-chicks.jpg";
 import hensImage from "@/images/point-of-lay-hens.jpg";
 import freeRangeImage from "@/images/free-range-broilers.jpg";
 import feedImage from "@/images/broiler-feed.jpg";
+import eggJumboImage from "@/images/jumbo-eggs.jpg";
+import growerImage from "@/images/grower-feed.webp";
+import layerImage from "@/images/layer-feed.jpg";
 
 export type ShopCategory = "All" | "Live Chicken" | "Tender Chicken Portions" | "Eggs" | "Feed";
 
@@ -45,6 +48,9 @@ const chicksSrc = chicksImage.src;
 const hensSrc = hensImage.src;
 const freeRangeSrc = freeRangeImage.src;
 const feedSrc = feedImage.src;
+const jumboEggsSrc = eggJumboImage.src;
+const growerFeedSrc = growerImage.src;
+const layerFeedSrc = layerImage.src;
 
 export const SHOP_CATEGORIES: ShopCategory[] = ["All", "Live Chicken", "Tender Chicken Portions", "Eggs", "Feed"];
 
@@ -177,34 +183,12 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         price: 12.99,
     },
     {
-        id: "farm-eggs-tray-medium",
-        name: "Farm Fresh Eggs (Tray)",
-        category: "Eggs",
-        description: "Clean, fresh eggs packed daily from the farm.",
-        size: "30 medium eggs per tray",
-        image: eggsSrc,
-        tags: ["featured"],
-        inStock: true,
-        price: 11.99,
-    },
-    {
-        id: "farm-eggs-tray-small",
-        name: "Farm Fresh Eggs (Tray)",
-        category: "Eggs",
-        description: "Clean, fresh eggs packed daily from the farm.",
-        size: "30 small eggs per tray",
-        image: eggsSrc,
-        tags: ["featured"],
-        inStock: true,
-        price: 10.99,
-    },
-    {
         id: "farm-eggs-jumbo",
         name: "Farm Eggs (Jumbo)",
         category: "Eggs",
         description: "Large-size eggs ideal for bakeries and caterers.",
         size: "60 jumbo eggs per tray",
-        image: eggsSrc,
+        image: jumboEggsSrc,
         tags: ["bestseller"],
         inStock: true,
         price: 19.99,
@@ -217,7 +201,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         category: "Feed",
         description: "Balanced nutrition for healthy growth.",
         size: "25kg bag",
-        image: wingsSrc,
+        image: growerFeedSrc,
         tags: ["discount"],
         inStock: true,
         price: 14.99,
@@ -228,12 +212,14 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         category: "Feed",
         description: "Formulated feed for strong egg production.",
         size: "25kg bag",
-        image: wingsSrc,
+        image: layerFeedSrc,
         tags: ["discount"], 
         inStock: true,
         price: 12.99,
     },
 ];
+
+/*-------------- Promotions Slide --------------*/
 
 export const SHOP_PROMOTIONS: PromotionSlide[] = [
     {
@@ -241,14 +227,14 @@ export const SHOP_PROMOTIONS: PromotionSlide[] = [
         title: "Best Sellers This Week",
         subtitle: "Top picks loved by households and restaurants.",
         badge: "Best Buy",
-        image: wingsSrc,
+        image: broilersSrc,
     },
     {
         id: "weekly-discounts",
         title: "Weekly Discounts",
         subtitle: "Save more on bulk wings and feed bundles.",
         badge: "Discount",
-        image: wingsSrc,
+        image: growerFeedSrc,
     },
     {
         id: "featured-items",
