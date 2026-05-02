@@ -190,7 +190,7 @@ export default function Header()
       </section>
 
       <header className={headerClassName}>                                                     <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">                         {/* Navbar */}
-          <div className="shrink-0 lg:ml-50">                                                                   {/* Logo wrapper */}
+          <div className="shrink-0 lg:ml-40">                                                                   {/* Logo wrapper */}
             <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>                       {/* Logo link for mobile*/}
               <Image
                 src="/logo_alpha.png"
