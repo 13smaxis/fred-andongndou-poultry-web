@@ -70,8 +70,6 @@ export default function HeroCarousel() {
   return (
     <section
       className="relative isolate min-h-[82vh] overflow-hidden bg-black md:min-h-[88vh]"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
       aria-roledescription="carousel"
       aria-label="Farm hero showcase"
     >
@@ -94,7 +92,7 @@ export default function HeroCarousel() {
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
                 href="/shop"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-amber-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-amber-600"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-amber-600"
               >
                 <ShoppingCart className="h-5 w-5" />
                 Shop Now
@@ -105,14 +103,14 @@ export default function HeroCarousel() {
                 )}`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-green-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-green-600"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-green-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-green-600"
               >
                 <MessageCircle className="h-5 w-5" />
                 WhatsApp Order
               </a>
               <a
                 href={`tel:${STORE_PHONE}`}
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-white/15 px-5 py-3 font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-white/15 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/25"
               >
                 <Phone className="h-5 w-5" />
                 Call Us

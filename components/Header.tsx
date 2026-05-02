@@ -118,7 +118,7 @@ export default function Header()
 
   return (
     <>
-      <section className={isHome ? "hidden" : "bg-green-800 text-white text-sm py-2 px-4"}>                                       {/* Header bar */}
+      <section className={isHome ? "hidden" : "bg-green-800 text-white text-sm py-2 px-4"}>                 {/* Header bar */}
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">                                                             {/* Social media links */}
             <a
@@ -189,8 +189,9 @@ export default function Header()
         </div>
       </section>
 
-      <header className={headerClassName}>                                                     <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">                         {/* Navbar */}
-          <div className="shrink-0 lg:ml-40">                                                                   {/* Logo wrapper */}
+      <header className={headerClassName}>                                                                      {/* Navbar */}
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="shrink-0 lg:ml-50">                                                                   {/* Logo wrapper */}
             <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>                       {/* Logo link for mobile*/}
               <Image
                 src="/logo_alpha.png"
