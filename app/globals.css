@@ -192,12 +192,102 @@
   animation-play-state: paused;
 }
 
+.biosecurity-stripe-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.biosecurity-stripe-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.biosecurity-stripe-card::before {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  z-index: 0;
+  opacity: 0.55;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(22, 163, 74, 0.12) 0,
+    rgba(22, 163, 74, 0.12) 10px,
+    rgba(22, 163, 74, 0.03) 10px,
+    rgba(22, 163, 74, 0.03) 20px
+  );
+  will-change: transform;
+}
+
+.biosecurity-stripe-left::before {
+  animation: stripeFromLeft 7s ease-in-out infinite alternate;
+}
+
+.biosecurity-stripe-right::before {
+  animation: stripeFromRight 7.5s ease-in-out infinite alternate;
+}
+
+.biosecurity-stripe-top::before {
+  animation: stripeFromTop 8s ease-in-out infinite alternate;
+}
+
+.biosecurity-stripe-diagonal::before {
+  animation: stripeFromDiagonal 8.5s ease-in-out infinite alternate;
+}
+
+@keyframes stripeFromLeft {
+  from {
+    transform: translateX(-14%);
+  }
+
+  to {
+    transform: translateX(10%);
+  }
+}
+
+@keyframes stripeFromRight {
+  from {
+    transform: translateX(14%);
+  }
+
+  to {
+    transform: translateX(-10%);
+  }
+}
+
+@keyframes stripeFromTop {
+  from {
+    transform: translateY(-14%);
+  }
+
+  to {
+    transform: translateY(10%);
+  }
+}
+
+@keyframes stripeFromDiagonal {
+  from {
+    transform: translate3d(-8%, -8%, 0);
+  }
+
+  to {
+    transform: translate3d(8%, 8%, 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-fade-in {
     animation: none;
   }
 
   .animate-marquee {
+    animation: none;
+  }
+
+  .biosecurity-stripe-left::before,
+  .biosecurity-stripe-right::before,
+  .biosecurity-stripe-top::before,
+  .biosecurity-stripe-diagonal::before {
     animation: none;
   }
 }

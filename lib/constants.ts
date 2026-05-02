@@ -1,3 +1,12 @@
+import type { StaticImageData } from "next/image";
+
+import heroBgEgg from "../images/hero-bg-egg.jpg";
+import heroBgFullChicken from "../images/hero-bg-full-chicken.jpg";
+import heroBgThigh from "../images/hero-bg-thigh.jpg";
+import broilerFeed from "../images/broiler-feed.jpg";
+import freeRangeBroilers from "../images/free-range-broilers.jpg";
+import thighs from "../images/thighs.png";
+
 export const STORE_NAME = "Five Seasons Farm";
 export const STORE_TAGLINE = "Fresh. Healthy. Trusted.";
 export const STORE_PHONE = "+447533 621359";
@@ -9,6 +18,15 @@ export const STORE_ADDRESS = "1234 Farm Road, Green Valley, 7000";
 export const SHIPPING_RULES = "Free shipping on all orders";
 
 export const HERO_IMAGE = "/hero.png";
+
+export const HERO_CAROUSEL_IMAGES: StaticImageData[] = [
+  heroBgEgg,
+  heroBgThigh,
+  heroBgFullChicken,
+  thighs,
+  broilerFeed,
+  freeRangeBroilers,
+];
 
 export const GALLERY_IMAGES = [
   "https://d64gsuwffb70l.cloudfront.net/69b01c4429e71c971920f7e9_1773149519358_ae033f06.jpg",

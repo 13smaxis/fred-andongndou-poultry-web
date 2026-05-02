@@ -10,6 +10,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Five Seasons Farm",
   description: "Fresh. Healthy. Trusted.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

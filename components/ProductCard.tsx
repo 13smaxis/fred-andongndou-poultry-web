@@ -4,9 +4,24 @@ import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
 import { STORE_WHATSAPP } from "@/lib/constants";
 import { ShoppingCart, MessageCircle, Eye } from "lucide-react";
+import type { ShopProduct } from "@/lib/shop-data";
+
+type ProductCardProduct = ShopProduct & {
+  variants?: Array<{ inventory_qty?: number | null }>;
+  has_variants?: boolean;
+  inventory_qty?: number | null;
+  images?: string[];
+  sku?: string;
+  handle?: string;
+  price?: number;
+  product_type?: string;
+  metadata?: {
+    next_batch?: string;
+  };
+};
 
 interface ProductCardProps {
-  product: any;
+  product: ProductCardProduct;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -14,7 +29,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const getInStock = (): boolean => {
     if (product.variants && product.variants.length > 0) {
-      return product.variants.some((v: any) => v.inventory_qty == null || v.inventory_qty > 0);
+      return product.variants.some((v) => v.inventory_qty == null || v.inventory_qty > 0);
     }
     if (product.has_variants) return true;
     if (product.inventory_qty == null) return true;

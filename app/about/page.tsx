@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { STORE_NAME, GALLERY_IMAGES } from "@/lib/constants";
 import { Shield, Award, Leaf, Heart, CheckCircle } from "lucide-react";
+import AnimatedStatCard from "@/components/about/AnimatedStatCard";
 
 const certifications = [
   { icon: Shield, title: "USDA Certified", desc: "Meets all federal poultry standards" },
@@ -27,6 +28,40 @@ const timeline = [
   { year: "2018", event: "Launched day-old chick supply program" },
   { year: "2021", event: "Introduced free-range operations" },
   { year: "2024", event: "Expanded to serve 500+ customers monthly" },
+];
+
+const stats = [
+  {
+    end: 15,
+    suffix: "+",
+    label: "Years Experience",
+    cardClassName: "bg-blue-700 text-white",
+  },
+  {
+    end: 500,
+    suffix: "+",
+    label: "Monthly Customers",
+    cardClassName: "bg-emerald-700 text-white",
+  },
+  {
+    end: 50,
+    suffix: "K+",
+    label: "Birds Raised Yearly",
+    cardClassName: "bg-orange-700 text-white",
+  },
+  {
+    end: 99,
+    suffix: "%",
+    label: "Customer Satisfaction",
+    cardClassName: "bg-slate-800 text-white",
+  },
+];
+
+const stripeDirections = [
+  "biosecurity-stripe-left",
+  "biosecurity-stripe-right",
+  "biosecurity-stripe-top",
+  "biosecurity-stripe-diagonal",
 ];
 
 export default function AboutPage() {
@@ -78,16 +113,15 @@ export default function AboutPage() {
         </div>
 
         <div className="mb-16 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {[
-            { num: "15+", label: "Years Experience" },
-            { num: "500+", label: "Monthly Customers" },
-            { num: "50K+", label: "Birds Raised Yearly" },
-            { num: "99%", label: "Customer Satisfaction" },
-          ].map((stat) => (
-            <div key={stat.label} className="rounded-xl border border-green-100 bg-white p-6 text-center shadow-sm">
-              <p className="text-3xl font-bold text-green-700 md:text-4xl">{stat.num}</p>
-              <p className="mt-1 text-sm text-gray-600">{stat.label}</p>
-            </div>
+          {stats.map((stat) => (
+            <AnimatedStatCard
+              key={stat.label}
+              end={stat.end}
+              suffix={stat.suffix}
+              label={stat.label}
+              className={`${stat.cardClassName}`}
+              durationMs={1300}
+            />
           ))}
         </div>
 
@@ -97,9 +131,9 @@ export default function AboutPage() {
             {certifications.map((cert) => (
               <div
                 key={cert.title}
-                className="rounded-xl border border-green-100 bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md"
+                className="rounded-xl border border-amber-200 bg-amber-100/70 p-6 text-center shadow-sm transition-shadow hover:shadow-md"
               >
-                <cert.icon className="mx-auto mb-3 h-10 w-10 text-green-600" />
+                <cert.icon className="mx-auto mb-3 h-10 w-10 text-amber-700" />
                 <h3 className="mb-1 font-semibold text-gray-900">{cert.title}</h3>
                 <p className="text-sm text-gray-600">{cert.desc}</p>
               </div>
@@ -117,8 +151,11 @@ export default function AboutPage() {
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             {biosecurity.map((item, idx) => (
-              <div key={idx} className="flex items-start gap-3 rounded-lg bg-white p-3">
-                <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600" />
+              <div
+                key={idx}
+                className={`biosecurity-stripe-card ${stripeDirections[idx % stripeDirections.length]} flex items-start gap-3 rounded-lg bg-white p-3`}
+              >
+                <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-green-600" />
                 <span className="text-sm text-gray-700">{item}</span>
               </div>
             ))}

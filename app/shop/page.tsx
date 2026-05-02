@@ -6,23 +6,25 @@ import { MessageCircle, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { STORE_WHATSAPP } from "@/lib/constants";
 import { SHOP_CATEGORIES, SHOP_PRODUCTS, SHOP_PROMOTIONS, type ShopCategory, type ShopProduct } from "@/lib/shop-data";
+import { useSearchParams } from "next/navigation";
 
 export default function ShopPage() 
 {
   const { addToCart } = useCart();
-  const [selectedCategory, setSelectedCategory] = useState<ShopCategory>("All");
+  const searchParams = useSearchParams();
+  const [selectedCategory, setSelectedCategory] = useState<ShopCategory | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isCarouselPaused, setIsCarouselPaused] = useState(false);
 
-  useEffect(() => {
-    const categoryParam = new URLSearchParams(window.location.search).get("category") as ShopCategory | null;
-    if (categoryParam && SHOP_CATEGORIES.includes(categoryParam)) 
-    {
-      setSelectedCategory(categoryParam);                                                                       //-If a valid category is specified in the URL, set it as the selected category. 
-      return;
+  const urlCategory = useMemo(() => {
+    const categoryParam = searchParams.get("category") as ShopCategory | null;
+    if (categoryParam && SHOP_CATEGORIES.includes(categoryParam)) {
+      return categoryParam;
     }
-    setSelectedCategory("All");                                                                                 //-Otherwise, default to "All".
-  }, []);
+    return "All";
+  }, [searchParams]);
+
+  const effectiveCategory = selectedCategory ?? urlCategory;
 
   useEffect(() => {
     if (isCarouselPaused || SHOP_PROMOTIONS.length <= 1) 
@@ -38,12 +40,11 @@ export default function ShopPage()
   }, [isCarouselPaused]);
 
   const filteredProducts = useMemo(() => {
-    if (selectedCategory === "All")                                                                             
-    {
+    if (effectiveCategory === "All") {
       return SHOP_PRODUCTS;                                                                                     //-If "All" is selected, return all products without filtering
     }
-    return SHOP_PRODUCTS.filter((product) => product.category === selectedCategory);                            //-Otherwise, filter products to only include those that match the selected category.
-  }, [selectedCategory]); 
+    return SHOP_PRODUCTS.filter((product) => product.category === effectiveCategory);                           //-Otherwise, filter products to only include those that match the selected category.
+  }, [effectiveCategory]); 
 
   const handleAddToCart = (product: ShopProduct) => {
     addToCart({
@@ -153,7 +154,7 @@ export default function ShopPage()
                 className={`
                             rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors 
                             ${
-                                selectedCategory === category
+                                effectiveCategory === category
                                 ? "bg-green-700 text-white"
                                 : "bg-gray-100 text-gray-700 hover:bg-green-100 hover:text-green-800"
                               }

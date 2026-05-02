@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import 
 {
   STORE_NAME,
@@ -65,16 +65,34 @@ export default function Header()
 {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const isHome = pathname === "/";
+  const isTransparent = isHome && !isScrolled;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 8);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
   };
 
   const navLinkClass =
-    "relative px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-green-700"; //-Desktop link styling
+    `relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+      isTransparent ? "text-white hover:text-amber-200" : "text-gray-700 hover:text-green-700"
+    }`;
 
   const navHoverLineClass =
-    "after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0.5 after:h-0.5 after:w-0 after:rounded-full after:bg-green-600 after:transition-all after:duration-300 hover:after:w-full";
+    `after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0.5 after:h-0.5 after:w-0 after:rounded-full after:transition-all after:duration-300 hover:after:w-full ${
+      isTransparent ? "after:bg-white" : "after:bg-green-600"
+    }`;
 
   const socialHoverLineClass =
     "relative pb-0.5 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-0.5 after:h-0.5 after:w-0 after:rounded-full after:bg-yellow-100 after:transition-all after:duration-300 hover:after:w-full";
@@ -82,11 +100,25 @@ export default function Header()
   const mobileNavLinkClass =
     "px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 rounded-lg font-medium";                    //-Mobile link styling
 
+  const headerClassName = isHome
+    ? isScrolled
+      ? "fixed top-0 z-50 w-full bg-white/95 shadow-sm backdrop-blur-md border-b border-gray-100 transition-colors duration-300"
+      : "absolute top-0 z-50 w-full bg-transparent transition-colors duration-300"
+    : "sticky top-0 z-50 bg-white/95 shadow-sm backdrop-blur-md border-b border-gray-100 transition-colors duration-300";
+
+  const mobileMenuClassName = isScrolled
+    ? "lg:hidden border-t bg-white shadow-lg border-gray-200"
+    : "lg:hidden border-t bg-white/95 shadow-lg border-white/20 backdrop-blur-md";
+
+  const mobileMenuButtonClassName = isTransparent
+    ? "lg:hidden p-2 text-white hover:bg-white/10 rounded-lg"
+    : "lg:hidden p-2 text-gray-700 hover:bg-green-50 rounded-lg";
+
   const isActive = (href: string) => pathname === href;
 
   return (
     <>
-      <section className="bg-green-800 text-white text-sm py-2 px-4">                                       {/* Header bar */}
+      <section className={isHome ? "hidden" : "bg-green-800 text-white text-sm py-2 px-4"}>                                       {/* Header bar */}
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">                                                             {/* Social media links */}
             <a
@@ -141,7 +173,7 @@ export default function Header()
                         md:hidden
                         relative h-10 w-10
                         rounded-xl
-                        bg-gradient-to-br from-green-600 to-emerald-700
+                        bg-linear-to-br from-green-600 to-emerald-700
                         text-white
                         shadow-[0_8px_20px_rgba(22,163,74,0.3)]
                         ring-1 ring-green-400/30
@@ -157,7 +189,7 @@ export default function Header()
         </div>
       </section>
 
-      <header className="sticky top-0 z-50 bg-white shadow-sm">                                               
+      <header className={headerClassName}>                                               
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">                         {/* Navbar */}
           <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>                         {/* Logo link for mobile*/}
             <Image
@@ -215,7 +247,7 @@ export default function Header()
               className="
                           relative h-12 w-12 
                           rounded-2xl 
-                          bg-gradient-to-br from-green-600 to-emerald-700 
+                          bg-linear-to-br from-green-600 to-emerald-700 
                           text-white 
                           shadow-[0_10px_25px_rgba(22,163,74,0.35)] 
                           ring-1 ring-green-400/30 
@@ -233,7 +265,7 @@ export default function Header()
           </div>
 
           <button
-            className="lg:hidden p-2 text-gray-700 hover:bg-green-50 rounded-lg"
+            className={mobileMenuButtonClassName}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -242,7 +274,7 @@ export default function Header()
         </div>
 
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t bg-white shadow-lg">
+          <div className={mobileMenuClassName}>
             <nav className="flex flex-col p-4 gap-1">
               <Link href="/" onClick={closeMobileMenu} className={mobileNavLinkClass}>Home</Link>
               <Link href="/shop" onClick={closeMobileMenu} className={mobileNavLinkClass}>Shop</Link>
