@@ -78,9 +78,9 @@ export default function HeroCarousel() {
       <div className="flex min-h-[82vh] flex-col lg:min-h-[88vh] lg:flex-row">
         <div className="flex w-full items-center bg-emerald-950 px-6 py-14 sm:px-8 md:px-10 lg:w-[30%] lg:px-12">
           <div className="max-w-md text-white">
-            <span className="mb-4 inline-flex rounded-full bg-amber-500 px-4 py-1.5 text-sm font-semibold text-white shadow-lg shadow-emerald-950/20">
+            {/*  <span className="mb-4 inline-flex rounded-full bg-amber-500 px-4 py-1.5 text-sm font-semibold text-white shadow-lg shadow-emerald-950/20">
               Trusted Since 2009
-            </span>
+            </span>*/}  
             <h1 className="mb-4 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
               Fresh. Healthy.
               <br />
