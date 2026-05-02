@@ -189,18 +189,19 @@ export default function Header()
         </div>
       </section>
 
-      <header className={headerClassName}>                                               
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">                         {/* Navbar */}
-          <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>                         {/* Logo link for mobile*/}
-            <Image
-              src="/logo_alpha.png"
-              alt={`${STORE_NAME} logo`}
-              width={1024}
-              height={1024}
-              className="h-14 sm:h-16 md:h-20 lg:h-34 w-auto shrink-0 object-contain"
-              priority
-            />
-          </Link>
+      <header className={headerClassName}>                                                     <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">                         {/* Navbar */}
+          <div className="shrink-0 lg:ml-50">                                                                   {/* Logo wrapper */}
+            <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>                       {/* Logo link for mobile*/}
+              <Image
+                src="/logo_alpha.png"
+                alt={`${STORE_NAME} logo`}
+                width={1024}
+                height={1024}
+                className="h-14 sm:h-16 md:h-20 lg:h-34 w-auto shrink-0 object-contain"
+                priority
+              />
+            </Link>
+          </div>
 
           <nav className="hidden lg:flex items-center gap-1">                                                   {/* Desktop Navigation */}
             <Link href="/" 

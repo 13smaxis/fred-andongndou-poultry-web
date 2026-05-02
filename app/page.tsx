@@ -216,11 +216,12 @@ export default function Home()
       </section>
 
       <div
-        className="bg-fixed bg-center bg-cover"
+        className="relative bg-fixed bg-center bg-cover"
         style={{ backgroundImage: `url(${HERO_IMAGE})` }}
       >
-        <section className="py-16">                                                                        {/* STOCK AVAILABILITY */}
-          <div className="max-w-7xl mx-auto px-4">                                                            {/* Section containder */}
+       <div className="absolute inset-0 bg-blue-300/20" />
+        <section className="relative z-10 py-16 back">                                                          {/* STOCK AVAILABILITY */}
+          <div className="max-w-7xl mx-auto px-4">                                                              {/* Section containder */}
             <div className="text-center mb-10">
               <Calendar className="w-10 h-10 text-green-600 mx-auto mb-3" />
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Stock Availability</h2>
@@ -265,13 +266,19 @@ export default function Home()
           </div>
         </section>
 
-        <section className="py-16">                                                                          {/* ABOUT PREVIEW */}
+        <section className="py-16">                                                                             {/* ABOUT PREVIEW */}
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="grid grid-cols-2 gap-3">
                 {GALLERY_IMAGES.map((img, idx) => (
-                  <div key={idx} className={`rounded-xl overflow-hidden shadow-sm ${idx === 0 ? 'row-span-2' : ''}`}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <div key={idx} 
+                       className={`
+                                   rounded-xl 
+                                   overflow-hidden 
+                                   shadow-sm 
+                                   ${idx === 0 ? 'row-span-2' : ''}
+                                `}
+                  >
                     <img
                       src={img}
                       alt={`Farm ${idx + 1}`}
@@ -280,7 +287,7 @@ export default function Home()
                   </div>
                 ))}
               </div>
-              <div>
+              <div backdrop-blur-sm className="bg-white/75 rounded-xl p-8 shadow-lg">
                 <span className="text-green-600 font-semibold text-sm uppercase tracking-wider">About Our Farm</span>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">A Legacy of Quality Poultry Farming</h2>
                 <p className="text-gray-600 leading-relaxed mb-6">
