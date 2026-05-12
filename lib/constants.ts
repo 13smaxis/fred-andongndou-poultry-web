@@ -5,6 +5,7 @@ import heroBgThigh from "../images/hero-bg-thigh.jpg";
 import broilerFeed from "../images/layer-feed.jpg";
 import freeRangeBroilers from "../images/free-range-broilers.jpg";
 import eggs from "../images/single-tray.jpg";
+import chickenSchnitzel from "../images/chicken-schnitzel.jpg";
 
 export const STORE_NAME = "Five Seasons Farm";
 export const STORE_TAGLINE = "Fresh. Healthy. Trusted.";
@@ -25,6 +26,7 @@ export const HERO_CAROUSEL_IMAGES: StaticImageData[] = [
   eggs,
   broilerFeed,
   freeRangeBroilers,
+  chickenSchnitzel,
 ];
 
 export const GALLERY_IMAGES = [
@@ -39,4 +41,5 @@ export const SHOP_COLLECTIONS = [
   { id: "day-old-chicks", title: "Day-Old Chicks", handle: "day-old-chicks" },
   { id: "farm-fresh-eggs", title: "Farm Fresh Eggs", handle: "farm-fresh-eggs" },
   { id: "chicken-mixed-portions", title: "Chicken Mixed Portions", handle: "chicken-mixed-portions" },
+  { id: "chicken-schnitzel", title: "Chicken Schnitzel", handle: "chicken-schnitzel" },
 ];

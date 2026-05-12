@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
 import HeroCarousel from '@/components/HeroCarousel';
 import TrustBadgeMarquee from '@/components/Marquee';
+import broilerImage from '@/images/broilers.jpg';
+import portionImage from '@/images/portions.png';
 import 
 {
   STORE_NAME,
@@ -99,16 +101,38 @@ const stockUpdates = [
 export default function Home() 
 {
   const [galleryModal, setGalleryModal] = useState<number | null>(null);
+  const [showCategoryAnimation, setShowCategoryAnimation] = useState(false);
+  const categoryRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const featuredProducts = SHOP_PRODUCTS.filter((product) => product.tags?.includes('featured'));
+
+  useEffect(() => {
+    const node = categoryRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !showCategoryAnimation) {
+          setShowCategoryAnimation(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [showCategoryAnimation]);
 
   /*
    * This object maps collection handles to specific category images for the "Shop by Category" section.
    * If a collection handle does not have a specific image, it falls back to the first image in the GALLERY_IMAGES array.
    */
   const categoryImages: Record<string, string> = {
-    Live_Chicken: SHOP_PRODUCTS.find((product) => product.category === 'Live Chicken')?.image || GALLERY_IMAGES[0],
-    Tender_Chicken_Portions: SHOP_PRODUCTS.find((product) => product.category === 'Tender Chicken Portions')?.image || GALLERY_IMAGES[0],
+    'Live Chicken': broilerImage.src,
+    'Tender Chicken Portions': portionImage.src,
     Eggs: SHOP_PRODUCTS.find((product) => product.category === 'Eggs')?.image || GALLERY_IMAGES[0],
     Feed: SHOP_PRODUCTS.find((product) => product.category === 'Feed')?.image || GALLERY_IMAGES[0],
   };
@@ -118,7 +142,7 @@ export default function Home()
       <HeroCarousel />                        
       <TrustBadgeMarquee />                                                                                     {/* TRUST BADGES MARQUEE */}
 
-      <section className="relative overflow-hidden bg-cover bg-center bg-fixed py-16" >                                                                                                         {/* SHOP BY CATEGORY */}
+      <section className="relative overflow-hidden bg-cover bg-center bg-fixed py-16" ref={categoryRef} >                                                                                                         {/* SHOP BY CATEGORY */}
         <div className="
                         absolute inset-0 
                         bg-linear-to-br from-emerald-950/80 via-slate-900/65 to-amber-900/70
@@ -134,27 +158,29 @@ export default function Home()
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-4">                                                 {/* Category links */}
-            {SHOP_CATEGORIES.filter((category) => category !== 'All').map((category) => (
+            {SHOP_CATEGORIES.filter((category) => category !== 'All').map((category, index) => (
               <Link
                 key={category}
                 href={`/shop?category=${encodeURIComponent(category)}`}
-                className="
+                className={`
                             w-1/2 md:w-1/3 lg:w-1/5
                             group relative 
                             aspect-square 
                             overflow-hidden 
                             rounded-xl 
                             shadow-lg ring-1 ring-white/10 
+                            ${showCategoryAnimation ? 'animate-category-rise' : 'opacity-0'}
                             transition-all hover:-translate-y-1 
                             hover:shadow-2xl
-                          "
+                          `}
+                style={{ animationDelay: showCategoryAnimation ? `${index * 110}ms` : '0ms' }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={categoryImages[category] || GALLERY_IMAGES[0]}
                   alt={category}
                   className="
-                              w-full h-full 
+                              h-full w-full 
                               object-cover object-center 
                               group-hover:scale-110 
                               transition-transform 
@@ -184,7 +210,7 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-16 bg-white">                                                                    {/* FEATURED PRODUCTS */}
+      <section className="py-16 bg-gray-700">                                                                    {/* FEATURED PRODUCTS */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
             <div className="w-full text-center">                                                                {/* Heading container */}
@@ -199,12 +225,20 @@ export default function Home()
                           hidden 
                           md:flex 
                           items-center 
-                          gap-1 
-                          text-green-700 font-semibold 
-                          hover:text-green-800
+                          gap-2 
+                          h-12 px-6
+                          rounded-2xl 
+                          bg-linear-to-br from-green-600 to-emerald-700 
+                          text-white 
+                          shadow-[0_10px_25px_rgba(22,163,74,0.35)] 
+                          ring-1 ring-green-400/30 
+                          transition-all duration-300 
+                          hover:-translate-y-0.5 
+                          hover:scale-105 hover:from-green-500 hover:to-emerald-600 
+                          font-semibold
                         "
             >                                                                                                   {/* View All Link */}
-              View All <ArrowRight className="w-4 h-4" />
+              View All 
             </Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
