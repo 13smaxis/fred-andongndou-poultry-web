@@ -1,11 +1,10 @@
 import type { StaticImageData } from "next/image";
-
 import heroBgEgg from "../images/hero-bg-egg.jpg";
 import heroBgFullChicken from "../images/hero-bg-full-chicken.jpg";
 import heroBgThigh from "../images/hero-bg-thigh.jpg";
-import broilerFeed from "../images/broiler-feed.jpg";
+import broilerFeed from "../images/layer-feed.jpg";
 import freeRangeBroilers from "../images/free-range-broilers.jpg";
-import thighs from "../images/thighs.png";
+import eggs from "../images/single-tray.jpg";
 
 export const STORE_NAME = "Five Seasons Farm";
 export const STORE_TAGLINE = "Fresh. Healthy. Trusted.";
@@ -23,7 +22,7 @@ export const HERO_CAROUSEL_IMAGES: StaticImageData[] = [
   heroBgEgg,
   heroBgThigh,
   heroBgFullChicken,
-  thighs,
+  eggs,
   broilerFeed,
   freeRangeBroilers,
 ];

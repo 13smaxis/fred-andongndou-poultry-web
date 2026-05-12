@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowRight, MessageCircle, Phone, ShoppingCart } from "lucide-react";
-
 import {
   HERO_CAROUSEL_IMAGES,
   STORE_NAME,
@@ -14,7 +13,8 @@ import {
 
 const AUTOPLAY_DELAY = 5500;
 
-export default function HeroCarousel() {
+export default function HeroCarousel() 
+{
   const [activeIndex, setActiveIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -44,7 +44,8 @@ export default function HeroCarousel() {
     const timer = window.setTimeout(() => {
       const upcomingIndex = (activeIndex + 1) % HERO_CAROUSEL_IMAGES.length;
 
-      if (prefersReducedMotion) {
+      if (prefersReducedMotion) 
+      {
         setActiveIndex(upcomingIndex);
         return;
       }
@@ -66,6 +67,19 @@ export default function HeroCarousel() {
 
     return () => window.cancelAnimationFrame(frame);
   }, [isResettingTransform]);
+
+  useEffect(() => {
+    if (nextIndex === null || prefersReducedMotion) 
+    {
+      return;
+    }
+
+    const fallback = window.setTimeout(() => {
+      setIsTransitioning(true);
+    }, 1800);
+
+    return () => window.clearTimeout(fallback);
+  }, [nextIndex, prefersReducedMotion]);
 
   return (
     <section
@@ -91,7 +105,7 @@ export default function HeroCarousel() {
                 setNextIndex(null);
                 setIsTransitioning(false);
                 setIsResettingTransform(true);
-                setIsImageLoaded(false);
+                setIsImageLoaded(true);
               }}
             >
               <div className="relative h-full w-full shrink-0 overflow-hidden">
@@ -254,7 +268,7 @@ export default function HeroCarousel() {
                   setNextIndex(null);
                   setIsTransitioning(false);
                   setIsResettingTransform(true);
-                  setIsImageLoaded(false);
+                  setIsImageLoaded(true);
                 }}
               >
                 <div className="relative h-full w-full shrink-0 overflow-hidden">
