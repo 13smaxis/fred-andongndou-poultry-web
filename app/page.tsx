@@ -8,20 +8,18 @@ import HeroCarousel from '@/components/HeroCarousel';
 import TrustBadgeMarquee from '@/components/Marquee';
 import broilerImage from '@/images/broilers.jpg';
 import portionImage from '@/images/portions.png';
-import 
-{
-  STORE_NAME,
-  GALLERY_IMAGES,
-  STORE_WHATSAPP,
-  STORE_PHONE,
-  SHIPPING_RULES,
-  HERO_IMAGE,
+import {
+STORE_NAME,
+GALLERY_IMAGES,
+STORE_WHATSAPP,
+STORE_PHONE,
+SHIPPING_RULES,
+HERO_IMAGE,
 } from '@/lib/constants';
 import { SHOP_CATEGORIES, SHOP_PRODUCTS } from '@/lib/shop-data';
-import 
-{
-  ArrowRight, Phone, MessageCircle, Truck, Shield, Leaf, Star, BookOpen,
-  Camera, Calendar, ShoppingCart, Users, Heart, Egg, Syringe, Bug, Utensils,
+import {
+ArrowRight, Phone, MessageCircle, Truck, Shield, Leaf, Star, BookOpen,
+Camera, Calendar, ShoppingCart, Users, Heart, Egg, Syringe, Bug, Utensils,
 } from 'lucide-react';
 
 
@@ -98,8 +96,7 @@ const stockUpdates = [
  *    - Hero, Trust Badges, Shop by Category, Featured Products, Stock Availability, About Preview, Testimonials, 
  *    - Knowledge Preview, Gallery, CTA, and Delivery Info. 
  */
-export default function Home() 
-{
+export default function Home() {
   const [galleryModal, setGalleryModal] = useState<number | null>(null);
   const [showCategoryAnimation, setShowCategoryAnimation] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
@@ -116,7 +113,7 @@ export default function Home()
           setShowCategoryAnimation(true);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.65 }
     );
 
     observer.observe(node);
@@ -138,19 +135,19 @@ export default function Home()
   };
 
   return (
-    <div className="min-h-screen bg-gray-50"> 
-      <HeroCarousel />                        
+    <div className="min-h-screen bg-gray-50">
+      <HeroCarousel />
       <TrustBadgeMarquee />                                                                                     {/* TRUST BADGES MARQUEE */}
 
       <section className="relative overflow-hidden bg-cover bg-center bg-fixed py-16" ref={categoryRef} >                                                                                                         {/* SHOP BY CATEGORY */}
         <div className="
                         absolute inset-0 
                         bg-linear-to-br from-emerald-950/80 via-slate-900/65 to-amber-900/70
-                      " 
+                      "
         />                                                                                                      {/* Overlay */}
         <div className="relative z-10 mx-auto max-w-7xl px-4">
           <div className="mb-10 text-center">
-            <h2 className="mb-3 text-3xl font-bold text-white md:text-4xl">Shop by 
+            <h2 className="mb-3 text-3xl font-bold text-white md:text-4xl">Shop by
               <span className="text-amber-200"> Category</span>
             </h2>
             <p className="mx-auto max-w-xl text-green-100/90">
@@ -214,10 +211,10 @@ export default function Home()
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
             <div className="w-full text-center">                                                                {/* Heading container */}
-              <h2 className="mb-3 text-3xl font-bold md:text-4xl">Featured 
+              <h2 className="mb-3 text-3xl font-bold md:text-4xl">Featured
                 <span className="text-emerald-700"> Products</span>
               </h2>
-              <p className="text-gray-600 mt-2">Our most popular items, handpicked for you</p>
+              <p className="text-gray-200 mt-2">Our most popular items, handpicked for you</p>
             </div>
             <Link
               href="/shop"
@@ -226,7 +223,7 @@ export default function Home()
                           md:flex 
                           items-center 
                           gap-2 
-                          h-12 px-6
+                          h-10 px-6
                           rounded-2xl 
                           bg-linear-to-br from-green-600 to-emerald-700 
                           text-white 
@@ -236,9 +233,10 @@ export default function Home()
                           hover:-translate-y-0.5 
                           hover:scale-105 hover:from-green-500 hover:to-emerald-600 
                           font-semibold
+                          whitespace-nowrap
                         "
             >                                                                                                   {/* View All Link */}
-              View All 
+              View All
             </Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
@@ -253,7 +251,7 @@ export default function Home()
         className="relative bg-fixed bg-center bg-cover"
         style={{ backgroundImage: `url(${HERO_IMAGE})` }}
       >
-       <div className="absolute inset-0 bg-blue-300/20" />
+        <div className="absolute inset-0 bg-blue-300/20" />
         <section className="relative z-10 py-16 back">                                                          {/* STOCK AVAILABILITY */}
           <div className="max-w-7xl mx-auto px-4">                                                              {/* Section containder */}
             <div className="text-center mb-10">
@@ -276,7 +274,7 @@ export default function Home()
                   <div
                     className={`
                                 w-3 h-3 rounded-full shrink-0 
-                                ${ item.color === 'green' ? 'bg-green-500' : 'bg-amber-500' } 
+                                ${item.color === 'green' ? 'bg-green-500' : 'bg-amber-500'} 
                                 animate-pulse
                              `}
                   />
@@ -305,8 +303,8 @@ export default function Home()
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="grid grid-cols-2 gap-3">
                 {GALLERY_IMAGES.map((img, idx) => (
-                  <div key={idx} 
-                       className={`
+                  <div key={idx}
+                    className={`
                                    rounded-xl 
                                    overflow-hidden 
                                    shadow-sm 
@@ -354,8 +352,12 @@ export default function Home()
         </section>
       </div>
 
-      {/* TESTIMONIALS */}
-      <section className="py-16 bg-gray-50">
+
+  {/*   <section className="py-16 bg-gray-50 relative pt-12">                                                   TESTIMONIALS 
+  Top torn paper divider 
+        <svg className="absolute top-0 left-0 right-0 h-8 w-full" viewBox="0 0 1200 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,8 Q8,4 16,8 T32,8 T48,8 T64,8 T80,8 T96,8 T112,8 T128,8 T144,8 T160,8 T176,8 T192,8 T208,8 T224,8 T240,8 T256,8 T272,8 T288,8 T304,8 T320,8 T336,8 T352,8 T368,8 T384,8 T400,8 T416,8 T432,8 T448,8 T464,8 T480,8 T496,8 T512,8 T528,8 T544,8 T560,8 T576,8 T592,8 T608,8 T624,8 T640,8 T656,8 T672,8 T688,8 T704,8 T720,8 T736,8 T752,8 T768,8 T784,8 T800,8 T816,8 T832,8 T848,8 T864,8 T880,8 T896,8 T912,8 T928,8 T944,8 T960,8 T976,8 T992,8 T1008,8 T1024,8 T1040,8 T1056,8 T1072,8 T1088,8 T1104,8 T1120,8 T1136,8 T1152,8 T1168,8 T1184,8 T1200,8 L1200,0 L0,0 Z" fill="white" stroke="none" />
+        </svg>
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">What Our Customers Say</h2>
@@ -377,7 +379,7 @@ export default function Home()
               </div>
             ))}
           </div>
-          {/* More testimonials row */}
+  More testimonials row 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
             {testimonials.slice(4, 8).map((t, idx) => (
               <div key={idx} className="bg-white rounded-xl p-6 shadow-sm border hover:shadow-md transition-shadow">
@@ -395,7 +397,11 @@ export default function Home()
             ))}
           </div>
         </div>
-      </section>
+  Bottom torn paper divider 
+        <svg className="absolute bottom-0 left-0 right-0 h-8 w-full" viewBox="0 0 1200 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,16 Q8,20 16,16 T32,16 T48,16 T64,16 T80,16 T96,16 T112,16 T128,16 T144,16 T160,16 T176,16 T192,16 T208,16 T224,16 T240,16 T256,16 T272,16 T288,16 T304,16 T320,16 T336,16 T352,16 T368,16 T384,16 T400,16 T416,16 T432,16 T448,16 T464,16 T480,16 T496,16 T512,16 T528,16 T544,16 T560,16 T576,16 T592,16 T608,16 T624,16 T640,16 T656,16 T672,16 T688,16 T704,16 T720,16 T736,16 T752,16 T768,16 T784,16 T800,16 T816,16 T832,16 T848,16 T864,16 T880,16 T896,16 T912,16 T928,16 T944,16 T960,16 T976,16 T992,16 T1008,16 T1024,16 T1040,16 T1056,16 T1072,16 T1088,16 T1104,16 T1120,16 T1136,16 T1152,16 T1168,16 T1184,16 T1200,16 L1200,24 L0,24 Z" fill="white" stroke="none" />
+        </svg>
+      </section>  */}
 
       {/* KNOWLEDGE PREVIEW */}
       <section className="py-16 bg-white">

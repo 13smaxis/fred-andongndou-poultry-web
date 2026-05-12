@@ -43,11 +43,25 @@ export default function Footer() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="
+                            flex-1 
+                            px-4 py-3 
+                            rounded-lg 
+                            text-gray-500 
+                            focus:outline-none focus:ring-2 focus:ring-green-400
+                          "
               />
               <button
                 type="submit"
-                className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+                className="
+                           bg-amber-500 
+                           hover:bg-amber-600 
+                           text-white 
+                           px-6 py-3 
+                           rounded-lg 
+                           font-semibold flex items-center 
+                           gap-2 transition-colors
+                          "
               >
                 <Send className="w-4 h-4" />
                 Subscribe
@@ -57,7 +71,12 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="
+                      max-w-7xl mx-auto 
+                      px-4 py-12 
+                      grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8
+                    "
+      >
         <div>
           <div className="flex items-center gap-2 mb-4">
             <span className="relative block h-10 w-32.5 shrink-0">
@@ -75,13 +94,42 @@ export default function Footer() {
             Your trusted source for premium poultry products. Over 15 years of experience in raising healthy birds with high standards.
           </p>
           <div className="flex gap-3">
-            <a href={`https://wa.me/${STORE_WHATSAPP}`} target="_blank" rel="noreferrer" className="w-10 h-10 bg-green-700 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors">
+            <a href={`https://wa.me/${STORE_WHATSAPP}`} 
+               target="_blank" 
+               rel="noreferrer" 
+               className="
+                            w-10 h-10 
+                            bg-green-700 
+                            hover:bg-green-600
+                            rounded-lg flex 
+                            items-center justify-center 
+                            transition-colors
+                          "
+            >
               <MessageCircle className="w-5 h-5" />
             </a>
-            <a href={`tel:${STORE_PHONE}`} className="w-10 h-10 bg-green-700 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors">
+            <a href={`tel:${STORE_PHONE}`} 
+               className="
+                            w-10 h-10 
+                            bg-green-700 
+                            hover:bg-green-600 
+                            rounded-lg 
+                            flex items-center justify-center 
+                            transition-colors
+                          "
+            >
               <Phone className="w-5 h-5" />
             </a>
-            <a href={`mailto:${STORE_EMAIL}`} className="w-10 h-10 bg-green-700 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors">
+            <a href={`mailto:${STORE_EMAIL}`} 
+               className="
+                            w-10 h-10 
+                            bg-green-700 
+                            hover:bg-green-600 
+                            rounded-lg 
+                            flex items-center justify-center 
+                            transition-colors
+                          "
+            >
               <Mail className="w-5 h-5" />
             </a>
           </div>
@@ -90,7 +138,17 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-bold mb-4">Shop</h4>
           <ul className="space-y-2">
-            <li><Link href="/shop" className="text-green-300 hover:text-white text-sm transition-colors">All Products</Link></li>
+            <li>
+              <Link href="/shop" 
+                      className="
+                                text-green-300 
+                                hover:text-white 
+                                text-sm transition-colors
+                              "
+          >
+                 All Products
+              </Link>
+            </li>
             <li><Link href="/shop/cart" className="text-green-300 hover:text-white text-sm transition-colors">Shopping Cart</Link></li>
           </ul>
         </div>

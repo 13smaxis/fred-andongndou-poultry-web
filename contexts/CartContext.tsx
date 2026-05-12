@@ -21,6 +21,7 @@ interface CartContextType {
   clearCart: () => void;
   cartCount: number;
   cartTotal: number;
+  cartBumpToken: number;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
 }
@@ -37,6 +38,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartBumpToken, setCartBumpToken] = useState(0);
 
   useEffect(() => {
     localStorage.setItem("ecom_cart", JSON.stringify(cart));
@@ -57,6 +59,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, { ...item, quantity }];
     });
+    setCartBumpToken((value) => value + 1);
     setIsCartOpen(true);
   }, []);
 
@@ -97,6 +100,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         clearCart,
         cartCount,
         cartTotal,
+        cartBumpToken,
         isCartOpen,
         setIsCartOpen,
       }}

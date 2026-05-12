@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
 import { STORE_WHATSAPP } from "@/lib/constants";
+import { SHOP_PRODUCTS } from "@/lib/shop-data";
 import 
 {
   Minus,
@@ -19,6 +20,13 @@ export default function CartPage()
 {
   const { cart, cartCount, removeFromCart, updateQuantity, clearCart } = useCart();
 
+  const resolveCartImage = (productId: string, image?: string) => {
+    if (image) return image;
+
+    const product = SHOP_PRODUCTS.find((entry) => entry.id === productId);
+    return product?.image;
+  };
+
   const handleWhatsAppOrder = () => {
     const items = cart
       .map((i) => `- ${i.name}${i.variant_title ? ` (${i.variant_title})` : ""} x${i.quantity}`)
@@ -32,7 +40,6 @@ export default function CartPage()
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
       <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900 md:text-3xl">Shopping Cart</h1>
         {cart.length > 0 && (
           <button onClick={clearCart} className="text-sm font-medium text-red-500 hover:text-red-700">
             Clear Cart
@@ -41,33 +48,40 @@ export default function CartPage()
       </div>
 
       {cart.length === 0 ? (
-        <div className="rounded-xl bg-white py-20 text-center shadow-sm">
-          <ShoppingCart className="mx-auto mb-4 h-20 w-20 text-gray-300" />
-          <h2 className="mb-2 text-xl font-semibold text-gray-700">Your cart is empty</h2>
-          <p className="mb-6 text-gray-500">Browse our products and add items to your cart.</p>
-          <Link
-            href="/shop"
-            className="inline-flex items-center gap-2 rounded-lg bg-green-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-green-800"
-          >
-            <ArrowLeft className="h-4 w-4" /> Continue Shopping
-          </Link>
+        <div className="rounded-3xl bg-green-950 p-4 shadow-lg">
+          <div className="relative rounded-4xl bg-green-50 px-6 pb-8 pt-16 text-center shadow-sm ring-1 ring-green-100">
+            <div className="absolute left-1/2 top-0 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-green-700 text-white shadow-[0_18px_40px_rgba(21,128,61,0.35)] ring-8 ring-green-950">
+              <div className="flex flex-col items-center gap-1">
+                <ShoppingCart className="h-8 w-8" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em]">Shopping Cart</span>
+              </div>
+            </div>
+            <h2 className="mb-2 text-xl font-semibold text-gray-800">Your cart is empty</h2>
+            <p className="mb-6 text-gray-500">Browse our products and add items to your cart.</p>
+            <Link
+              href="/shop"
+              className="inline-flex items-center gap-2 rounded-lg bg-green-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-green-800"
+            >
+              <ArrowLeft className="h-4 w-4" /> Continue Shopping
+            </Link>
+          </div>
         </div>
       ) : (
-        <div className="grid gap-8 lg:grid-cols-3">
-          <div className="space-y-4 lg:col-span-2">
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="rounded-2xl bg-green-50/80 p-4 shadow-sm ring-1 ring-green-100 lg:col-span-2">
             {cart.map((item, idx) => (
               <div
                 key={`${item.product_id}-${item.variant_id}-${idx}`}
-                className="flex gap-4 rounded-xl bg-white p-4 shadow-sm"
+                className="mb-4 flex gap-3 rounded-xl bg-white p-4 shadow-sm last:mb-0"
               >
-                {item.image && (
+                {resolveCartImage(item.product_id, item.image) && (
                   <Image
-                    src={item.image}
+                    src={resolveCartImage(item.product_id, item.image) as string}
                     alt={item.name}
-                    width={96}
-                    height={96}
+                    width={72}
+                    height={72}
                     unoptimized
-                    className="h-24 w-24 shrink-0 rounded-lg object-cover"
+                    className="h-18 w-18 shrink-0 rounded-lg object-cover"
                   />
                 )}
                 <div className="min-w-0 flex-1">
@@ -102,7 +116,7 @@ export default function CartPage()
           </div>
 
           <div className="lg:col-span-1">
-            <div className="sticky top-24 rounded-xl bg-white p-6 shadow-sm">
+            <div className="sticky top-24 rounded-2xl bg-green-50/80 p-6 shadow-sm ring-1 ring-green-100">
               <h2 className="mb-4 text-lg font-bold text-gray-900">Order Summary</h2>
               <div className="mb-4 space-y-3">
                 <div className="flex justify-between text-sm">

@@ -91,7 +91,7 @@ export default function ShopClient() {
       </section>
 
       <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
-        <aside className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm lg:sticky lg:top-24 lg:h-fit">
+        <aside className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm lg:sticky lg:top-24 lg:max-h-[50vh] lg:overflow-y-auto">
           <h3 className="mb-4 text-lg font-semibold text-gray-900">Categories</h3>
           <div className="flex flex-wrap gap-2 lg:flex-col">
             {SHOP_CATEGORIES.map((category) => (

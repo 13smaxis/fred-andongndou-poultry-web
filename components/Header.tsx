@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useCart } from "@/contexts/CartContext";
 import 
 {
   STORE_NAME,
@@ -66,6 +67,7 @@ export default function Header()
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { cartCount, cartBumpToken } = useCart();
   const isHome = pathname === "/";
   const isTransparent = isHome && !isScrolled;
 
@@ -184,6 +186,14 @@ export default function Header()
             title="Open cart"
           >
             <ShoppingCart className="h-5 w-5" />
+            {cartCount > 0 && (
+              <span
+                key={cartBumpToken}
+                className="animate-cart-bubble-pop absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white ring-2 ring-white"
+              >
+                {cartCount}
+              </span>
+            )}
           </Link>
           <p className="hidden md:block text-amber-100 text-xs sm:text-sm">{SHIPPING_RULES}</p>
         </div>
@@ -263,6 +273,14 @@ export default function Header()
               title="Open cart"
             >
               <ShoppingCart className="h-6 w-6" />
+              {cartCount > 0 && (
+                <span
+                  key={cartBumpToken}
+                  className="animate-cart-bubble-pop absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white ring-2 ring-white"
+                >
+                  {cartCount}
+                </span>
+              )}
             </Link>
           </div>
 
