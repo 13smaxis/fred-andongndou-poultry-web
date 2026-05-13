@@ -76,7 +76,7 @@ export default function HeroCarousel()
 
     const fallback = window.setTimeout(() => {
       setIsTransitioning(true);
-    }, 1800);
+    }, 1200);                                                                                                   //-Wait 1200ms(1.2 seconds) then run
 
     return () => window.clearTimeout(fallback);
   }, [nextIndex, prefersReducedMotion]);
@@ -164,7 +164,17 @@ export default function HeroCarousel()
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
                 href="/shop"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-amber-600"
+                className="
+                            inline-flex 
+                            items-center 
+                            justify-center gap-2 
+                            rounded-md 
+                            bg-amber-500 
+                            px-4 py-2 
+                            text-sm font-semibold 
+                            text-white transition-colors 
+                            hover:bg-amber-600
+                          "
               >
                 <ShoppingCart className="h-5 w-5" />
                 Shop Now
@@ -182,7 +192,18 @@ export default function HeroCarousel()
               </a>
               <a
                 href={`tel:${STORE_PHONE}`}
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-white/15 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+                className="
+                            inline-flex items-center justify-center 
+                            gap-2 
+                            rounded-md 
+                            bg-white/15 
+                            px-4 py-2 
+                            text-sm 
+                            font-semibold text-white 
+                            backdrop-blur-sm 
+                            transition-colors 
+                            hover:bg-white/25
+                          "
               >
                 <Phone className="h-5 w-5" />
                 Call Us
@@ -217,7 +238,8 @@ export default function HeroCarousel()
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
                 href="/shop"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-amber-600"
+                className="
+                inline-flex items-center justify-center gap-2 rounded-md bg-amber-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-amber-600"
               >
                 <ShoppingCart className="h-5 w-5" />
                 Shop Now

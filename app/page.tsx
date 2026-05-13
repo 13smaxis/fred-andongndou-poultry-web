@@ -28,10 +28,13 @@ Camera, Calendar, ShoppingCart, Users, Heart, Egg, Syringe, Bug, Utensils,
 const stockUpdates = [
   { product: 'Premium Broilers', status: 'Available Now', qty: '200+ birds', color: 'green' as const },
   { product: 'Broiler Day-Old Chicks', status: 'Next batch: Every Monday', qty: '500+ weekly', color: 'green' as const },
-  { product: 'Layer Day-Old Chicks', status: 'Next batch: March 24', qty: '300 available', color: 'amber' as const },
+  { product: 'Premium Chicken Thighs', status: 'Next batch: March 24', qty: '300 available', color: 'amber' as const },
   { product: 'Point-of-Lay Hens', status: 'Available Now', qty: '150 hens', color: 'green' as const },
   { product: 'Farm Fresh Eggs', status: 'Available Daily', qty: '100+ trays', color: 'green' as const },
   { product: 'Free-Range Broilers', status: 'Limited Stock', qty: '50 birds', color: 'amber' as const },
+  { product: 'Premium Chicken Wings', status: 'Next batch: March 28', qty: '200+ packs', color: 'amber' as const },
+  { product: 'Grower Feed', status: 'Available Now', qty: '100+ bags', color: 'green' as const },
+  { product: 'Premium Chicken Mixed Portions', status: 'Next batch: March 30', qty: '150 bags', color: 'amber' as const },
 ] as const;
 
 
@@ -89,8 +92,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <HeroCarousel />
-      <TrustBadgeMarquee />                                                                                     {/* TRUST BADGES MARQUEE */}
+      <HeroCarousel />                                                                                          {/* HERO CAROUSEL imported from ./components/HeroCarousel */}
+      <TrustBadgeMarquee />                                                                                     {/* TRUST BADGES MARQUEE imported from ./components/Marquee */}
 
       <section className="relative overflow-hidden bg-cover bg-center bg-fixed py-16" ref={categoryRef} >                                                                                                         {/* SHOP BY CATEGORY */}
         <div className="
@@ -130,7 +133,13 @@ export default function Home() {
                   alt={category}
                   width={1200}
                   height={1200}
-                  className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                  className="
+                              h-full w-full 
+                              object-cover object-center 
+                              transition-transform 
+                              duration-500 
+                              group-hover:scale-110
+                            "
                 />
                 <div className="
                                   absolute inset-0 
@@ -201,6 +210,7 @@ export default function Home() {
         style={{ backgroundImage: `url(${HERO_IMAGE})` }}
       >
         <div className="absolute inset-0" />
+
         <section className="relative z-10 py-16 back">                                                          {/* STOCK AVAILABILITY */}
           <div className="max-w-7xl mx-auto px-4">                                                              {/* Section containder */}
             <div className="text-center mb-10">
@@ -227,11 +237,11 @@ export default function Home() {
                 })}
               </p>
             </div>
-            <StockAvailabilityCarousel stockUpdates={stockUpdates} />                                           {/* Imported caraousel using SWIPER FRAMER-MOTION */}  
+            <StockAvailabilityCarousel stockUpdates={stockUpdates} />                                           {/* SWIPER FRAMER-MOTION imported from ./components/StockAvailabilityCarousel */}  
           </div>
         </section>
-
-    {/*  <section className="py-16">                                                                            ABOUT PREVIEW
+ 
+    {/*  <section className="py-16">                                                                             ABOUT PREVIEW
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="bg-white/75 rounded-xl p-8 shadow-lg backdrop-blur-sm">
@@ -277,7 +287,7 @@ export default function Home() {
         </section> */}
       </div>
 
-  {/*   <section className="py-16 bg-gray-50 relative pt-12">                                                   TESTIMONIALS 
+  {/*   <section className="py-16 bg-gray-50 relative pt-12">                                                    TESTIMONIALS 
   Top torn paper divider 
         <svg className="absolute top-0 left-0 right-0 h-8 w-full" viewBox="0 0 1200 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0,8 Q8,4 16,8 T32,8 T48,8 T64,8 T80,8 T96,8 T112,8 T128,8 T144,8 T160,8 T176,8 T192,8 T208,8 T224,8 T240,8 T256,8 T272,8 T288,8 T304,8 T320,8 T336,8 T352,8 T368,8 T384,8 T400,8 T416,8 T432,8 T448,8 T464,8 T480,8 T496,8 T512,8 T528,8 T544,8 T560,8 T576,8 T592,8 T608,8 T624,8 T640,8 T656,8 T672,8 T688,8 T704,8 T720,8 T736,8 T752,8 T768,8 T784,8 T800,8 T816,8 T832,8 T848,8 T864,8 T880,8 T896,8 T912,8 T928,8 T944,8 T960,8 T976,8 T992,8 T1008,8 T1024,8 T1040,8 T1056,8 T1072,8 T1088,8 T1104,8 T1120,8 T1136,8 T1152,8 T1168,8 T1184,8 T1200,8 L1200,0 L0,0 Z" fill="white" stroke="none" />

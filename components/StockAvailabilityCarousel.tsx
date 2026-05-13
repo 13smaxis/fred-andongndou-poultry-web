@@ -11,35 +11,67 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 
-interface StockItem {
+interface StockItem                                                                                             //-Designs content for each card on the carousel
+{
   product: string;
   status: string;
   qty: string;
   color: 'green' | 'amber';
 }
 
-interface StockAvailabilityCarouselProps {
-  stockUpdates: readonly StockItem[];
+interface StockAvailabilityCarouselProps 
+{
+  stockUpdates: readonly StockItem[];                                                                           //-Marked as readonly to indicate immutability
 }
 
 const getProductImage = (productName: string): string => {
-  const productLower = productName.toLowerCase();
-  
-  if (productLower.includes('egg')) {
-    const eggProduct = SHOP_PRODUCTS.find(p => p.category === 'Eggs');
+  const normalizedProduct = productName.trim().toLowerCase();
+
+  const exactMatch = SHOP_PRODUCTS.find(
+    (product) => product.name.trim().toLowerCase() === normalizedProduct
+  );
+
+  if (exactMatch) 
+  {
+    return exactMatch.image;
+  }
+
+  if (normalizedProduct.includes('egg')) 
+  {
+    const eggProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('egg'));
     return eggProduct?.image || SHOP_PRODUCTS[0]?.image || '';
   }
-  
-  if (productLower.includes('free-range') || productLower.includes('broiler')) {
-    const broilerProduct = SHOP_PRODUCTS.find(p => p.category === 'Live Chicken');
-    return broilerProduct?.image || SHOP_PRODUCTS[0]?.image || '';
+
+  if (normalizedProduct.includes('free-range')) 
+  {
+    const freeRangeProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('free-range'));
+    return freeRangeProduct?.image || SHOP_PRODUCTS[0]?.image || '';
   }
-  
-  if (productLower.includes('chick')) {
-    const chicksProduct = SHOP_PRODUCTS.find(p => p.name.toLowerCase().includes('chick'));
+
+  if (normalizedProduct.includes('chick')) 
+  {
+    const chicksProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('day old'));
     return chicksProduct?.image || SHOP_PRODUCTS[0]?.image || '';
   }
-  
+
+  if (normalizedProduct.includes('hen')) 
+  {
+    const layHenProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('hen'));
+    return layHenProduct?.image || SHOP_PRODUCTS[0]?.image || '';
+  }
+
+  if (normalizedProduct.includes('broiler')) 
+  {
+    const broilerProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('broiler'));
+    return broilerProduct?.image || SHOP_PRODUCTS[0]?.image || '';
+  }
+
+  if (normalizedProduct.includes('grower')) 
+  {
+    const wingProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('grower'));
+    return wingProduct?.image || SHOP_PRODUCTS[0]?.image || '';
+  }
+
   return SHOP_PRODUCTS[0]?.image || '';
 };
 
@@ -193,7 +225,18 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
 
               return (
                 <SwiperSlide key={`${item.product}-${index}`} className="h-auto! py-3">
-                  <div className="relative overflow-hidden rounded-2xl border border-green-500/30 bg-white shadow-lg transition-all duration-300 hover:shadow-xl hover:border-green-500/60 h-70 md:h-90">
+                  <div className="
+                                    relative 
+                                    overflow-hidden 
+                                    rounded-2xl border 
+                                    border-green-500/30 
+                                    bg-white shadow-lg 
+                                    transition-all 
+                                    duration-300 
+                                    hover:shadow-xl hover:border-green-500/60 
+                                    h-70 md:h-90
+                                  "
+                  >
                     <Image
                       src={image}
                       alt={item.product}
