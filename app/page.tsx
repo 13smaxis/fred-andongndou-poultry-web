@@ -6,22 +6,22 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
 import HeroCarousel from '@/components/HeroCarousel';
-import TrustBadgeMarquee from '@/components/Marquee';
+import TrustBadgeMarquee from '@/components/TrustBadgesMarquee';
 import broilerImage from '@/images/broilers.jpg';
 import portionImage from '@/images/portions.png';
 import StockAvailabilityCarousel from '@/components/StockAvailabilityCarousel';
 import {
-STORE_NAME,
-GALLERY_IMAGES,
-STORE_WHATSAPP,
-STORE_PHONE,
-SHIPPING_RULES,
-HERO_IMAGE,
+        STORE_NAME,
+        GALLERY_IMAGES,
+        STORE_WHATSAPP,
+        STORE_PHONE,
+        SHIPPING_RULES,
+        HERO_IMAGE,
 } from '@/lib/constants';
 import { SHOP_CATEGORIES, SHOP_PRODUCTS } from '@/lib/shop-data';
 import {
-ArrowRight, Phone, MessageCircle, Truck, Shield, Leaf, BookOpen,
-Camera, Calendar, ShoppingCart, Users, Heart, Egg, Syringe, Bug, Utensils,
+        ArrowRight, Phone, MessageCircle, Truck, Shield, Leaf, BookOpen,
+        Camera, Calendar, ShoppingCart, Users, Heart, Egg, Syringe, Bug, Utensils,
 } from 'lucide-react';
 
 
@@ -45,7 +45,8 @@ const stockUpdates = [
  *    - Hero, Trust Badges, Shop by Category, Featured Products, Stock Availability, About Preview, Testimonials, 
  *    - Knowledge Preview, Gallery, CTA, and Delivery Info. 
  */
-export default function Home() {
+export default function Home() 
+{
   const [galleryModal, setGalleryModal] = useState<number | null>(null);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
@@ -214,9 +215,9 @@ export default function Home() {
         <section className="relative z-10 py-16 back">                                                          {/* STOCK AVAILABILITY */}
           <div className="max-w-7xl mx-auto px-4">                                                              {/* Section containder */}
             <div className="text-center mb-10">
-              <Calendar className="w-10 h-10 text-shadow-green-400 mx-auto mb-3" />
+              <Calendar className="w-10 h-10 text-white mx-auto mb-3" />
               <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
-                  Stock <span className="text-green-400">Availability</span>
+                  Stock <span className="text-yellow-400">Availability</span>
               </h1>
             </div>
             <div className="flex justify-center mt-8">                                                          {/* Stock update date */}
@@ -240,52 +241,53 @@ export default function Home() {
             <StockAvailabilityCarousel stockUpdates={stockUpdates} />                                           {/* SWIPER FRAMER-MOTION imported from ./components/StockAvailabilityCarousel */}  
           </div>
         </section>
- 
-    {/*  <section className="py-16">                                                                             ABOUT PREVIEW
+
+        <section className="relative z-10 py-16 back">                                                          {/* KNOWLEDGE PREVIEW */}
           <div className="max-w-7xl mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="bg-white/75 rounded-xl p-8 shadow-lg backdrop-blur-sm">
-                <span className="text-green-600 font-semibold text-sm uppercase tracking-wider">About Our Farm</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">A Legacy of Quality Poultry Farming</h2>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  For over 15 years, {STORE_NAME} has been the trusted name in premium poultry products. Our farm combines
-                  traditional farming values with modern agricultural practices to deliver the healthiest birds and freshest eggs to
-                  your doorstep.
-                </p>
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  {[
-                    { icon: Shield, text: 'USDA Certified' },
-                    { icon: Heart, text: 'Animal Welfare' },
-                    { icon: Leaf, text: 'Sustainable Methods' },
-                    { icon: Users, text: '500+ Customers' },
-                  ].map((item) => (
-                    <div key={item.text} className="flex items-center gap-2">
-                      <item.icon className="w-5 h-5 text-green-600" />
-                      <span className="text-sm font-medium text-gray-700">{item.text}</span>
-                    </div>
-                  ))}
-                </div>
-                <Link
-                  href="/about"
-                  className="
+            <div className="text-center mb-10">
+              <BookOpen className="w-10 h-10 text-green-200 mx-auto mb-3" />
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+                  Poultry <span className="text-yellow-400"> Care Guides </span>
+              </h2>
+              <p className="text-center text-lg text-gray-200 
+                              bg-amber-800 
                               inline-flex 
-                              items-center gap-2 
-                              bg-green-700 
-                              text-white 
-                              px-6 py-3 
-                              rounded-lg 
-                              font-semibold 
-                              hover:bg-green-800 
-                              transition-colors
-                            "
+                              px-4 py-2 
+                              rounded-lg">
+                  Expert knowledge to help you raise healthy, productive poultry
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { title: 'How to Raise Broilers', desc: 'Complete guide from day-old to market weight', Icon: Egg },
+                { title: 'Feeding Schedules', desc: 'Optimal nutrition for every growth stage', Icon: Utensils },
+                { title: 'Disease Prevention', desc: 'Keep your flock healthy and productive', Icon: Bug },
+                { title: 'Vaccination Calendar', desc: 'Complete schedule for broilers and layers', Icon: Syringe },
+              ].map((guide, idx) => (
+                <Link key={idx} 
+                      href="/knowledge" 
+                      className="
+                                backdrop-blur-sm
+                                border border-white/20 
+                                text-gray-900 
+                                rounded-xl 
+                                p-6 
+                                hover:bg-white/95 
+                                transition-colors group
+                              "
                 >
-                  Learn More About Us <ArrowRight className="w-4 h-4" />
+                  <guide.Icon className="w-8 h-8 text-green-600 mb-3" />
+                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-green-700">{guide.title}</h3>
+                  <p className="text-gray-700">{guide.desc}</p>
+                  <span className="text-green-950 text-sm font-medium flex items-center gap-1 mt-3">
+                    Read Guide <ArrowRight className="w-3 h-3" />
+                  </span>
                 </Link>
-              </div>
+              ))}
             </div>
           </div>
-        </section> */}
-      </div>
+        </section>
+      </div>                                                                                                    {/* Closing tag for Background image */}
 
   {/*   <section className="py-16 bg-gray-50 relative pt-12">                                                    TESTIMONIALS 
   Top torn paper divider 
@@ -337,36 +339,7 @@ export default function Home() {
         </svg>
       </section>  */}
 
-      {/* KNOWLEDGE PREVIEW */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <BookOpen className="w-10 h-10 text-green-600 mx-auto mb-3" />
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Poultry Care Guides</h2>
-            <p className="text-gray-600 max-w-xl mx-auto">Expert knowledge to help you raise healthy, productive poultry</p>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { title: 'How to Raise Broilers', desc: 'Complete guide from day-old to market weight', Icon: Egg },
-              { title: 'Feeding Schedules', desc: 'Optimal nutrition for every growth stage', Icon: Utensils },
-              { title: 'Disease Prevention', desc: 'Keep your flock healthy and productive', Icon: Bug },
-              { title: 'Vaccination Calendar', desc: 'Complete schedule for broilers and layers', Icon: Syringe },
-            ].map((guide, idx) => (
-              <Link key={idx} href="/knowledge" className="bg-green-50 rounded-xl p-6 hover:bg-green-100 transition-colors group">
-                <guide.Icon className="w-8 h-8 text-green-600 mb-3" />
-                <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-green-700">{guide.title}</h3>
-                <p className="text-sm text-gray-600">{guide.desc}</p>
-                <span className="text-green-600 text-sm font-medium flex items-center gap-1 mt-3">
-                  Read Guide <ArrowRight className="w-3 h-3" />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* GALLERY */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50">                                                                  {/* GALLERY */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-10">
             <Camera className="w-10 h-10 text-green-600 mx-auto mb-3" />
@@ -443,7 +416,19 @@ export default function Home() {
             </a>
             <a
               href={`tel:${STORE_PHONE}`}
-              className="bg-white/20 hover:bg-white/30 text-white px-8 py-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors backdrop-blur-sm text-lg"
+              className="
+                          bg-white/20 
+                          hover:bg-white/30 
+                          text-white 
+                          px-8 py-4 
+                          rounded-lg 
+                          font-semibold 
+                          flex items-center 
+                          justify-center 
+                          gap-2 
+                          transition-colors 
+                          backdrop-blur-sm text-lg
+                        "
             >
               <Phone className="w-5 h-5" />
               Call Now

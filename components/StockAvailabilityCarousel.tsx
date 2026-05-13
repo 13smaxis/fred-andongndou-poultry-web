@@ -268,7 +268,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
 
         {/* Navigation Arrows */}
         <button
-          onClick={() => cycleRegion(-1)}
+          onClick={() => cycleRegion(1)}
           className="absolute left-0 top-1/2 z-20 -translate-y-1/2 -translate-x-12 rounded-full bg-green-500 p-2 text-white transition-all hover:bg-green-600 md:left-4 md:translate-x-0"
           aria-label="Previous slide"
         >
@@ -276,7 +276,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
         </button>
 
         <button
-          onClick={() => cycleRegion(1)}
+          onClick={() => cycleRegion(-1)}
           className="absolute right-0 top-1/2 z-20 -translate-y-1/2 translate-x-12 rounded-full bg-green-500 p-2 text-white transition-all hover:bg-green-600 md:right-4 md:translate-x-0"
           aria-label="Next slide"
         >
