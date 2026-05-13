@@ -153,10 +153,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
       >
         <div className="relative w-full">
           {!isMobile && (
-            <>
-              <div className="pointer-events-none absolute inset-y-0 left-0 z-30 w-20 bg-linear-to-r from-gray-700 via-gray-700/75 to-transparent md:w-28" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 z-30 w-20 bg-linear-to-l from-gray-700 via-gray-700/75 to-transparent md:w-28" />
-            </>
+            null
           )}
 
           <Swiper

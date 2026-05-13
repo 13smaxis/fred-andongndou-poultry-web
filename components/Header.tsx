@@ -19,6 +19,7 @@ import
   Menu,
   X,
   MessageCircle,
+  ArrowUp,
 } from "lucide-react";
 
 /*
@@ -67,13 +68,18 @@ export default function Header()
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const { cartCount, cartBumpToken } = useCart();
   const isHome = pathname === "/";
+  const isCartActive = cartCount > 0;
+  const shouldFixHeader = !isHome || isScrolled || isCartActive;
   const isTransparent = isHome && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 8);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 8);
+      setShowScrollTop(scrollY > 360);
     };
 
     handleScroll();
@@ -103,7 +109,7 @@ export default function Header()
     "px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 rounded-lg font-medium";                    //-Mobile link styling
 
   const headerClassName = isHome
-    ? isScrolled
+    ? shouldFixHeader
       ? "fixed top-0 z-50 w-full bg-white/95 shadow-sm backdrop-blur-md border-b border-gray-100 transition-colors duration-300"
       : "absolute top-0 z-50 w-full bg-transparent transition-colors duration-300"
     : "sticky top-0 z-50 bg-white/95 shadow-sm backdrop-blur-md border-b border-gray-100 transition-colors duration-300";
@@ -258,12 +264,14 @@ export default function Header()
             </Link>
           </div>
 
-          <div className="flex items-center gap-2 lg:hidden">
-            {cartCount > 0 && (
-              <Link
-                href="/shop/cart"
-                className="
-                          relative h-10 w-10
+          <div className="lg:hidden">
+            <div className="relative flex h-10 w-24 items-center justify-end gap-2">
+              {cartCount > 0 && (
+                <Link
+                  href="/shop/cart"
+                  className="
+                          absolute left-0 top-1/2 -translate-y-1/2
+                          h-10 w-10
                           rounded-xl
                           bg-linear-to-br from-green-600 to-emerald-700
                           text-white
@@ -272,25 +280,26 @@ export default function Header()
                           flex items-center
                           justify-center
                         "
-                aria-label="Open cart"
-                title="Open cart"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                <span
-                  key={cartBumpToken}
-                  className="animate-cart-bubble-pop absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white ring-2 ring-white"
+                  aria-label="Open cart"
+                  title="Open cart"
                 >
-                  {cartCount}
-                </span>
-              </Link>
-            )}
-            <button
-              className={mobileMenuButtonClassName}
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+                  <ShoppingCart className="h-5 w-5" />
+                  <span
+                    key={cartBumpToken}
+                    className="animate-cart-bubble-pop absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white ring-2 ring-white"
+                  >
+                    {cartCount}
+                  </span>
+                </Link>
+              )}
+              <button
+                className={`${mobileMenuButtonClassName} absolute right-0 top-1/2 -translate-y-1/2`}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -306,6 +315,20 @@ export default function Header()
           </div>
         )}
       </header>
+
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll to top"
+        title="Scroll to top"
+        className={`fixed bottom-6 left-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-white shadow-lg shadow-green-900/20 ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700 hover:shadow-xl hover:shadow-green-900/30 md:bottom-8 md:left-8 ${
+          showScrollTop
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-4 opacity-0"
+        }`}
+      >
+        <ArrowUp className="h-5 w-5" />
+      </button>
 
       <a
         href={`https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent("Hi! I would like to place an order.")}`}

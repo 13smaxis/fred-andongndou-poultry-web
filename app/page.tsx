@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -44,10 +44,15 @@ const stockUpdates = [
  */
 export default function Home() {
   const [galleryModal, setGalleryModal] = useState<number | null>(null);
-  const [showCategoryAnimation, setShowCategoryAnimation] = useState(false);
+  const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const featuredProducts = SHOP_PRODUCTS.filter((product) => product.tags?.includes('featured'));
+
+  const categoryList = useMemo(
+    () => SHOP_CATEGORIES.filter((category) => category !== 'All'),
+    []
+  );
 
   useEffect(() => {
     const node = categoryRef.current;
@@ -55,11 +60,12 @@ export default function Home() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !showCategoryAnimation) {
-          setShowCategoryAnimation(true);
-        }
+        setIsCategoryVisible(entry.isIntersecting && entry.intersectionRatio >= 0.35);
       },
-      { threshold: 0.65 }
+      {
+        threshold: [0.2, 0.35, 0.6],
+        rootMargin: '0px 0px -8% 0px',
+      }
     );
 
     observer.observe(node);
@@ -67,7 +73,8 @@ export default function Home() {
     return () => {
       observer.disconnect();
     };
-  }, [showCategoryAnimation]);
+  }, []);
+
 
   /*
    * This object maps collection handles to specific category images for the "Shop by Category" section.
@@ -101,7 +108,7 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-4">                                                 {/* Category links */}
-            {SHOP_CATEGORIES.filter((category) => category !== 'All').map((category, index) => (
+            {categoryList.map((category, index) => (
               <Link
                 key={category}
                 href={`/shop?category=${encodeURIComponent(category)}`}
@@ -112,11 +119,11 @@ export default function Home() {
                             overflow-hidden 
                             rounded-xl 
                             shadow-lg ring-1 ring-white/10 
-                            ${showCategoryAnimation ? 'animate-category-rise' : 'opacity-0'}
+                            ${isCategoryVisible ? 'animate-category-rise' : 'opacity-0'}
                             transition-all hover:-translate-y-1 
                             hover:shadow-2xl
                           `}
-                style={{ animationDelay: showCategoryAnimation ? `${index * 110}ms` : '0ms' }}
+                style={{ animationDelay: isCategoryVisible ? `${index * 110}ms` : '0ms' }}
               >
                 <Image
                   src={categoryImages[category] || GALLERY_IMAGES[0]}
@@ -132,16 +139,15 @@ export default function Home() {
                                 " 
                 />                                                                                              {/* Gradient overlay for better text visibility */}
                 <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-white font-bold text-lg">{category}</h3>
+                  <h3 className="text-lg font-bold text-white">{category}</h3>
                   <span className="
-                                  text-green-300 text-sm flex 
-                                  items-center 
-                                  gap-1 mt-1 
-                                  group-hover:text-amber-400 
+                                  mt-1 flex items-center 
+                                  gap-1 text-sm text-green-300 
                                   transition-colors
+                                  group-hover:text-amber-400 
                                 "
-                  >
-                    Shop Now <ArrowRight className="w-4 h-4" />
+                  > 
+                    Shop Now <ArrowRight className="h-4 w-4" />
                   </span>
                 </div>
               </Link>
@@ -194,7 +200,7 @@ export default function Home() {
         className="relative bg-fixed bg-center bg-cover"
         style={{ backgroundImage: `url(${HERO_IMAGE})` }}
       >
-        <div className="absolute inset-0 bg-blue-300/20" />
+        <div className="absolute inset-0" />
         <section className="relative z-10 py-16 back">                                                          {/* STOCK AVAILABILITY */}
           <div className="max-w-7xl mx-auto px-4">                                                              {/* Section containder */}
             <div className="text-center mb-10">
