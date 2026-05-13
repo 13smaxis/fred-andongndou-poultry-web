@@ -95,6 +95,10 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
   const [activeIndex, setActiveIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  
+  // Auto-play refs for desktop
+  const autoPlayTimeoutRef = useRef<number | null>(null);
+  const resumeTimeoutRef = useRef<number | null>(null);
 
   // Detect mobile on mount
   useEffect(() => {
@@ -131,9 +135,41 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
     };
   }, [isMobile]);
 
+  // Pause auto-play and schedule resume
+  const pauseAutoPlay = useCallback(() => {
+    if (autoPlayTimeoutRef.current) {
+      clearInterval(autoPlayTimeoutRef.current);
+      autoPlayTimeoutRef.current = null;
+    }
+    
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+    }
+    
+    resumeTimeoutRef.current = window.setTimeout(() => {
+      startAutoPlay();
+    }, 5000);
+  }, []);
+
+  // Start auto-play
+  const startAutoPlay = useCallback(() => {
+    if (isMobile || !swiperInstance) return;
+
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+
+    autoPlayTimeoutRef.current = window.setInterval(() => {
+      swiperInstance.slideNext();
+    }, 4000);
+  }, [swiperInstance, isMobile]);
+
   const cycleRegion = useCallback(
     (direction: 1 | -1) => {
       if (!swiperInstance) return;
+
+      pauseAutoPlay();
 
       if (direction > 0) {
         swiperInstance.slideNext();
@@ -141,7 +177,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
         swiperInstance.slidePrev();
       }
     },
-    [swiperInstance]
+    [swiperInstance, pauseAutoPlay]
   );
 
   const handleSwiperInit = useCallback((swiper: SwiperType) => {
@@ -150,18 +186,14 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section || isCarouselVisible) return;
-
-    const fallbackTimer = window.setTimeout(() => {
-      setIsCarouselVisible(true);
-    }, 800);
+    if (!section) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
           setIsCarouselVisible(true);
-          window.clearTimeout(fallbackTimer);
-          observer.disconnect();
+        } else {
+          setIsCarouselVisible(false);
         }
       },
       { threshold: [0, 0.2, 0.5, 1], rootMargin: '0px 0px -10% 0px' }
@@ -170,10 +202,35 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
     observer.observe(section);
 
     return () => {
-      window.clearTimeout(fallbackTimer);
       observer.disconnect();
     };
-  }, [isCarouselVisible]);
+  }, []);
+
+  // Start auto-play when carousel becomes visible and only on desktop, stop when not visible
+  useEffect(() => {
+    if (isCarouselVisible && swiperInstance && !isMobile) {
+      startAutoPlay();
+    } else {
+      // Stop auto-play when not visible or on mobile
+      if (autoPlayTimeoutRef.current) {
+        clearInterval(autoPlayTimeoutRef.current);
+        autoPlayTimeoutRef.current = null;
+      }
+      if (resumeTimeoutRef.current) {
+        clearTimeout(resumeTimeoutRef.current);
+        resumeTimeoutRef.current = null;
+      }
+    }
+
+    return () => {
+      if (autoPlayTimeoutRef.current) {
+        clearInterval(autoPlayTimeoutRef.current);
+      }
+      if (resumeTimeoutRef.current) {
+        clearTimeout(resumeTimeoutRef.current);
+      }
+    };
+  }, [isCarouselVisible, swiperInstance, isMobile, startAutoPlay]);
 
   return (
     <section ref={sectionRef} className="relative py-8 [--swiper-theme-color:#16a34a]">
@@ -291,7 +348,10 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
               <button
                 key={index}
                 type="button"
-                onClick={() => swiperInstance?.slideTo(index)}
+                onClick={() => {
+                  pauseAutoPlay();
+                  swiperInstance?.slideTo(index);
+                }}
                 aria-label={`Go to slide ${index + 1}`}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   isActive ? 'w-8 bg-green-500' : 'w-2 bg-green-300/50 hover:bg-green-300'
