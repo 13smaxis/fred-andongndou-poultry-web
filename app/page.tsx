@@ -186,8 +186,10 @@ export default function Home() {
                 />
                 <div className="
                                   absolute inset-0 
-                                  bg-linear-to-t from-black/75 via-black/30 to-transparent
-                                " />                                                                            {/* Gradient overlay for better text visibility */}
+                                  bg-linear-to-t 
+                                  from-black/75 via-black/30 to-transparent
+                                " 
+                />                                                                                              {/* Gradient overlay for better text visibility */}
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <h3 className="text-white font-bold text-lg">{category}</h3>
                   <span className="
@@ -207,13 +209,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-700">                                                                    {/* FEATURED PRODUCTS */}
+      <section className="py-16 bg-gray-700 justify-items-center">                                                                 {/* FEATURED PRODUCTS */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
             <div className="w-full text-center">                                                                {/* Heading container */}
-              <h2 className="mb-3 text-3xl font-bold md:text-4xl">Featured
-                <span className="text-emerald-700"> Products</span>
-              </h2>
+              <h1 className="mb-3 text-3xl font-bold md:text-4xl text-white">
+                  Featured <span className="text-green-400"> Products</span>
+              </h1>
               <p className="text-gray-200 mt-2">Our most popular items, handpicked for you</p>
             </div>
             <Link
@@ -255,9 +257,13 @@ export default function Home() {
         <section className="relative z-10 py-16 back">                                                          {/* STOCK AVAILABILITY */}
           <div className="max-w-7xl mx-auto px-4">                                                              {/* Section containder */}
             <div className="text-center mb-10">
-              <Calendar className="w-10 h-10 text-green-600 mx-auto mb-3" />
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Stock Availability</h2>
-              <p className="text-gray-600">Real-time stock updates so you know exactly what&apos;s available</p>
+              <Calendar className="w-10 h-10 text-shadow-green-400 mx-auto mb-3" />
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+                  Stock <span className="text-green-400">Availability</span>
+              </h1>
+              <p className="text-gray-200 bg-amber-800 inline-block px-4 py-2 rounded-lg">
+                Real-time stock updates so you know exactly what&apos;s available
+              </p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
               {stockUpdates.map((item) => (
@@ -319,7 +325,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <div backdrop-blur-sm className="bg-white/75 rounded-xl p-8 shadow-lg">
+              <div className="bg-white/75 rounded-xl p-8 shadow-lg backdrop-blur-sm">
                 <span className="text-green-600 font-semibold text-sm uppercase tracking-wider">About Our Farm</span>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">A Legacy of Quality Poultry Farming</h2>
                 <p className="text-gray-600 leading-relaxed mb-6">

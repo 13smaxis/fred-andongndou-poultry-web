@@ -169,32 +169,6 @@ export default function Header()
               <MessageCircle className="w-4.5 h-4.5" />
             </a>
           </div>
-          <Link
-            href="/shop/cart"
-            className="
-                        md:hidden
-                        relative h-10 w-10
-                        rounded-xl
-                        bg-linear-to-br from-green-600 to-emerald-700
-                        text-white
-                        shadow-[0_8px_20px_rgba(22,163,74,0.3)]
-                        ring-1 ring-green-400/30
-                        flex items-center
-                        justify-center
-                      "
-            aria-label="Open cart"
-            title="Open cart"
-          >
-            <ShoppingCart className="h-5 w-5" />
-            {cartCount > 0 && (
-              <span
-                key={cartBumpToken}
-                className="animate-cart-bubble-pop absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white ring-2 ring-white"
-              >
-                {cartCount}
-              </span>
-            )}
-          </Link>
           <p className="hidden md:block text-amber-100 text-xs sm:text-sm">{SHIPPING_RULES}</p>
         </div>
       </section>
@@ -284,13 +258,40 @@ export default function Header()
             </Link>
           </div>
 
-          <button
-            className={mobileMenuButtonClassName}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            {cartCount > 0 && (
+              <Link
+                href="/shop/cart"
+                className="
+                          relative h-10 w-10
+                          rounded-xl
+                          bg-linear-to-br from-green-600 to-emerald-700
+                          text-white
+                          shadow-[0_8px_20px_rgba(22,163,74,0.3)]
+                          ring-1 ring-green-400/30
+                          flex items-center
+                          justify-center
+                        "
+                aria-label="Open cart"
+                title="Open cart"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                <span
+                  key={cartBumpToken}
+                  className="animate-cart-bubble-pop absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white ring-2 ring-white"
+                >
+                  {cartCount}
+                </span>
+              </Link>
+            )}
+            <button
+              className={mobileMenuButtonClassName}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
         {mobileMenuOpen && (

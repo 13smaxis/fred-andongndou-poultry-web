@@ -89,7 +89,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               Bestseller
             </span>
           )}
-          <div className="absolute bottom-0 left-0 right-0 translate-y-full bg-linear-to-t from-black/60 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
+          <div className="absolute bottom-0 left-0 right-0 hidden translate-y-full bg-linear-to-t from-black/60 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0 md:block">
             <div className="flex gap-2">
               <button
                 onClick={handleQuickAdd}
@@ -115,12 +115,21 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.name}
           </h3>
           <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-500">Contact us for availability</p>
             {inStock ? (
               <span className="rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-600">In Stock</span>
             ) : (
               <span className="rounded-full bg-red-50 px-2 py-1 text-xs font-medium text-red-600">Sold Out</span>
             )}
+          </div>
+          <div className="mt-4 flex gap-2 md:hidden">
+            <button
+              onClick={handleQuickAdd}
+              disabled={!inStock}
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-green-700 px-3 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-800 disabled:opacity-50"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              Add to Cart
+            </button>
           </div>
           {product.metadata?.next_batch && (
             <p className="mt-2 flex items-center gap-1 text-xs text-gray-500">
