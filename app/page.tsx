@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
@@ -8,6 +9,7 @@ import HeroCarousel from '@/components/HeroCarousel';
 import TrustBadgeMarquee from '@/components/Marquee';
 import broilerImage from '@/images/broilers.jpg';
 import portionImage from '@/images/portions.png';
+import StockAvailabilityCarousel from '@/components/StockAvailabilityCarousel';
 import {
 STORE_NAME,
 GALLERY_IMAGES,
@@ -18,75 +20,19 @@ HERO_IMAGE,
 } from '@/lib/constants';
 import { SHOP_CATEGORIES, SHOP_PRODUCTS } from '@/lib/shop-data';
 import {
-ArrowRight, Phone, MessageCircle, Truck, Shield, Leaf, Star, BookOpen,
+ArrowRight, Phone, MessageCircle, Truck, Shield, Leaf, BookOpen,
 Camera, Calendar, ShoppingCart, Users, Heart, Egg, Syringe, Bug, Utensils,
 } from 'lucide-react';
 
 
-/*
- * This is testimonial data for the Home page. 
- * Each testimonial includes the customer's name, role, testimonial text, and a rating out of 5.
- * The testimonials are displayed in a grid format on the Home page, with an auto-rotate feature that cycles through them every 5 seconds.
- */
-const testimonials = [
-  {
-    name: 'James Okonkwo',
-    role: 'Local Farmer',
-    text: 'Best broilers in the region! My birds always reach market weight on time. The day-old chicks are strong and healthy.',
-    rating: 5,
-  },
-  {
-    name: 'Sarah Mitchell',
-    role: 'Restaurant Owner',
-    text: `We've been sourcing eggs and broilers from ${STORE_NAME} for 3 years. Consistent quality and reliable delivery every time.`,
-    rating: 5,
-  },
-  {
-    name: 'David Chen',
-    role: 'Egg Retailer',
-    text: 'The eggs are always fresh with beautiful golden yolks. My customers love them and keep coming back for more.',
-    rating: 5,
-  },
-  {
-    name: 'Maria Rodriguez',
-    role: 'Small-Scale Farmer',
-    text: 'Started my poultry farm with their day-old chicks and chicken mixed portions. Their guidance and quality products made all the difference.',
-    rating: 5,
-  },
-  {
-    name: 'Robert Thompson',
-    role: 'Catering Business',
-    text: 'Bulk orders are handled professionally. The free-range broilers have superior taste that our clients notice immediately.',
-    rating: 5,
-  },
-  {
-    name: 'Grace Adeyemi',
-    role: 'Poultry Farmer',
-    text: 'The point-of-lay hens started producing within 10 days of purchase. Excellent vaccination records and healthy birds.',
-    rating: 4,
-  },
-  {
-    name: 'Michael Brown',
-    role: 'Grocery Store Owner',
-    text: 'Reliable supply of fresh eggs every week. Their delivery is always on time and the products are consistently high quality.',
-    rating: 5,
-  },
-  {
-    name: 'Linda Nguyen',
-    role: 'Home Cook & Buyer',
-    text: `I drive 30 miles to buy from ${STORE_NAME} because the quality is unmatched. Their free-range eggs are the best I've ever had.`,
-    rating: 5,
-  },
-];
-
 const stockUpdates = [
-  { product: 'Premium Broilers', status: 'Available Now', qty: '200+ birds', color: 'green' },
-  { product: 'Broiler Day-Old Chicks', status: 'Next batch: Every Monday', qty: '500+ weekly', color: 'green' },
-  { product: 'Layer Day-Old Chicks', status: 'Next batch: March 24', qty: '300 available', color: 'amber' },
-  { product: 'Point-of-Lay Hens', status: 'Available Now', qty: '150 hens', color: 'green' },
-  { product: 'Farm Fresh Eggs', status: 'Available Daily', qty: '100+ trays', color: 'green' },
-  { product: 'Free-Range Broilers', status: 'Limited Stock', qty: '50 birds', color: 'amber' },
-];
+  { product: 'Premium Broilers', status: 'Available Now', qty: '200+ birds', color: 'green' as const },
+  { product: 'Broiler Day-Old Chicks', status: 'Next batch: Every Monday', qty: '500+ weekly', color: 'green' as const },
+  { product: 'Layer Day-Old Chicks', status: 'Next batch: March 24', qty: '300 available', color: 'amber' as const },
+  { product: 'Point-of-Lay Hens', status: 'Available Now', qty: '150 hens', color: 'green' as const },
+  { product: 'Farm Fresh Eggs', status: 'Available Daily', qty: '100+ trays', color: 'green' as const },
+  { product: 'Free-Range Broilers', status: 'Limited Stock', qty: '50 birds', color: 'amber' as const },
+] as const;
 
 
 /*
@@ -172,17 +118,12 @@ export default function Home() {
                           `}
                 style={{ animationDelay: showCategoryAnimation ? `${index * 110}ms` : '0ms' }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={categoryImages[category] || GALLERY_IMAGES[0]}
                   alt={category}
-                  className="
-                              h-full w-full 
-                              object-cover object-center 
-                              group-hover:scale-110 
-                              transition-transform 
-                              duration-500
-                            "
+                  width={1200}
+                  height={1200}
+                  className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="
                                   absolute inset-0 
@@ -209,7 +150,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-700 justify-items-center">                                                                 {/* FEATURED PRODUCTS */}
+      <section className="py-16 bg-gray-700">                                                                 {/* FEATURED PRODUCTS */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
             <div className="w-full text-center">                                                                {/* Heading container */}
@@ -261,70 +202,32 @@ export default function Home() {
               <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
                   Stock <span className="text-green-400">Availability</span>
               </h1>
-              <p className="text-gray-200 bg-amber-800 inline-block px-4 py-2 rounded-lg">
-                Real-time stock updates so you know exactly what&apos;s available
+            </div>
+            <div className="flex justify-center mt-8">                                                          {/* Stock update date */}
+              <p className="
+                              text-center text-lg text-gray-200 
+                              bg-amber-800 
+                              inline-flex 
+                              px-4 py-2 
+                              rounded-lg
+                            "
+              >                                                                                                 {/* Current date about stock updates */}
+                Stock updates as of{' '}
+                {new Date().toLocaleDateString('en-US', 
+                {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-              {stockUpdates.map((item) => (
-                <div
-                  key={item.product}
-                  className="
-                            bg-green-300
-                            rounded-xl 
-                            p-4 shadow-sm 
-                            flex items-center 
-                            gap-4 
-                          "
-                >
-                  <div
-                    className={`
-                                w-3 h-3 rounded-full shrink-0 
-                                ${item.color === 'green' ? 'bg-green-500' : 'bg-amber-500'} 
-                                animate-pulse
-                             `}
-                  />
-                  <div>
-                    <h4 className="font-semibold text-gray-900 text-sm">{item.product}</h4>
-                    <p className="text-xs text-gray-500">{item.status}</p>
-                    <p className="text-xs text-green-600 font-medium">{item.qty}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="text-center text-sm text-gray-500 mt-6">
-              Stock updates as of{' '}
-              {new Date().toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-              })}
-              . Contact us for real-time availability.
-            </p>
+            <StockAvailabilityCarousel stockUpdates={stockUpdates} />                                           {/* Imported caraousel using SWIPER FRAMER-MOTION */}  
           </div>
         </section>
 
-        <section className="py-16">                                                                             {/* ABOUT PREVIEW */}
+    {/*  <section className="py-16">                                                                            ABOUT PREVIEW
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="grid grid-cols-2 gap-3">
-                {GALLERY_IMAGES.map((img, idx) => (
-                  <div key={idx}
-                    className={`
-                                   rounded-xl 
-                                   overflow-hidden 
-                                   shadow-sm 
-                                   ${idx === 0 ? 'row-span-2' : ''}
-                                `}
-                  >
-                    <img
-                      src={img}
-                      alt={`Farm ${idx + 1}`}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                ))}
-              </div>
               <div className="bg-white/75 rounded-xl p-8 shadow-lg backdrop-blur-sm">
                 <span className="text-green-600 font-semibold text-sm uppercase tracking-wider">About Our Farm</span>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">A Legacy of Quality Poultry Farming</h2>
@@ -348,16 +251,25 @@ export default function Home() {
                 </div>
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-2 bg-green-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-800 transition-colors"
+                  className="
+                              inline-flex 
+                              items-center gap-2 
+                              bg-green-700 
+                              text-white 
+                              px-6 py-3 
+                              rounded-lg 
+                              font-semibold 
+                              hover:bg-green-800 
+                              transition-colors
+                            "
                 >
                   Learn More About Us <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
-
 
   {/*   <section className="py-16 bg-gray-50 relative pt-12">                                                   TESTIMONIALS 
   Top torn paper divider 
@@ -470,8 +382,13 @@ export default function Home() {
           className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
           onClick={() => setGalleryModal(null)}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={GALLERY_IMAGES[galleryModal]} alt="" className="max-w-full max-h-[80vh] rounded-xl" />
+          <Image
+            src={GALLERY_IMAGES[galleryModal]}
+            alt=""
+            width={1600}
+            height={1200}
+            className="max-w-full max-h-[80vh] rounded-xl object-contain"
+          />
           <button
             onClick={() => setGalleryModal(null)}
             className="absolute top-4 right-4 text-white text-xl bg-black/50 w-10 h-10 rounded-full flex items-center justify-center hover:bg-black/70"

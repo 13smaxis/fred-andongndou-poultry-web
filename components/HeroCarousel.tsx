@@ -19,7 +19,7 @@ export default function HeroCarousel()
   const [nextIndex, setNextIndex] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isResettingTransform, setIsResettingTransform] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
