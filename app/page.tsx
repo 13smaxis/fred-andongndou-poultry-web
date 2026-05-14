@@ -267,13 +267,13 @@ export default function Home()
                 <Link key={idx} 
                       href="/knowledge" 
                       className="
-                                backdrop-blur-sm
-                                border border-white/20 
+                                bg-white 
+                                border border-gray-200
                                 text-gray-900 
                                 rounded-xl 
                                 p-6 
-                                hover:bg-white/95 
-                                transition-colors group
+                                hover:shadow-lg 
+                                transition-all group
                               "
                 >
                   <guide.Icon className="w-8 h-8 text-green-600 mb-3" />

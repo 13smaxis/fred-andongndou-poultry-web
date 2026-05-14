@@ -112,11 +112,9 @@ export default function Header()
 
   const mobileNavLinkClass = "px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 rounded-lg font-medium";                    //-Mobile link styling
 
-  const headerClassName = "fixed top-0 z-50 w-full bg-white/95 shadow-sm backdrop-blur-md border-b border-gray-100";
+  const headerClassName = "fixed top-0 z-50 w-full";
 
-  const mobileMenuClassName = isScrolled
-    ? "lg:hidden border-t bg-white shadow-lg border-gray-200"
-    : "lg:hidden border-t bg-white/95 shadow-lg border-white/20 backdrop-blur-md";
+  const mobileMenuClassName = "lg:hidden border-t";
 
   const mobileMenuButtonClassName = isTransparent
     ? "lg:hidden p-2 text-white hover:bg-white/10 rounded-lg"
@@ -194,44 +192,56 @@ export default function Header()
             </Link>
           </div>
 
-          <nav className="hidden lg:flex items-center gap-1">                                                   {/* Desktop Navigation */}
-            <Link href="/" 
-                  className={`
-                              ${navLinkClass} 
-                              ${navHoverLineClass}
-                              ${isActive("/") ? "text-green-700" : ""}
-                            `}
-            >
-              Home
-          </Link>
-          
-            <Link href="/shop" 
-                  className={`
-                              ${navLinkClass} 
-                              ${navHoverLineClass} 
-                              ${isActive("/shop") ? "text-green-700" : ""}
-                            `}
-            >
-              Shop
+          <div className="
+                            hidden lg:flex 
+                            items-center 
+                            px-2 py-2 
+                            rounded-full 
+                            backdrop-blur-sm 
+                            bg-white/10 
+                            border border-white/20 
+                            shadow-lg
+                          "
+          >
+            <nav className="flex items-center gap-1">                                                   {/* Desktop Navigation */}
+              <Link href="/" 
+                    className={`
+                                ${navLinkClass} 
+                                ${navHoverLineClass}
+                                ${isActive("/") ? "text-green-700" : ""}
+                              `}
+              >
+                Home
             </Link>
-            <Link href="/about" className={`
-                              ${navLinkClass} 
-                              ${navHoverLineClass} 
-                              ${isActive("/about") ? "text-green-700" : ""}`}
-            >
-              About
-            </Link>
-            <Link href="/knowledge" className={`
-                              ${navLinkClass} 
-                              ${navHoverLineClass} 
-                              ${isActive("/knowledge") ? "text-green-700" : ""}`}>
-              Guides
-            </Link>
-            <Link href="/contact" className={`
-                              ${navLinkClass} 
-                              ${navHoverLineClass} 
-                              ${isActive("/contact") ? "text-green-700" : ""}`}>Contact</Link>
-          </nav>
+            
+              <Link href="/shop" 
+                    className={`
+                                ${navLinkClass} 
+                                ${navHoverLineClass} 
+                                ${isActive("/shop") ? "text-green-700" : ""}
+                              `}
+              >
+                Shop
+              </Link>
+              <Link href="/about" className={`
+                                ${navLinkClass} 
+                                ${navHoverLineClass} 
+                                ${isActive("/about") ? "text-green-700" : ""}`}
+              >
+                About
+              </Link>
+              <Link href="/knowledge" className={`
+                                ${navLinkClass} 
+                                ${navHoverLineClass} 
+                                ${isActive("/knowledge") ? "text-green-700" : ""}`}>
+                Guides
+              </Link>
+              <Link href="/contact" className={`
+                                ${navLinkClass} 
+                                ${navHoverLineClass} 
+                                ${isActive("/contact") ? "text-green-700" : ""}`}>Contact</Link>
+            </nav>
+          </div>
 
           <div className="hidden lg:flex items-center gap-3">                                                   {/* Desktop shopping cart */}
             {cartCount > 0 && (
@@ -304,7 +314,7 @@ export default function Header()
         </div>
 
         {mobileMenuOpen && (
-          <div className={mobileMenuClassName}>
+          <div className={`${mobileMenuClassName} backdrop-blur-sm bg-white/10 border-white/20 shadow-lg`}>
             <nav className="flex flex-col p-4 gap-1">
               <Link href="/" onClick={closeMobileMenu} className={mobileNavLinkClass}>Home</Link>
               <Link href="/shop" onClick={closeMobileMenu} className={mobileNavLinkClass}>Shop</Link>

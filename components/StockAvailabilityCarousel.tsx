@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
@@ -89,56 +89,34 @@ const MOBILE_BREAKPOINTS = {
   640: { slidesPerView: 1, spaceBetween: 16 },
 } as const;
 
-const TABLET_BREAKPOINTS = {
-  0: { slidesPerView: 3, spaceBetween: 12 },
-  480: { slidesPerView: 3, spaceBetween: 14 },
-  768: { slidesPerView: 3, spaceBetween: 16 },
-} as const;
-
 export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailabilityCarouselProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [isCarouselVisible, setIsCarouselVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
-  const [deviceType, setDeviceType] = useState<'mobile' | 'tablet' | 'desktop'>('mobile');
+  const [isMobile, setIsMobile] = useState(false);
   
   // Auto-play refs for desktop
   const autoPlayTimeoutRef = useRef<number | null>(null);
   const resumeTimeoutRef = useRef<number | null>(null);
 
-  // Detect device type on mount and resize
+  // Detect mobile on mount
   useEffect(() => {
-    const checkDevice = () => {
-      const width = window.innerWidth;
-      if (width < 768) {
-        setDeviceType('mobile');
-      } else if (width < 1024) {
-        setDeviceType('tablet');
-      } else {
-        setDeviceType('desktop');
-      }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
-    checkDevice();
-    window.addEventListener('resize', checkDevice);
-    return () => window.removeEventListener('resize', checkDevice);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const swiperConfig = useMemo(() => {
-    if (deviceType === 'mobile') {
+    if (isMobile) {
       return {
         effect: 'slide' as const,
         centeredSlides: false,
         speed: 600,
         breakpoints: MOBILE_BREAKPOINTS,
-      };
-    }
-
-    if (deviceType === 'tablet') {
-      return {
-        effect: 'slide' as const,
-        centeredSlides: false,
-        speed: 600,
-        breakpoints: TABLET_BREAKPOINTS,
       };
     }
 
@@ -155,7 +133,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
         slideShadows: false,
       },
     };
-  }, [deviceType]);
+  }, [isMobile]);
 
   // Pause auto-play and schedule resume
   const pauseAutoPlay = useCallback(() => {
@@ -175,7 +153,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
 
   // Start auto-play
   const startAutoPlay = useCallback(() => {
-    if (deviceType !== 'desktop' || !swiperInstance) return;
+    if (isMobile || !swiperInstance) return;
 
     if (resumeTimeoutRef.current) {
       clearTimeout(resumeTimeoutRef.current);
@@ -185,7 +163,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
     autoPlayTimeoutRef.current = window.setInterval(() => {
       swiperInstance.slideNext();
     }, 4000);
-  }, [swiperInstance, deviceType]);
+  }, [swiperInstance, isMobile]);
 
   const cycleRegion = useCallback(
     (direction: 1 | -1) => {
@@ -230,10 +208,10 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
 
   // Start auto-play when carousel becomes visible and only on desktop, stop when not visible
   useEffect(() => {
-    if (isCarouselVisible && swiperInstance && deviceType === 'desktop') {
+    if (isCarouselVisible && swiperInstance && !isMobile) {
       startAutoPlay();
     } else {
-      // Stop auto-play when not visible or on mobile/tablet
+      // Stop auto-play when not visible or on mobile
       if (autoPlayTimeoutRef.current) {
         clearInterval(autoPlayTimeoutRef.current);
         autoPlayTimeoutRef.current = null;
@@ -252,7 +230,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
         clearTimeout(resumeTimeoutRef.current);
       }
     };
-  }, [isCarouselVisible, swiperInstance, deviceType, startAutoPlay]);
+  }, [isCarouselVisible, swiperInstance, isMobile, startAutoPlay]);
 
   return (
     <section ref={sectionRef} className="relative py-8 [--swiper-theme-color:#16a34a]">
@@ -263,6 +241,10 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
         className="relative w-full md:left-1/2 md:w-screen md:-translate-x-1/2"
       >
         <div className="relative w-full">
+          {!isMobile && (
+            null
+          )}
+
           <Swiper
             modules={[EffectCoverflow, A11y, Mousewheel]}
             dir="ltr"
@@ -277,7 +259,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
             rewind={true}
             grabCursor
             mousewheel={
-              deviceType === 'desktop'
+              !isMobile
                 ? {
                     forceToAxis: true,
                     releaseOnEdges: true,
