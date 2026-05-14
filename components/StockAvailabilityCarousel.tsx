@@ -19,8 +19,7 @@ interface StockItem                                                             
   color: 'green' | 'amber';
 }
 
-interface StockAvailabilityCarouselProps 
-{
+interface StockAvailabilityCarouselProps {
   stockUpdates: readonly StockItem[];                                                                           //-Marked as readonly to indicate immutability
 }
 
@@ -31,43 +30,36 @@ const getProductImage = (productName: string): string => {
     (product) => product.name.trim().toLowerCase() === normalizedProduct
   );
 
-  if (exactMatch) 
-  {
+  if (exactMatch) {
     return exactMatch.image;
   }
 
-  if (normalizedProduct.includes('egg')) 
-  {
+  if (normalizedProduct.includes('egg')) {
     const eggProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('egg'));
     return eggProduct?.image || SHOP_PRODUCTS[0]?.image || '';
   }
 
-  if (normalizedProduct.includes('free-range')) 
-  {
+  if (normalizedProduct.includes('free-range')) {
     const freeRangeProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('free-range'));
     return freeRangeProduct?.image || SHOP_PRODUCTS[0]?.image || '';
   }
 
-  if (normalizedProduct.includes('chick')) 
-  {
+  if (normalizedProduct.includes('chick')) {
     const chicksProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('day old'));
     return chicksProduct?.image || SHOP_PRODUCTS[0]?.image || '';
   }
 
-  if (normalizedProduct.includes('hen')) 
-  {
+  if (normalizedProduct.includes('hen')) {
     const layHenProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('hen'));
     return layHenProduct?.image || SHOP_PRODUCTS[0]?.image || '';
   }
 
-  if (normalizedProduct.includes('broiler')) 
-  {
+  if (normalizedProduct.includes('broiler')) {
     const broilerProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('broiler'));
     return broilerProduct?.image || SHOP_PRODUCTS[0]?.image || '';
   }
 
-  if (normalizedProduct.includes('grower')) 
-  {
+  if (normalizedProduct.includes('grower')) {
     const wingProduct = SHOP_PRODUCTS.find((p) => p.name.toLowerCase().includes('grower'));
     return wingProduct?.image || SHOP_PRODUCTS[0]?.image || '';
   }
@@ -95,7 +87,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
   const [activeIndex, setActiveIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   // Auto-play refs for desktop
   const autoPlayTimeoutRef = useRef<number | null>(null);
   const resumeTimeoutRef = useRef<number | null>(null);
@@ -141,11 +133,11 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
       clearInterval(autoPlayTimeoutRef.current);
       autoPlayTimeoutRef.current = null;
     }
-    
+
     if (resumeTimeoutRef.current) {
       clearTimeout(resumeTimeoutRef.current);
     }
-    
+
     resumeTimeoutRef.current = window.setTimeout(() => {
       startAutoPlay();
     }, 5000);
@@ -261,12 +253,12 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
             mousewheel={
               !isMobile
                 ? {
-                    forceToAxis: true,
-                    releaseOnEdges: true,
-                    sensitivity: 1,
-                    thresholdDelta: 36,
-                    thresholdTime: 300,
-                  }
+                  forceToAxis: true,
+                  releaseOnEdges: true,
+                  sensitivity: 1,
+                  thresholdDelta: 36,
+                  thresholdTime: 300,
+                }
                 : false
             }
             speed={swiperConfig.speed}
@@ -305,9 +297,8 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
                     <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
                       <div className="flex items-center gap-2 mb-3">
                         <div
-                          className={`w-3 h-3 rounded-full ${
-                            item.color === 'green' ? 'bg-green-400' : 'bg-amber-400'
-                          } animate-pulse`}
+                          className={`w-3 h-3 rounded-full ${item.color === 'green' ? 'bg-green-400' : 'bg-amber-400'
+                            } animate-pulse`}
                         />
                         <span className="text-green-300 text-xs font-semibold uppercase tracking-wider">
                           Stock Available
@@ -322,44 +313,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
             })}
           </Swiper>
         </div>
-
-        {/* Navigation Arrows */}
-        <button
-          onClick={() => cycleRegion(1)}
-          className="absolute left-0 top-1/2 z-20 -translate-y-1/2 -translate-x-12 rounded-full bg-green-500 p-2 text-white transition-all hover:bg-green-600 md:left-4 md:translate-x-0"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-
-        <button
-          onClick={() => cycleRegion(-1)}
-          className="absolute right-0 top-1/2 z-20 -translate-y-1/2 translate-x-12 rounded-full bg-green-500 p-2 text-white transition-all hover:bg-green-600 md:right-4 md:translate-x-0"
-          aria-label="Next slide"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
-
-        {/* Pagination Dots */}
-        <div className="mt-6 flex items-center justify-center gap-2">
-          {stockUpdates.map((_, index) => {
-            const isActive = index === activeIndex;
-            return (
-              <button
-                key={index}
-                type="button"
-                onClick={() => {
-                  pauseAutoPlay();
-                  swiperInstance?.slideTo(index);
-                }}
-                aria-label={`Go to slide ${index + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  isActive ? 'w-8 bg-green-500' : 'w-2 bg-green-300/50 hover:bg-green-300'
-                }`}
-              />
-            );
-          })}
-        </div>
+        <ChevronRight className="h-6 w-6" />
       </motion.div>
     </section>
   );
