@@ -178,7 +178,7 @@ export default function Header()
       </section>
 
       <header className={headerClassName}>                                                                      {/* Navbar */}
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="relative max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="shrink-0 lg:ml-50">                                                                   {/* Logo wrapper */}
             <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>                       {/* Logo link for mobile*/}
               <Image
@@ -193,7 +193,7 @@ export default function Header()
           </div>
 
           <div className="
-                            hidden lg:flex 
+                            hidden lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:flex 
                             items-center 
                             px-2 py-2 
                             rounded-full 

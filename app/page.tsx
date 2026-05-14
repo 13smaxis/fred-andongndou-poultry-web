@@ -198,7 +198,7 @@ export default function Home()
               View All
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="mx-auto grid w-fit grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -206,9 +206,9 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-12 bg-gray-700">                                                                 {/* STOCK AVAILABILITY */}
+      <section className="py-6 bg-gray-700">                                                                 {/* STOCK AVAILABILITY */}
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-          <div className="rounded-4xl bg-gray-700 p-4">
+          <div className="rounded-4xl bg-gray-700 p-3">
             <div className="relative rounded-4xl overflow-hidden border border-white/10 shadow-2xl">
               <div
                 className="absolute inset-0 bg-fixed bg-center bg-cover"
@@ -254,9 +254,9 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-12 bg-gray-700">                                                                               {/* KNOWLEDGE PREVIEW */}
+      <section className="py-1 bg-gray-700">                                                                  {/* KNOWLEDGE PREVIEW */}
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-          <div className="rounded-4xl bg-gray-700 p-4">
+          <div className="rounded-4xl bg-gray-700 p-3">
             <div className="relative rounded-4xl overflow-hidden border border-white/10 shadow-2xl">
               <div
                 className="absolute inset-0 bg-fixed bg-center bg-cover"
@@ -286,7 +286,7 @@ export default function Home()
                   </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4 ">
+                <div className="grid sm:grid-cols-2 gap-2 ">
                   {[
                     { title: 'How to Raise Broilers', desc: 'Complete guide from day-old to market weight', Icon: Egg },
                     { title: 'Feeding Schedules', desc: 'Optimal nutrition for every growth stage', Icon: Utensils },
@@ -296,7 +296,15 @@ export default function Home()
                     <Link
                       key={idx}
                       href="/knowledge"
-                      className="group flex items-start gap-4 p-3 rounded hover:bg-white/5 transition-colors"
+                      className="
+                                  group flex 
+                                  items-start 
+                                  gap-4 p-4 
+                                  rounded-lg 
+                                  bg-white/10 
+                                  backdrop-blur-sm 
+                                  hover:bg-white/15 transition-colors
+                                "
                     >
                       <guide.Icon className="w-7 h-7 text-green-300 mt-1" />
                       <div className="flex-1">
