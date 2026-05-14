@@ -206,88 +206,84 @@ export default function Home()
         </div>
       </section>
 
-      <div
-        className="relative bg-fixed bg-center bg-cover"
-        style={{ backgroundImage: `url(${HERO_IMAGE})` }}
-      >
-        <div className="absolute inset-0" />
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+          <div className="relative rounded-4xl overflow-hidden border border-white/10 shadow-2xl">
+            <div
+              className="absolute inset-0 bg-fixed bg-center bg-cover"
+              style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+            />
+            <div className="absolute inset-0 bg-linear-to-br from-black/40 via-slate-900/35 to-black/25" />
 
-        <section className="relative z-10 py-16 back">                                                          {/* STOCK AVAILABILITY */}
-          <div className="max-w-7xl mx-auto px-4">                                                              {/* Section containder */}
-            <div className="text-center mb-10">
-              <Calendar className="w-10 h-10 text-white mx-auto mb-3" />
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+            <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
+              <div className="text-center mb-6">
+                <Calendar className="w-10 h-10 text-white mx-auto mb-3" />
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">
                   Stock <span className="text-yellow-400">Availability</span>
-              </h1>
-            </div>
-            <div className="flex justify-center mt-8">                                                          {/* Stock update date */}
-              <p className="
-                              text-center text-lg text-gray-200 
-                              bg-amber-800 
-                              inline-flex 
-                              px-4 py-2 
-                              rounded-lg
-                            "
-              >                                                                                                 {/* Current date about stock updates */}
-                Stock updates as of{' '}
-                {new Date().toLocaleDateString('en-US', 
-                {
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              </p>
-            </div>
-            <StockAvailabilityCarousel stockUpdates={stockUpdates} />                                           {/* SWIPER FRAMER-MOTION imported from ./components/StockAvailabilityCarousel */}  
-          </div>
-        </section>
+                </h2>
+              </div>
 
-        <section className="relative z-10 py-16 back">                                                          {/* KNOWLEDGE PREVIEW */}
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-10">
-              <BookOpen className="w-10 h-10 text-green-200 mx-auto mb-3" />
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-                  Poultry <span className="text-yellow-400"> Care Guides </span>
-              </h2>
-              <p className="text-center text-lg text-gray-200 
-                              bg-amber-800 
-                              inline-flex 
-                              px-4 py-2 
-                              rounded-lg">
-                  Expert knowledge to help you raise healthy, productive poultry
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { title: 'How to Raise Broilers', desc: 'Complete guide from day-old to market weight', Icon: Egg },
-                { title: 'Feeding Schedules', desc: 'Optimal nutrition for every growth stage', Icon: Utensils },
-                { title: 'Disease Prevention', desc: 'Keep your flock healthy and productive', Icon: Bug },
-                { title: 'Vaccination Calendar', desc: 'Complete schedule for broilers and layers', Icon: Syringe },
-              ].map((guide, idx) => (
-                <Link key={idx} 
-                      href="/knowledge" 
-                      className="
-                                bg-white 
-                                border border-gray-200
-                                text-gray-900 
-                                rounded-xl 
-                                p-6 
-                                hover:shadow-lg 
-                                transition-all group
-                              "
-                >
-                  <guide.Icon className="w-8 h-8 text-green-600 mb-3" />
-                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-green-700">{guide.title}</h3>
-                  <p className="text-gray-700">{guide.desc}</p>
-                  <span className="text-green-950 text-sm font-medium flex items-center gap-1 mt-3">
-                    Read Guide <ArrowRight className="w-3 h-3" />
-                  </span>
-                </Link>
-              ))}
+              <div className="flex justify-center mb-6">
+                <p className="text-center text-lg text-gray-200 bg-amber-800 inline-flex px-4 py-2 rounded-lg">
+                  Stock updates as of{' '}
+                  {new Date().toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </p>
+              </div>
+
+              <StockAvailabilityCarousel stockUpdates={stockUpdates} />
             </div>
           </div>
-        </section>
-      </div>                                                                                                    {/* Closing tag for Background image */}
+        </div>
+      </section>
+
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+          <div className="relative rounded-4xl overflow-hidden border border-white/10 shadow-2xl">
+            <div
+              className="absolute inset-0 bg-fixed bg-center bg-cover"
+              style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+            />
+            <div className="absolute inset-0 bg-linear-to-br from-black/40 via-slate-900/35 to-black/25" />
+            <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
+              <div className="text-center mb-6">
+                <BookOpen className="w-10 h-10 text-green-200 mx-auto mb-3" />
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">
+                  Poultry <span className="text-yellow-400">Care Guides</span>
+                </h2>
+                <p className="text-center text-lg text-gray-200 bg-amber-800 inline-flex px-4 py-2 rounded-lg">
+                  Expert knowledge to help you raise healthy, productive poultry
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  { title: 'How to Raise Broilers', desc: 'Complete guide from day-old to market weight', Icon: Egg },
+                  { title: 'Feeding Schedules', desc: 'Optimal nutrition for every growth stage', Icon: Utensils },
+                  { title: 'Disease Prevention', desc: 'Keep your flock healthy and productive', Icon: Bug },
+                  { title: 'Vaccination Calendar', desc: 'Complete schedule for broilers and layers', Icon: Syringe },
+                ].map((guide, idx) => (
+                  <Link
+                    key={idx}
+                    href="/knowledge"
+                    className="group flex items-start gap-4 p-3 rounded hover:bg-white/5 transition-colors"
+                  >
+                    <guide.Icon className="w-7 h-7 text-green-300 mt-1" />
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-white group-hover:text-green-300">{guide.title}</h3>
+                      <p className="text-gray-300 text-sm">{guide.desc}</p>
+                    </div>
+                    <span className="text-yellow-400 mt-1"><ArrowRight className="w-4 h-4" /></span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
   {/*   <section className="py-16 bg-gray-50 relative pt-12">                                                    TESTIMONIALS 
   Top torn paper divider 
