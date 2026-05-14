@@ -98,21 +98,21 @@ export default function Header()
     }`;
 
   const navHoverLineClass =
-    `after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0.5 after:h-0.5 after:w-0 after:rounded-full after:transition-all after:duration-300 hover:after:w-full ${
-      isTransparent ? "after:bg-white" : "after:bg-green-600"
-    }`;
+                            `after:content-[''] after:absolute 
+                             after:left-1/2 after:-translate-x-1/2 
+                             after:bottom-0.5 after:h-0.5 after:w-0 
+                             after:rounded-full after:transition-all 
+                             after:duration-300 
+                             hover:after:w-full 
+                             after:bg-green-600
+                            `;
 
   const socialHoverLineClass =
     "relative pb-0.5 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-0.5 after:h-0.5 after:w-0 after:rounded-full after:bg-yellow-100 after:transition-all after:duration-300 hover:after:w-full";
 
-  const mobileNavLinkClass =
-    "px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 rounded-lg font-medium";                    //-Mobile link styling
+  const mobileNavLinkClass = "px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 rounded-lg font-medium";                    //-Mobile link styling
 
-  const headerClassName = isHome
-    ? shouldFixHeader
-      ? "fixed top-0 z-50 w-full bg-white/95 shadow-sm backdrop-blur-md border-b border-gray-100 transition-colors duration-300"
-      : "absolute top-0 z-50 w-full bg-transparent transition-colors duration-300"
-    : "sticky top-0 z-50 bg-white/95 shadow-sm backdrop-blur-md border-b border-gray-100 transition-colors duration-300";
+  const headerClassName = "fixed top-0 z-50 w-full bg-white/95 shadow-sm backdrop-blur-md border-b border-gray-100";
 
   const mobileMenuClassName = isScrolled
     ? "lg:hidden border-t bg-white shadow-lg border-gray-200"
@@ -234,34 +234,34 @@ export default function Header()
           </nav>
 
           <div className="hidden lg:flex items-center gap-3">                                                   {/* Desktop shopping cart */}
-            <Link
-              href="/shop/cart"
-              className="
-                          relative h-12 w-12 
-                          rounded-2xl 
-                          bg-linear-to-br from-green-600 to-emerald-700 
-                          text-white 
-                          shadow-[0_10px_25px_rgba(22,163,74,0.35)] 
-                          ring-1 ring-green-400/30 
-                          transition-all duration-300 
-                          hover:-translate-y-0.5 
-                          hover:scale-105 hover:from-green-500 hover:to-emerald-600 
-                          flex items-center 
-                          justify-center
-                        "
-              aria-label="Open cart"
-              title="Open cart"
-            >
-              <ShoppingCart className="h-6 w-6" />
-              {cartCount > 0 && (
+            {cartCount > 0 && (
+              <Link
+                href="/shop/cart"
+                className="
+                            relative h-12 w-12 
+                            rounded-2xl 
+                            bg-linear-to-br from-green-600 to-emerald-700 
+                            text-white 
+                            shadow-[0_10px_25px_rgba(22,163,74,0.35)] 
+                            ring-1 ring-green-400/30 
+                            transition-all duration-300 
+                            hover:-translate-y-0.5 
+                            hover:scale-105 hover:from-green-500 hover:to-emerald-600 
+                            flex items-center 
+                            justify-center
+                          "
+                aria-label="Open cart"
+                title="Open cart"
+              >
+                <ShoppingCart className="h-6 w-6" />
                 <span
                   key={cartBumpToken}
                   className="animate-cart-bubble-pop absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white ring-2 ring-white"
                 >
                   {cartCount}
                 </span>
-              )}
-            </Link>
+              </Link>
+            )}
           </div>
 
           <div className="lg:hidden">
