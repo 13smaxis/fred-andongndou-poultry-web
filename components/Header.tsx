@@ -186,8 +186,9 @@ export default function Header()
 
       <header className={headerClassName}>                                                                      {/* Navbar */}
         <div className="relative max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className={`shrink-0 lg:ml-50 transition-all duration-300 ${isScrolled ? "pointer-events-none opacity-0 -translate-y-2 scale-95" : "opacity-100"}`}>                                                                   {/* Logo wrapper */}
-            <Link href="/" className="flex items-center gap-2" onClick={hardNavigate("/")}>                       {/* Logo link for mobile*/}
+          <div className={`hidden lg:flex shrink-0 lg:ml-50 transition-all duration-300 ${isScrolled ? "pointer-events-none opacity-0 -translate-y-2 scale-95" : "opacity-100"}`}>
+          {/* Desktop logo (hidden on mobile) */}
+            <Link href="/" className="flex items-center gap-2" onClick={hardNavigate("/")}>                     
               <Image
                 src="/logo_alpha.png"
                 alt={`${STORE_NAME} logo`}
@@ -210,7 +211,7 @@ export default function Header()
                             shadow-lg
                           "
           >
-            <nav className="flex items-center gap-1">                                                   {/* Desktop Navigation */}
+            <nav className="flex items-center gap-1">                                                           {/* Desktop Navigation */}
               <Link href="/" 
                     onClick={hardNavigate("/")}
                     className={`
@@ -284,42 +285,37 @@ export default function Header()
             )}
           </div>
 
-          <div className="lg:hidden">
-            <div className="relative flex h-10 w-24 items-center justify-end gap-2">
-              {cartCount > 0 && (
-                <Link
-                  href="/shop/cart"
-                  onClick={hardNavigate("/shop/cart")}
-                  className="
-                          absolute left-0 top-1/2 -translate-y-1/2
-                          h-10 w-10
-                          rounded-xl
-                          bg-linear-to-br from-green-600 to-emerald-700
-                          text-white
-                          shadow-[0_8px_20px_rgba(22,163,74,0.3)]
-                          ring-1 ring-green-400/30
-                          flex items-center
-                          justify-center
-                        "
-                  aria-label="Open cart"
-                  title="Open cart"
-                >
-                  <ShoppingCart className="h-5 w-5" />
-                  <span
-                    key={cartBumpToken}
-                    className="animate-cart-bubble-pop absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white ring-2 ring-white"
+          {/* Mobile row below header: logo left, cart + hamburger right */}
+          <div className="lg:hidden w-full">
+            <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+              <Link href="/" className={`flex items-center gap-2 ${isScrolled ? 'pointer-events-none opacity-0 -translate-y-2' : 'opacity-100'}`} onClick={hardNavigate("/")}>
+                <Image
+                  src="/logo_alpha.png"
+                  alt={`${STORE_NAME} logo`}
+                  width={1024}
+                  height={1024}
+                  className="h-12 w-auto object-contain"
+                  priority
+                />
+              </Link>
+
+              <div className="flex items-center gap-3">
+                {cartCount > 0 && (
+                  <Link
+                    href="/shop/cart"
+                    onClick={hardNavigate("/shop/cart")}
+                    className="h-10 w-10 rounded-xl bg-linear-to-br from-green-600 to-emerald-700 text-white shadow-[0_8px_20px_rgba(22,163,74,0.3)] ring-1 ring-green-400/30 flex items-center justify-center"
+                    aria-label="Open cart"
+                    title="Open cart"
                   >
-                    {cartCount}
-                  </span>
-                </Link>
-              )}
-              <button
-                className={`${mobileMenuButtonClassName} absolute right-0 top-1/2 -translate-y-1/2`}
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-label="Toggle menu"
-              >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
+                    <ShoppingCart className="h-5 w-5" />
+                    <span key={cartBumpToken} className="animate-cart-bubble-pop absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white ring-2 ring-white">{cartCount}</span>
+                  </Link>
+                )}
+                <button className={`${mobileMenuButtonClassName}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+                  {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -121,9 +121,9 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
       speed: 800,
       breakpoints: STOCK_BREAKPOINTS,
       coverflowEffect: {
-        rotate: 8,
-        stretch: -12,
-        depth: 150,
+        rotate: 0,
+        stretch: 0,
+        depth: 0,
         modifier: 1,
         slideShadows: false,
       },
@@ -246,6 +246,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
           )}
 
           <Swiper
+            key={isMobile ? 'mobile' : 'desktop'}
             modules={[EffectCoverflow, A11y, Mousewheel]}
             dir="ltr"
             onSwiper={handleSwiperInit}

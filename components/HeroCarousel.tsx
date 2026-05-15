@@ -83,13 +83,13 @@ export default function HeroCarousel()
 
   return (
     <section
-      className="relative isolate min-h-[82vh] overflow-hidden bg-black md:min-h-[88vh]"
+      className="relative isolate min-h-screen overflow-hidden bg-black md:min-h-[88vh]"
       aria-roledescription="carousel"
       aria-label="Farm hero showcase"
     >
-      <div className="relative min-h-[74vh] lg:hidden">
+      <div className="relative min-h-screen lg:hidden">
         <div className="absolute inset-0 overflow-hidden bg-black">
-          <div className="relative flex h-full w-full items-center justify-center overflow-hidden px-4 py-6 sm:px-6 sm:py-8">
+          <div className="relative flex h-full w-full items-stretch overflow-hidden">
             <div
               className={`flex h-full w-full items-stretch ${
                 isResettingTransform
@@ -108,16 +108,16 @@ export default function HeroCarousel()
                 setIsImageLoaded(true);
               }}
             >
-              <div className="relative flex h-full w-full shrink-0 items-center justify-center overflow-hidden">
-                <div className="relative h-[42vh] w-full max-w-[420px] overflow-hidden rounded-[2rem] bg-black/10 shadow-[0_24px_60px_rgba(0,0,0,0.35)] sm:h-[48vh] sm:max-w-[460px]">
+              <div className="relative flex h-full w-full shrink-0 items-stretch justify-stretch overflow-hidden">
+                <div className="relative h-screen w-full overflow-hidden">
                   <Image
                     key={HERO_CAROUSEL_IMAGES[activeIndex].src}
                     src={HERO_CAROUSEL_IMAGES[activeIndex]}
                     alt={`${STORE_NAME} hero image ${activeIndex + 1}`}
                     fill
                     priority={activeIndex === 0}
-                    sizes="(max-width: 768px) 92vw, 100vw"
-                    className="object-contain"
+                    sizes="100vw"
+                    className="object-cover object-center"
                     onLoadingComplete={() => {
                       setIsImageLoaded(true);
                     }}
@@ -126,15 +126,15 @@ export default function HeroCarousel()
                 </div>
               </div>
               {nextIndex !== null && (
-                <div className="relative flex h-full w-full shrink-0 items-center justify-center overflow-hidden">
-                  <div className="relative h-[42vh] w-full max-w-[420px] overflow-hidden rounded-[2rem] bg-black/10 shadow-[0_24px_60px_rgba(0,0,0,0.35)] sm:h-[48vh] sm:max-w-[460px]">
+                <div className="relative flex h-full w-full shrink-0 items-stretch justify-stretch overflow-hidden">
+                  <div className="relative h-screen w-full overflow-hidden">
                     <Image
                       key={HERO_CAROUSEL_IMAGES[nextIndex].src}
                       src={HERO_CAROUSEL_IMAGES[nextIndex]}
                       alt={`${STORE_NAME} hero image ${nextIndex + 1}`}
                       fill
-                      sizes="(max-width: 768px) 92vw, 100vw"
-                      className="object-contain"
+                      sizes="100vw"
+                      className="object-cover object-center"
                       onLoadingComplete={() => {
                         setIsTransitioning(true);
                       }}
@@ -165,7 +165,7 @@ export default function HeroCarousel()
               eggs, and chicken mixed portions.
             </p>
 
-            <div className="flex flex-col items-end gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-start">
+            <div className="flex flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-start">
               <Link
                 href="/shop"
                 className="

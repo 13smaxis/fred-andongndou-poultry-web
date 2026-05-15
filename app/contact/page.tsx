@@ -21,10 +21,10 @@ import {
 } from "lucide-react";
 
 const deliveryZones = [
-  { zone: "Green Valley & Surrounding", days: "Mon, Wed, Fri", time: "Same day" },
-  { zone: "Dallas / Fort Worth Metro", days: "Tue, Thu", time: "Next day" },
-  { zone: "Greater Texas (within 200mi)", days: "Saturdays", time: "2-3 days" },
-  { zone: "Nationwide Shipping", days: "Mon - Fri", time: "3-5 days" },
+  { zone: "Normanton & Surrounding (Wakefield)", days: "Mon, Wed, Fri", time: "Same day" },
+  { zone: "Pontefract & Castleford Area", days: "Tue, Thu", time: "Next day" },
+  { zone: "Featherstone / Hemsworth", days: "Wednesdays, Saturdays", time: "Next day" },
+  { zone: "Wakefield & Nearby Towns", days: "Mon - Fri", time: "2-3 days" },
 ];
 
 export default function ContactPage() {
@@ -93,7 +93,7 @@ export default function ContactPage() {
           </a>
         </div>
 
-        <div className="mb-16 grid gap-8 lg:grid-cols-2">
+        <div className="mb-16 bg-gray-100 grid gap-8 lg:grid-cols-2 ">
           <div className="rounded-xl bg-white p-6 shadow-sm md:p-8">
             <h2 className="mb-6 text-xl font-bold text-gray-900">Send Us a Message</h2>
             {submitted ? (
@@ -139,12 +139,12 @@ export default function ContactPage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">Phone</label>
-                    <input
-                      value={formData.phone}
-                      onChange={(e) => updateField("phone", e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500"
-                      placeholder="+1 (555) 000-0000"
-                    />
+                      <input
+                        value={formData.phone}
+                        onChange={(e) => updateField("phone", e.target.value)}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500"
+                        placeholder="+44 7000 000000"
+                      />
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">Subject *</label>
@@ -194,7 +194,7 @@ export default function ContactPage() {
               </h2>
               <div className="mb-4 h-48 overflow-hidden rounded-lg bg-gray-200">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d214587.67358!2d-96.87!3d32.82!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c19f77b45974b%3A0xb9ec9ba4f647678f!2sDallas%2C%20TX!5e0!3m2!1sen!2sus!4v1"
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(STORE_ADDRESS)}&output=embed`}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -205,29 +205,29 @@ export default function ContactPage() {
                 />
               </div>
               <p className="flex items-start gap-2 text-sm text-gray-600">
-                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-green-600" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-green-600" />
                 {STORE_ADDRESS}
               </p>
             </div>
 
-            <div className="rounded-xl bg-white p-6 shadow-sm">
-              <h3 className="mb-3 flex items-center gap-2 font-bold text-gray-900">
+            <div className="rounded-xl bg-gray-700 p-6 shadow-sm">
+              <h3 className="mb-3 flex items-center gap-2 font-bold text-white">
                 <Clock className="h-5 w-5 text-green-600" />
                 Business Hours
               </h3>
-              <div className="space-y-2 text-sm">
+              <div className="space-y-2 text-sm text-white">
                 {[
                   { day: "Monday - Friday", hours: "6:00 AM - 6:00 PM" },
                   { day: "Saturday", hours: "6:00 AM - 4:00 PM" },
                   { day: "Sunday", hours: "8:00 AM - 2:00 PM" },
                 ].map((item) => (
-                  <div key={item.day} className="flex justify-between border-b border-gray-100 py-1.5 last:border-0">
-                    <span className="text-gray-600">{item.day}</span>
-                    <span className="font-medium text-gray-900">{item.hours}</span>
+                  <div key={item.day} className="flex justify-between border-b border-gray-200/30 py-1.5 last:border-0">
+                    <span className="text-white">{item.day}</span>
+                    <span className="font-medium text-white">{item.hours}</span>
                   </div>
                 ))}
               </div>
-              <p className="mt-3 text-xs text-gray-500">
+              <p className="mt-3 text-xs text-white">
                 Farm pickup available during business hours. Please call ahead.
               </p>
             </div>
