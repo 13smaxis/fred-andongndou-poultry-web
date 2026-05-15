@@ -321,7 +321,7 @@ export default function Header()
         </div>
 
         {mobileMenuOpen && (
-          <div className={`${mobileMenuClassName} backdrop-blur-sm bg-white/10 border-white/20 shadow-lg`}>
+          <div className={`${mobileMenuClassName} bg-white shadow-lg`}>
             <nav className="flex flex-col p-4 gap-1">
               <Link href="/" onClick={hardNavigate("/")} className={mobileNavLinkClass}>Home</Link>
               <Link href="/shop" onClick={hardNavigate("/shop")} className={mobileNavLinkClass}>Shop</Link>
