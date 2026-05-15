@@ -10,11 +10,11 @@ import chickenSchnitzel from "../images/chicken-schnitzel.jpg";
 export const STORE_NAME = "Five Seasons Farm";
 export const STORE_TAGLINE = "Fresh. Healthy. Trusted.";
 export const STORE_PHONE = "+447533 621359";
-export const STORE_WHATSAPP = "447533621359";
+export const STORE_WHATSAPP = "447859747384";
 export const STORE_FACEBOOK_URL = "https://www.facebook.com/fiveseasonsfarm";
 export const STORE_INSTAGRAM_URL = "https://www.instagram.com/fiveseasonsfarm";
 export const STORE_EMAIL = "poultryfarm@fiveseasonsafrica.com";
-export const STORE_ADDRESS = "1234 Farm Road, Green Valley, 7000";
+export const STORE_ADDRESS = "87 Newlaithes Crescent, Normanton, West Yorkshire, WF6 1SY, United Kingdom";
 export const SHIPPING_RULES = "Free shipping on all orders";
 
 export const HERO_IMAGE = "/hero.png";

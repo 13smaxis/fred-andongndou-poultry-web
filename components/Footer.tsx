@@ -46,6 +46,7 @@ export default function Footer() {
                 className="
                             flex-1 
                             px-4 py-3 
+                            border border-green-700
                             rounded-lg 
                             text-gray-500 
                             focus:outline-none focus:ring-2 focus:ring-green-400
@@ -91,7 +92,8 @@ export default function Footer() {
             <h4 className="text-lg font-bold">{STORE_NAME}</h4>
           </div>
           <p className="text-green-300 text-sm leading-relaxed mb-4">
-            Your trusted source for premium poultry products. Over 15 years of experience in raising healthy birds with high standards.
+            Your trusted source for premium poultry products. 
+            Over 15 years of experience in raising healthy birds with high standards.
           </p>
           <div className="flex gap-3">
             <a href={`https://wa.me/${STORE_WHATSAPP}`} 
@@ -149,7 +151,14 @@ export default function Footer() {
                  All Products
               </Link>
             </li>
-            <li><Link href="/shop/cart" className="text-green-300 hover:text-white text-sm transition-colors">Shopping Cart</Link></li>
+            <li><Link href="/shop/cart" 
+                      className="
+                                text-green-300 
+                                hover:text-white 
+                                text-sm transition-colors
+                              ">
+                          Shopping Cart
+            </Link></li>
           </ul>
         </div>
 
@@ -175,13 +184,31 @@ export default function Footer() {
               <span>{STORE_ADDRESS}</span>
             </li>
             <li>
-              <a href={`tel:${STORE_PHONE}`} className="flex items-center gap-2 text-green-300 hover:text-white text-sm transition-colors">
+              <a href={`tel:${STORE_PHONE}`} 
+                 className="
+                              flex items-center 
+                              gap-2 
+                              text-green-300 
+                              hover:text-white 
+                              text-sm 
+                              transition-colors
+                            "
+              >
                 <Phone className="w-4 h-4 shrink-0" />
                 {STORE_PHONE}
               </a>
             </li>
             <li>
-              <a href={`mailto:${STORE_EMAIL}`} className="flex items-center gap-2 text-green-300 hover:text-white text-sm transition-colors">
+              <a href={`mailto:${STORE_EMAIL}`} 
+                 className="
+                              flex items-center 
+                              gap-2 
+                              text-green-300 
+                              hover:text-white 
+                              text-sm 
+                              transition-colors
+                            "
+              >
                 <Mail className="w-4 h-4 shrink-0" />
                 {STORE_EMAIL}
               </a>
@@ -200,6 +227,12 @@ export default function Footer() {
       <div className="border-t border-green-800 py-6 text-center text-green-400 text-sm">
         <div className="max-w-7xl mx-auto px-4">
           <p>&copy; {new Date().getFullYear()} {STORE_NAME}. All rights reserved.</p>
+          <p>Powered by <a href="https://www.smaxis.co.za" 
+                           target="_blank" rel="noreferrer"
+                           className="text-green-300 hover:text-white underline"> 
+                  SMAXIS Digital Solutions
+            </a>
+          </p>
         </div>
       </div>
     </footer>

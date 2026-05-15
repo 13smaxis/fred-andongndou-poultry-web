@@ -182,13 +182,9 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-          setIsCarouselVisible(true);
-        } else {
-          setIsCarouselVisible(false);
-        }
+        setIsCarouselVisible(entry.isIntersecting);
       },
-      { threshold: [0, 0.2, 0.5, 1], rootMargin: '0px 0px -10% 0px' }
+      { threshold: [0], rootMargin: '0px' }
     );
 
     observer.observe(section);

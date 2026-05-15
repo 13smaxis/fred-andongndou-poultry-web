@@ -51,7 +51,14 @@ export default function Home()
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const featuredProducts = SHOP_PRODUCTS.filter((product) => product.tags?.includes('featured'));
+  const featuredProducts = useMemo(() => {
+    const seen = new Set<string>();
+    return SHOP_PRODUCTS.filter((product) => product.tags?.includes('featured')).filter((product) => {
+      if (seen.has(product.id)) return false;
+      seen.add(product.id);
+      return true;
+    });
+  }, []);
 
   const categoryList = useMemo(
     () => SHOP_CATEGORIES.filter((category) => category !== 'All'),
@@ -206,7 +213,7 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-6 bg-gray-700">                                                                 {/* STOCK AVAILABILITY */}
+      <section className="py-0.5 bg-gray-700">                                                                {/* STOCK AVAILABILITY */}
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="rounded-4xl bg-gray-700 p-3">
             <div className="relative rounded-4xl overflow-hidden border border-white/10 shadow-2xl">
@@ -254,7 +261,7 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-1 bg-gray-700">                                                                  {/* KNOWLEDGE PREVIEW */}
+      <section className="py-px bg-gray-700">                                                                 {/* KNOWLEDGE PREVIEW */}
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="rounded-4xl bg-gray-700 p-3">
             <div className="relative rounded-4xl overflow-hidden border border-white/10 shadow-2xl">
@@ -286,7 +293,7 @@ export default function Home()
                   </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-2 ">
+                <div className="grid sm:grid-cols-2 gap-2 justify-items-center md:gap-4">
                   {[
                     { title: 'How to Raise Broilers', desc: 'Complete guide from day-old to market weight', Icon: Egg },
                     { title: 'Feeding Schedules', desc: 'Optimal nutrition for every growth stage', Icon: Utensils },
@@ -296,18 +303,15 @@ export default function Home()
                     <Link
                       key={idx}
                       href="/knowledge"
-                      className="
-                                  group flex 
-                                  items-start 
-                                  gap-4 p-4 
-                                  rounded-lg 
-                                  bg-white/10 
-                                  backdrop-blur-sm 
-                                  hover:bg-white/15 transition-colors
-                                "
+                      className={
+                        [
+                          "group flex items-start gap-4 p-4 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/15 transition-colors",
+                          "max-w-[320px] mx-auto",
+                        ].join(' ')
+                      }
                     >
-                      <guide.Icon className="w-7 h-7 text-green-300 mt-1" />
-                      <div className="flex-1">
+                      <guide.Icon className="w-7 h-7 text-green-300 mt-1 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-white group-hover:text-green-300">{guide.title}</h3>
                         <p className="text-gray-300 text-sm">{guide.desc}</p>
                       </div>
@@ -412,25 +416,53 @@ export default function Home()
           />
           <button
             onClick={() => setGalleryModal(null)}
-            className="absolute top-4 right-4 text-white text-xl bg-black/50 w-10 h-10 rounded-full flex items-center justify-center hover:bg-black/70"
+            className="
+                        absolute 
+                        top-4 right-4 
+                        text-white text-xl 
+                        bg-black/50 
+                        w-10 h-10 
+                        rounded-full 
+                        flex items-center justify-center 
+                        hover:bg-black/70
+                      "
           >
             ×
           </button>
         </div>
       )}
-
-      {/* CTA SECTION */}
-      <section className="py-16 bg-green-800">
+      
+      <section className="py-16 bg-gray-50">                                                                  {/* CTA SECTION */}
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Order?</h2>
-          <p className="text-green-200 text-lg mb-8 max-w-xl mx-auto">
-            Whether you need a few birds for your family or thousands for your business, we&apos;re here to serve you. Order online or
-            via WhatsApp today.
-          </p>
+          <div className="
+                          rounded-4xl 
+                          bg-green-800 
+                          px-6 py-12 
+                          shadow-2xl 
+                          ring-1 ring-black/10 
+                          sm:px-10 md:px-12
+                        "
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Order?</h2>
+            <p className="text-green-200 text-lg mb-8 max-w-xl mx-auto">
+              Whether you need a few birds for your family or thousands for your business, we&apos;re here to serve you. 
+              <span className="font-bold text-yellow-300"> Order online or via WhatsApp today.</span>
+            </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => router.push('/shop')}
-              className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors text-lg"
+              className="
+                        bg-amber-500 
+                        hover:bg-amber-600 
+                        text-white 
+                        px-8 py-4 
+                        rounded-lg 
+                        font-semibold 
+                        flex items-center 
+                        justify-center 
+                        gap-2 transition-colors 
+                        text-lg
+                      "
             >
               <ShoppingCart className="w-5 h-5" />
               Browse Products
@@ -441,7 +473,18 @@ export default function Home()
               )}`}
               target="_blank"
               rel="noreferrer"
-              className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors text-lg"
+              className="
+                        bg-green-500 
+                        hover:bg-green-600 
+                        text-white 
+                        px-8 py-4 
+                        rounded-lg 
+                        font-semibold 
+                        flex items-center justify-center 
+                        gap-2 
+                        transition-colors 
+                        text-lg
+                      "
             >
               <MessageCircle className="w-5 h-5" />
               Bulk Order Enquiry
@@ -467,10 +510,10 @@ export default function Home()
             </a>
           </div>
         </div>
+      </div>
       </section>
-
-      {/* DELIVERY INFO */}
-      <section className="py-16 bg-white">
+      
+      <section className="py-2 bg-gray-50">                                                                  {/* DELIVERY INFO */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-10">
             <Truck className="w-10 h-10 text-green-600 mx-auto mb-3" />
@@ -495,7 +538,16 @@ export default function Home()
             ))}
           </div>
           <div className="text-center mt-6">
-            <Link href="/contact" className="inline-flex items-center gap-2 text-green-700 font-semibold hover:text-green-800">
+            <Link href="/contact" 
+                  className="
+                              inline-flex 
+                              items-center 
+                              gap-2 
+                              text-green-700 
+                              font-semibold 
+                              hover:text-green-800
+                            "
+            >
               View Full Delivery Details <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
