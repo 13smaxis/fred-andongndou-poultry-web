@@ -87,11 +87,11 @@ export default function HeroCarousel()
       aria-roledescription="carousel"
       aria-label="Farm hero showcase"
     >
-      <div className="relative min-h-[82vh] lg:hidden">
+      <div className="relative min-h-[74vh] lg:hidden">
         <div className="absolute inset-0 overflow-hidden bg-black">
-          <div className="relative h-full w-full overflow-hidden">
+          <div className="relative flex h-full w-full items-center justify-center overflow-hidden px-4 py-6 sm:px-6 sm:py-8">
             <div
-              className={`flex h-full w-full ${
+              className={`flex h-full w-full items-stretch ${
                 isResettingTransform
                   ? "transition-none"
                   : "transition-transform duration-1000 ease-out"
@@ -108,35 +108,39 @@ export default function HeroCarousel()
                 setIsImageLoaded(true);
               }}
             >
-              <div className="relative h-full w-full shrink-0 overflow-hidden">
-                <Image
-                  key={HERO_CAROUSEL_IMAGES[activeIndex].src}
-                  src={HERO_CAROUSEL_IMAGES[activeIndex]}
-                  alt={`${STORE_NAME} hero image ${activeIndex + 1}`}
-                  fill
-                  priority={activeIndex === 0}
-                  sizes="100vw"
-                  className="object-cover"
-                  onLoadingComplete={() => {
-                    setIsImageLoaded(true);
-                  }}
-                />
-                <div className="absolute inset-0 bg-black/10" />
-              </div>
-              {nextIndex !== null && (
-                <div className="relative h-full w-full shrink-0 overflow-hidden">
+              <div className="relative flex h-full w-full shrink-0 items-center justify-center overflow-hidden">
+                <div className="relative h-[42vh] w-full max-w-[420px] overflow-hidden rounded-[2rem] bg-black/10 shadow-[0_24px_60px_rgba(0,0,0,0.35)] sm:h-[48vh] sm:max-w-[460px]">
                   <Image
-                    key={HERO_CAROUSEL_IMAGES[nextIndex].src}
-                    src={HERO_CAROUSEL_IMAGES[nextIndex]}
-                    alt={`${STORE_NAME} hero image ${nextIndex + 1}`}
+                    key={HERO_CAROUSEL_IMAGES[activeIndex].src}
+                    src={HERO_CAROUSEL_IMAGES[activeIndex]}
+                    alt={`${STORE_NAME} hero image ${activeIndex + 1}`}
                     fill
-                    sizes="100vw"
-                    className="object-cover"
+                    priority={activeIndex === 0}
+                    sizes="(max-width: 768px) 92vw, 100vw"
+                    className="object-contain"
                     onLoadingComplete={() => {
-                      setIsTransitioning(true);
+                      setIsImageLoaded(true);
                     }}
                   />
                   <div className="absolute inset-0 bg-black/10" />
+                </div>
+              </div>
+              {nextIndex !== null && (
+                <div className="relative flex h-full w-full shrink-0 items-center justify-center overflow-hidden">
+                  <div className="relative h-[42vh] w-full max-w-[420px] overflow-hidden rounded-[2rem] bg-black/10 shadow-[0_24px_60px_rgba(0,0,0,0.35)] sm:h-[48vh] sm:max-w-[460px]">
+                    <Image
+                      key={HERO_CAROUSEL_IMAGES[nextIndex].src}
+                      src={HERO_CAROUSEL_IMAGES[nextIndex]}
+                      alt={`${STORE_NAME} hero image ${nextIndex + 1}`}
+                      fill
+                      sizes="(max-width: 768px) 92vw, 100vw"
+                      className="object-contain"
+                      onLoadingComplete={() => {
+                        setIsTransitioning(true);
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black/10" />
+                  </div>
                 </div>
               )}
             </div>
@@ -161,7 +165,7 @@ export default function HeroCarousel()
               eggs, and chicken mixed portions.
             </p>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="flex flex-col items-end gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-start">
               <Link
                 href="/shop"
                 className="
@@ -170,10 +174,11 @@ export default function HeroCarousel()
                             justify-center gap-2 
                             rounded-md 
                             bg-amber-500 
-                            px-4 py-2 
-                            text-sm font-semibold 
+                            px-3 py-2 
+                            text-xs font-semibold 
                             text-white transition-colors 
                             hover:bg-amber-600
+                            w-full max-w-[11.5rem] sm:w-auto sm:max-w-none sm:px-4 sm:py-2 sm:text-sm
                           "
               >
                 <ShoppingCart className="h-5 w-5" />
@@ -185,7 +190,7 @@ export default function HeroCarousel()
                 )}`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-green-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-green-600"
+                className="inline-flex w-full max-w-[11.5rem] items-center justify-center gap-2 rounded-md bg-green-500 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-green-600 sm:w-auto sm:max-w-none sm:px-4 sm:py-2 sm:text-sm"
               >
                 <MessageCircle className="h-5 w-5" />
                 WhatsApp Order
@@ -197,12 +202,13 @@ export default function HeroCarousel()
                             gap-2 
                             rounded-md 
                             bg-white/15 
-                            px-4 py-2 
-                            text-sm 
+                            px-3 py-2 
+                            text-xs 
                             font-semibold text-white 
                             backdrop-blur-sm 
                             transition-colors 
                             hover:bg-white/25
+                            w-full max-w-[11.5rem] sm:w-auto sm:max-w-none sm:px-4 sm:py-2 sm:text-sm
                           "
               >
                 <Phone className="h-5 w-5" />

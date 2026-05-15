@@ -78,9 +78,9 @@ const STOCK_BREAKPOINTS = {
 } as const;
 
 const MOBILE_BREAKPOINTS = {
-  0: { slidesPerView: 1, spaceBetween: 12 },
-  480: { slidesPerView: 1, spaceBetween: 14 },
-  640: { slidesPerView: 1, spaceBetween: 16 },
+  0: { slidesPerView: 1, spaceBetween: 0 },
+  480: { slidesPerView: 1, spaceBetween: 0 },
+  640: { slidesPerView: 1, spaceBetween: 0 },
 } as const;
 
 export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailabilityCarouselProps) 
@@ -133,10 +133,9 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
   /*
    * Starts auto-play immediately on desktop or when carousel becomes visible 
    * Auto-play is paused on user interaction and resumes after a delay of 5 seconds of inactivity. 
-   * Auto-play is disabled entirely on mobile devices for better usability.
    */
   const startAutoPlay = useCallback((immediateSlide = true) => {
-    if (isMobile || !swiperInstance) return;                                                                    //-Disable auto-play on mobile or if swiper is not initialized
+    if (!swiperInstance) return;
 
     if (resumeTimeoutRef.current) 
     {
@@ -152,7 +151,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
     autoPlayTimeoutRef.current = window.setInterval(() => {
       swiperInstance.slideNext();                                                                               //-Advance to the next slide at regular intervals defined by the auto-play timeout
     }, 2000);                                                                                                   //-Change slide every 4 seconds
-  }, [swiperInstance, isMobile]);
+  }, [swiperInstance]);
 
   // Pause auto-play and schedule resume
   const pauseAutoPlay = useCallback(() => {
@@ -209,10 +208,10 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
 
   // Start auto-play when carousel becomes visible and only on desktop, stop when not visible
   useEffect(() => {
-    if (isCarouselVisible && swiperInstance && !isMobile) {
+    if (isCarouselVisible && swiperInstance) {
       startAutoPlay(true);
     } else {
-      // Stop auto-play when not visible or on mobile
+      // Stop auto-play when not visible
       if (autoPlayTimeoutRef.current) {
         clearInterval(autoPlayTimeoutRef.current);
         autoPlayTimeoutRef.current = null;
@@ -231,7 +230,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
         clearTimeout(resumeTimeoutRef.current);
       }
     };
-  }, [isCarouselVisible, swiperInstance, isMobile, startAutoPlay]);
+  }, [isCarouselVisible, swiperInstance, startAutoPlay]);
 
   return (
     <section ref={sectionRef} className="relative py-2 [--swiper-theme-color:#16a34a]">
@@ -273,7 +272,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
             speed={swiperConfig.speed}
             spaceBetween={18}
             breakpoints={swiperConfig.breakpoints}
-            className="stock-carousel overflow-visible! px-2 md:px-8"
+            className="stock-carousel overflow-hidden md:overflow-visible! px-0 md:px-8"
             {...(swiperConfig.effect === 'coverflow' && swiperConfig.coverflowEffect
               ? { coverflowEffect: swiperConfig.coverflowEffect }
               : {})}
