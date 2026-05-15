@@ -286,7 +286,7 @@ export default function Header()
           </div>
 
           {/* Mobile row below header: logo left, cart + hamburger right */}
-          <div className="lg:hidden w-full border-t border-green-200 bg-white">
+          <div className="lg:hidden w-full">
             <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
               <Link href="/" className={`flex items-center gap-2 transition-opacity duration-300 ${isScrolled ? 'pointer-events-none opacity-0 -translate-y-2' : 'opacity-100'}`} onClick={hardNavigate("/")}>
                 <Image
