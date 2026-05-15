@@ -260,7 +260,7 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-px bg-gray-700 md:sticky md:top-[0.7rem] md:z-10">                            {/* KNOWLEDGE PREVIEW */}
+      <section className="py-px bg-gray-700 md:sticky md:top-[0.7rem] md:z-10">                               {/* KNOWLEDGE PREVIEW */}
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="rounded-4xl bg-gray-700 p-3">
             <div className="relative rounded-4xl overflow-hidden border border-white/10 shadow-2xl">
@@ -524,7 +524,7 @@ export default function Home()
       </div>
       </section>
       
-      <section className="py-2 bg-green-400 md:sticky rounded-t-[40px] md:top-[0.7rem] md:z-40">                        {/* DELIVERY INFO */}
+      <section className="py-2 bg-green-400 md:sticky rounded-t-[40px] md:top-[0.7rem] md:z-40">              {/* DELIVERY INFO */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-10">
             <Truck className="w-10 h-10 text-green-600 mx-auto mb-3" />

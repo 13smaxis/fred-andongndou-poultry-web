@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import type { MouseEvent } from "react";
 import { useCart } from "@/contexts/CartContext";
 import 
 {
@@ -90,6 +91,12 @@ export default function Header()
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
+  };
+
+  const hardNavigate = (href: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    closeMobileMenu();
+    window.location.assign(href);
   };
 
   const navLinkClass =
@@ -180,7 +187,7 @@ export default function Header()
       <header className={headerClassName}>                                                                      {/* Navbar */}
         <div className="relative max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="shrink-0 lg:ml-50">                                                                   {/* Logo wrapper */}
-            <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>                       {/* Logo link for mobile*/}
+            <Link href="/" className="flex items-center gap-2" onClick={hardNavigate("/")}>                       {/* Logo link for mobile*/}
               <Image
                 src="/logo_alpha.png"
                 alt={`${STORE_NAME} logo`}
@@ -205,6 +212,7 @@ export default function Header()
           >
             <nav className="flex items-center gap-1">                                                   {/* Desktop Navigation */}
               <Link href="/" 
+                    onClick={hardNavigate("/")}
                     className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass}
@@ -215,6 +223,7 @@ export default function Header()
             </Link>
             
               <Link href="/shop" 
+                    onClick={hardNavigate("/shop")}
                     className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
@@ -223,20 +232,20 @@ export default function Header()
               >
                 Shop
               </Link>
-              <Link href="/about" className={`
+              <Link href="/about" onClick={hardNavigate("/about")} className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
                                 ${isActive("/about") ? "text-green-700" : ""}`}
               >
                 About
               </Link>
-              <Link href="/knowledge" className={`
+              <Link href="/knowledge" onClick={hardNavigate("/knowledge")} className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
                                 ${isActive("/knowledge") ? "text-green-700" : ""}`}>
                 Guides
               </Link>
-              <Link href="/contact" className={`
+              <Link href="/contact" onClick={hardNavigate("/contact")} className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
                                 ${isActive("/contact") ? "text-green-700" : ""}`}>Contact</Link>
@@ -247,6 +256,7 @@ export default function Header()
             {cartCount > 0 && (
               <Link
                 href="/shop/cart"
+                onClick={hardNavigate("/shop/cart")}
                 className="
                             relative h-12 w-12 
                             rounded-2xl 
@@ -279,6 +289,7 @@ export default function Header()
               {cartCount > 0 && (
                 <Link
                   href="/shop/cart"
+                  onClick={hardNavigate("/shop/cart")}
                   className="
                           absolute left-0 top-1/2 -translate-y-1/2
                           h-10 w-10
@@ -316,11 +327,11 @@ export default function Header()
         {mobileMenuOpen && (
           <div className={`${mobileMenuClassName} backdrop-blur-sm bg-white/10 border-white/20 shadow-lg`}>
             <nav className="flex flex-col p-4 gap-1">
-              <Link href="/" onClick={closeMobileMenu} className={mobileNavLinkClass}>Home</Link>
-              <Link href="/shop" onClick={closeMobileMenu} className={mobileNavLinkClass}>Shop</Link>
-              <Link href="/about" onClick={closeMobileMenu} className={mobileNavLinkClass}>About</Link>
-              <Link href="/knowledge" onClick={closeMobileMenu} className={mobileNavLinkClass}>Guides</Link>
-              <Link href="/contact" onClick={closeMobileMenu} className={mobileNavLinkClass}>Contact</Link>
+              <Link href="/" onClick={hardNavigate("/")} className={mobileNavLinkClass}>Home</Link>
+              <Link href="/shop" onClick={hardNavigate("/shop")} className={mobileNavLinkClass}>Shop</Link>
+              <Link href="/about" onClick={hardNavigate("/about")} className={mobileNavLinkClass}>About</Link>
+              <Link href="/knowledge" onClick={hardNavigate("/knowledge")} className={mobileNavLinkClass}>Guides</Link>
+              <Link href="/contact" onClick={hardNavigate("/contact")} className={mobileNavLinkClass}>Contact</Link>
             </nav>
           </div>
         )}

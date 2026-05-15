@@ -140,21 +140,21 @@ export default function KnowledgePage() {
 
         <div className="space-y-4">
           {filteredGuides.map((guide) => (
-            <div key={guide.id} className="overflow-hidden rounded-xl border bg-white shadow-sm">
+            <div key={guide.id} className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100 border-transparent">
               <button
                 onClick={() => setExpandedId(expandedId === guide.id ? null : guide.id)}
-                className="flex w-full items-start gap-4 p-5 text-left transition-colors hover:bg-gray-50"
+                className="flex w-full items-start gap-4 p-5 text-left transition-colors hover:bg-gray-50 active:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-200"
               >
-                <guide.icon className="mt-1 h-8 w-8 flex-shrink-0 text-green-600" />
+                <guide.icon className="mt-1 h-8 w-8 shrink-0 text-green-600" />
                 <div className="flex-1">
                   <span className="text-xs font-medium uppercase tracking-wider text-green-600">{guide.category}</span>
                   <h3 className="mt-0.5 text-lg font-semibold text-gray-900">{guide.title}</h3>
                   <p className="mt-1 text-sm text-gray-600">{guide.summary}</p>
                 </div>
                 {expandedId === guide.id ? (
-                  <ChevronUp className="mt-1 h-5 w-5 flex-shrink-0 text-gray-400" />
+                  <ChevronUp className="mt-1 h-5 w-5 shrink-0 text-gray-400" />
                 ) : (
-                  <ChevronDown className="mt-1 h-5 w-5 flex-shrink-0 text-gray-400" />
+                  <ChevronDown className="mt-1 h-5 w-5 shrink-0 text-gray-400" />
                 )}
               </button>
               {expandedId === guide.id && (

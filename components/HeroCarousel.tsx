@@ -11,7 +11,7 @@ import {
   STORE_WHATSAPP,
 } from "@/lib/constants";
 
-const AUTOPLAY_DELAY = 5500;
+const AUTOPLAY_DELAY = 3500;                                                                                    //-Delay between automatic slide transitions in milliseconds (3.5 seconds)
 
 export default function HeroCarousel() 
 {

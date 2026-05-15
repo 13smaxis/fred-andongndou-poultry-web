@@ -225,7 +225,7 @@ export const SHOP_PROMOTIONS: PromotionSlide[] = [
         title: "Best Sellers This Week",
         subtitle: "Top picks loved by households and restaurants.",
         badge: "Best Buy",
-        image: broilersSrc,
+        image: jumboEggsSrc,
     },
     {
         id: "weekly-discounts",
@@ -239,6 +239,6 @@ export const SHOP_PROMOTIONS: PromotionSlide[] = [
         title: "Featured Farm Picks",
         subtitle: "Fresh eggs picked daily from the farm.",
         badge: "Featured",
-        image: eggsSrc,
+        image: broilersSrc,
     },
 ];

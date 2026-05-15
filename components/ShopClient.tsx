@@ -68,25 +68,27 @@ export default function ShopClient() {
         onMouseEnter={() => setIsCarouselPaused(true)}
         onMouseLeave={() => setIsCarouselPaused(false)}
       >
-        <div className="relative h-56 sm:h-64 md:h-72">
-          {SHOP_PROMOTIONS.map((slide, idx) => (
-            <div
-              key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-500 ${activeSlide === idx ? "opacity-100" : "opacity-0"}`}
-            >
-              <Image src={slide.image} alt={slide.title} fill className="object-cover" unoptimized />
-              <div className="absolute inset-0 bg-linear-to-r from-green-900/80 via-green-900/55 to-transparent" />
-              <div className="absolute inset-0 flex items-end p-6 md:p-8">
-                <div className="max-w-xl text-white">
-                  <span className="mb-2 inline-block rounded-full bg-amber-500 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-                    {slide.badge}
-                  </span>
-                  <h2 className="text-2xl font-bold md:text-3xl">{slide.title}</h2>
-                  <p className="mt-2 text-sm text-green-100 md:text-base">{slide.subtitle}</p>
+        <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
+          <div
+            className="flex h-full transition-transform duration-500"
+            style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+          >
+            {SHOP_PROMOTIONS.map((slide) => (
+              <div key={slide.id} className="flex-none w-full relative">
+                <Image src={slide.image} alt={slide.title} fill className="object-cover" unoptimized />
+                <div className="absolute inset-0 bg-linear-to-r from-green-900/80 via-green-900/55 to-transparent" />
+                <div className="absolute inset-0 flex items-end p-6 md:p-8">
+                  <div className="max-w-xl text-white">
+                    <span className="mb-2 inline-block rounded-full bg-amber-500 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                      {slide.badge}
+                    </span>
+                    <h2 className="text-2xl font-bold md:text-3xl">{slide.title}</h2>
+                    <p className="mt-2 text-sm text-green-100 md:text-base">{slide.subtitle}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 

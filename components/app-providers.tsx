@@ -1,7 +1,8 @@
 "use client";
 
 import { CartProvider } from "@/contexts/CartContext";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
 /*
@@ -13,6 +14,9 @@ import Lenis from "lenis";
  */
 export function AppProviders({ children }: { children: React.ReactNode }) 
 {
+  const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -29,6 +33,9 @@ export function AppProviders({ children }: { children: React.ReactNode })
       touchMultiplier: 1.2,
     });
 
+    lenisRef.current = lenis;
+    window.history.scrollRestoration = 'manual';
+
     let frameId = 0;
 
     const animate = (time: number) => {
@@ -41,8 +48,15 @@ export function AppProviders({ children }: { children: React.ReactNode })
     return () => {
       window.cancelAnimationFrame(frameId);
       lenis.destroy();
+      lenisRef.current = null;
+      window.history.scrollRestoration = 'auto';
     };
   }, []);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    lenisRef.current?.scrollTo(0, { immediate: true });
+  }, [pathname]);
 
   return <CartProvider>{children}</CartProvider>;
 }
