@@ -23,14 +23,7 @@ const containerVariants = {
 
 const cardVariants = {
   hidden: { y: 48, opacity: 0 },
-  show: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut',
-    },
-  },
+  show: { y: 0, opacity: 1 },
 };
 
 export default function TimelineAnimated({ items }: TimelineAnimatedProps) {
@@ -43,7 +36,12 @@ export default function TimelineAnimated({ items }: TimelineAnimatedProps) {
       viewport={{ once: true, amount: 0.2 }}
     >
       {items.map((item, idx) => (
-        <motion.div key={idx} variants={cardVariants} className="mb-6 flex gap-4 last:mb-16">
+        <motion.div
+          key={idx}
+          variants={cardVariants}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-6 flex gap-4 last:mb-16"
+        >
           <div className="flex flex-col items-center">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-600 text-xs font-bold text-white">
               {item.year}
