@@ -7,7 +7,7 @@ import freeRangeBroilers from "../images/free-range-broilers.jpg";
 import eggs from "../images/single-tray.jpg";
 import chickenSchnitzel from "../images/chicken-schnitzel.jpg";
 
-export const STORE_NAME = "Five Seasons Farm";
+export const STORE_NAME = "Five Seasons Farm ";
 export const STORE_TAGLINE = "Fresh. Healthy. Trusted.";
 export const STORE_PHONE = "+447533 621359";
 export const STORE_WHATSAPP = "447859747384";

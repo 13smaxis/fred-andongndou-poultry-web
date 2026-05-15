@@ -443,7 +443,7 @@ export default function Home()
         </div>
       )}
       
-      <section className="py-48 md:py-56 bg-gray-50 md:sticky md:top-[0.7rem] md:z-30">                       {/* CTA SECTION */}
+      <section className="py-38 md:py-56 bg-gray-50 md:sticky md:top-[0.7rem] md:z-30">                       {/* CTA SECTION */}
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="
                           rounded-4xl 
