@@ -19,7 +19,8 @@ interface StockItem                                                             
   color: 'green' | 'amber';
 }
 
-interface StockAvailabilityCarouselProps {
+interface StockAvailabilityCarouselProps 
+{
   stockUpdates: readonly StockItem[];                                                                           //-Marked as readonly to indicate immutability
 }
 
@@ -30,7 +31,8 @@ const getProductImage = (productName: string): string => {
     (product) => product.name.trim().toLowerCase() === normalizedProduct
   );
 
-  if (exactMatch) {
+  if (exactMatch) 
+  {
     return exactMatch.image;
   }
 
@@ -81,7 +83,8 @@ const MOBILE_BREAKPOINTS = {
   640: { slidesPerView: 1, spaceBetween: 16 },
 } as const;
 
-export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailabilityCarouselProps) {
+export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailabilityCarouselProps) 
+{
   const sectionRef = useRef<HTMLElement | null>(null);
   const [isCarouselVisible, setIsCarouselVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -127,6 +130,30 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
     };
   }, [isMobile]);
 
+  /*
+   * Starts auto-play immediately on desktop or when carousel becomes visible 
+   * Auto-play is paused on user interaction and resumes after a delay of 5 seconds of inactivity. 
+   * Auto-play is disabled entirely on mobile devices for better usability.
+   */
+  const startAutoPlay = useCallback((immediateSlide = true) => {
+    if (isMobile || !swiperInstance) return;                                                                    //-Disable auto-play on mobile or if swiper is not initialized
+
+    if (resumeTimeoutRef.current) 
+    {
+      clearTimeout(resumeTimeoutRef.current);                                                                   //-Clear any pending resume timeout to prevent multiple timers
+      resumeTimeoutRef.current = null;                                                                          //-Reset the ref to indicate no pending resume action
+    }
+
+    if (immediateSlide) 
+    {
+      swiperInstance.slideNext();                                                                               //-Advance to the next slide immediately when auto-play starts
+    }
+
+    autoPlayTimeoutRef.current = window.setInterval(() => {
+      swiperInstance.slideNext();                                                                               //-Advance to the next slide at regular intervals defined by the auto-play timeout
+    }, 2000);                                                                                                   //-Change slide every 4 seconds
+  }, [swiperInstance, isMobile]);
+
   // Pause auto-play and schedule resume
   const pauseAutoPlay = useCallback(() => {
     if (autoPlayTimeoutRef.current) {
@@ -139,23 +166,9 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
     }
 
     resumeTimeoutRef.current = window.setTimeout(() => {
-      startAutoPlay();
+      startAutoPlay(false);
     }, 5000);
-  }, []);
-
-  // Start auto-play
-  const startAutoPlay = useCallback(() => {
-    if (isMobile || !swiperInstance) return;
-
-    if (resumeTimeoutRef.current) {
-      clearTimeout(resumeTimeoutRef.current);
-      resumeTimeoutRef.current = null;
-    }
-
-    autoPlayTimeoutRef.current = window.setInterval(() => {
-      swiperInstance.slideNext();
-    }, 4000);
-  }, [swiperInstance, isMobile]);
+  }, [startAutoPlay]);
 
   const cycleRegion = useCallback(
     (direction: 1 | -1) => {
@@ -182,9 +195,9 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsCarouselVisible(entry.isIntersecting);
+        setIsCarouselVisible(entry.intersectionRatio >= 0.05);
       },
-      { threshold: [0], rootMargin: '0px' }
+      { threshold: [0.05], rootMargin: '0px' }
     );
 
     observer.observe(section);
@@ -197,7 +210,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
   // Start auto-play when carousel becomes visible and only on desktop, stop when not visible
   useEffect(() => {
     if (isCarouselVisible && swiperInstance && !isMobile) {
-      startAutoPlay();
+      startAutoPlay(true);
     } else {
       // Stop auto-play when not visible or on mobile
       if (autoPlayTimeoutRef.current) {
@@ -221,7 +234,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
   }, [isCarouselVisible, swiperInstance, isMobile, startAutoPlay]);
 
   return (
-    <section ref={sectionRef} className="relative py-8 [--swiper-theme-color:#16a34a]">
+    <section ref={sectionRef} className="relative py-2 [--swiper-theme-color:#16a34a]">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={isCarouselVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -269,7 +282,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
               const image = getProductImage(item.product);
 
               return (
-                <SwiperSlide key={`${item.product}-${index}`} className="h-auto! py-3">
+                <SwiperSlide key={`${item.product}-${index}`} className="h-auto! py-2">
                   <div className="
                                     relative 
                                     overflow-hidden 
@@ -290,7 +303,7 @@ export default function StockAvailabilityCarousel({ stockUpdates }: StockAvailab
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/40 to-transparent" />
 
-                    <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                    <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
                       <div className="flex items-center gap-2 mb-3">
                         <div
                           className={`w-3 h-3 rounded-full ${item.color === 'green' ? 'bg-green-400' : 'bg-amber-400'

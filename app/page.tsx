@@ -224,10 +224,9 @@ export default function Home()
               <div className="
                                 absolute 
                                 inset-0 
-                                bg-linear-to-br from-black/40 via-slate-900/35 to-black/25
                               " 
-              />
-
+              />                                                                                                {/* No overlay for this section to keep it brighter for readability bg-linear-to-br from-black/40 via-slate-900/35 to-black/25 */}
+              
               <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
                 <div className="text-center mb-6">
                   <Calendar className="w-10 h-10 text-white mx-auto mb-3" />
@@ -272,9 +271,9 @@ export default function Home()
               <div className="
                                 absolute 
                                 inset-0 
-                                bg-linear-to-br from-black/40 via-slate-900/35 to-black/25
+                               
                               " 
-              />
+              />                                                                                                {/* No overlay for this section to keep it brighter for readability */}
               <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
                 <div className="text-center mb-6">
                   <BookOpen className="w-10 h-10 text-green-200 mx-auto mb-3" />
@@ -293,7 +292,8 @@ export default function Home()
                   </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-2 justify-items-center md:gap-4">
+                <div className="flex flex-col items-start gap-2 md:gap-4">
+                  {/* stacked vertically, left-aligned */}
                   {[
                     { title: 'How to Raise Broilers', desc: 'Complete guide from day-old to market weight', Icon: Egg },
                     { title: 'Feeding Schedules', desc: 'Optimal nutrition for every growth stage', Icon: Utensils },
@@ -306,11 +306,11 @@ export default function Home()
                       className={
                         [
                           "group flex items-start gap-4 p-4 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/15 transition-colors",
-                          "max-w-[320px] mx-auto",
+                          "w-full max-w-[320px]",
                         ].join(' ')
                       }
                     >
-                      <guide.Icon className="w-7 h-7 text-green-300 mt-1 flex-shrink-0" />
+                      <guide.Icon className="w-7 h-7 text-green-300 mt-1 shrink-0" />
                         <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-white group-hover:text-green-300">{guide.title}</h3>
                         <p className="text-gray-300 text-sm">{guide.desc}</p>
