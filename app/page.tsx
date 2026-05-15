@@ -260,7 +260,7 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-px bg-gray-700">                                                                 {/* KNOWLEDGE PREVIEW */}
+      <section className="py-px bg-gray-700 md:sticky md:top-[0.7rem] md:z-10">                            {/* KNOWLEDGE PREVIEW */}
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="rounded-4xl bg-gray-700 p-3">
             <div className="relative rounded-4xl overflow-hidden border border-white/10 shadow-2xl">
@@ -298,7 +298,6 @@ export default function Home()
                     { title: 'How to Raise Broilers', desc: 'Complete guide from day-old to market weight', Icon: Egg },
                     { title: 'Feeding Schedules', desc: 'Optimal nutrition for every growth stage', Icon: Utensils },
                     { title: 'Disease Prevention', desc: 'Keep your flock healthy and productive', Icon: Bug },
-                    { title: 'Vaccination Calendar', desc: 'Complete schedule for broilers and layers', Icon: Syringe },
                   ].map((guide, idx) => (
                     <Link
                       key={idx}
@@ -375,7 +374,7 @@ export default function Home()
         </svg>
       </section>  */}
 
-      <section className="py-16 bg-gray-50">                                                                  {/* GALLERY */}
+      <section className="relative z-20 mt-24 rounded-t-[40px] bg-gray-50 py-16 shadow-2xl" >                                             {/* GALLERY */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-10">
             <Camera className="w-10 h-10 text-green-600 mx-auto mb-3" />
@@ -387,13 +386,26 @@ export default function Home()
               <button
                 key={idx}
                 onClick={() => setGalleryModal(idx)}
-                className="aspect-video rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group"
+                className="
+                            aspect-video 
+                            rounded-xl 
+                            overflow-hidden 
+                            shadow-sm 
+                            hover:shadow-lg 
+                            transition-all group
+                          "
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img}
                   alt={`Farm gallery ${idx + 1}`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="
+                              w-full h-full 
+                              object-cover 
+                              group-hover:scale-105 
+                              transition-transform 
+                              duration-500
+                            "
                 />
               </button>
             ))}
@@ -401,12 +413,12 @@ export default function Home()
         </div>
       </section>
 
-      {/* Gallery Modal */}
+      
       {galleryModal !== null && (
         <div
           className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
           onClick={() => setGalleryModal(null)}
-        >
+        >                                                                                                       {/* Gallery Modal */}
           <Image
             src={GALLERY_IMAGES[galleryModal]}
             alt=""
@@ -427,12 +439,11 @@ export default function Home()
                         hover:bg-black/70
                       "
           >
-            ×
           </button>
         </div>
       )}
       
-      <section className="py-16 bg-gray-50">                                                                  {/* CTA SECTION */}
+      <section className="py-48 md:py-56 bg-gray-50 md:sticky md:top-[0.7rem] md:z-30">                       {/* CTA SECTION */}
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="
                           rounded-4xl 
@@ -513,7 +524,7 @@ export default function Home()
       </div>
       </section>
       
-      <section className="py-2 bg-gray-50">                                                                  {/* DELIVERY INFO */}
+      <section className="py-2 bg-green-400 md:sticky rounded-t-[40px] md:top-[0.7rem] md:z-40">                        {/* DELIVERY INFO */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-10">
             <Truck className="w-10 h-10 text-green-600 mx-auto mb-3" />
