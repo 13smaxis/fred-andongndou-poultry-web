@@ -20,8 +20,9 @@ import {
 } from '@/lib/constants';
 import { SHOP_CATEGORIES, SHOP_PRODUCTS } from '@/lib/shop-data';
 import {
-        ArrowRight, Phone, MessageCircle, Truck, Shield, Leaf, BookOpen,
-        Camera, Calendar, ShoppingCart, Users, Heart, Egg, Syringe, Bug, Utensils,
+  ArrowRight, Phone, MessageCircle, Truck, Shield, Leaf,
+  Camera, Calendar, ShoppingCart, Users, Heart, Egg, Syringe, Bug, Utensils,
+  Bird, Drumstick, Package, Wheat,
 } from 'lucide-react';
 
 
@@ -43,7 +44,7 @@ const stockUpdates = [
  * It also sets up an interval to auto-rotate testimonials every 5 seconds. 
  * The page is structured into multiple sections: 
  *    - Hero, Trust Badges, Shop by Category, Featured Products, Stock Availability, About Preview, Testimonials, 
- *    - Knowledge Preview, Gallery, CTA, and Delivery Info. 
+ *    - Products Preview, Gallery, CTA, and Delivery Info. 
  */
 export default function Home() 
 {
@@ -260,61 +261,69 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-px bg-gray-700 md:sticky md:top-[0.7rem] md:z-10">                               {/* KNOWLEDGE PREVIEW */}
-        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <section className="py-px bg-gray-700 md:sticky md:top-[0.7rem] md:z-10">
+        <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
           <div className="rounded-4xl bg-gray-700 p-3">
-            <div className="relative rounded-4xl overflow-hidden border border-white/10 shadow-2xl">
-              <div
-                className="absolute inset-0 bg-fixed bg-center bg-cover"
-                style={{ backgroundImage: `url(${HERO_IMAGE})` }}
-              />
-              <div className="
-                                absolute 
-                                inset-0 
-                               
-                              " 
-              />                                                                                                {/* No overlay for this section to keep it brighter for readability */}
+            <div className="relative overflow-hidden rounded-4xl border border-white/10 shadow-2xl">
+              <div className="absolute inset-0 bg-fixed bg-center bg-cover" style={{ backgroundImage: `url(${HERO_IMAGE})` }} />
+              <div className="absolute inset-0" />
               <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
-                <div className="text-center mb-6">
-                  <BookOpen className="w-10 h-10 text-green-200 mx-auto mb-3" />
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">
-                    Poultry <span className="text-yellow-400">Care Guides</span>
+                <div className="mb-6 text-center">
+                  <Package className="mx-auto mb-3 h-10 w-10 text-green-200" />
+                  <h2 className="mb-1 text-2xl font-bold text-white md:text-3xl">
+                    Our <span className="text-yellow-400">Products</span>
                   </h2>
-                  <p className="
-                                  text-center text-lg text-gray-200 
-                                  bg-amber-800 
-                                  inline-flex 
-                                  px-4 py-2 
-                                  rounded-lg
-                                "
-                  >
-                    Expert knowledge to help you raise healthy, productive poultry
+                  <p className="inline-flex rounded-lg bg-amber-800 px-4 py-2 text-center text-lg text-gray-200">
+                    Browse the four product ranges we stock for homes, kitchens, and farms
                   </p>
                 </div>
 
-                <div className="flex flex-col items-start gap-2 md:gap-4">
-                  {/* stacked vertically, left-aligned */}
+                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                   {[
-                    { title: 'How to Raise Broilers', desc: 'Complete guide from day-old to market weight', Icon: Egg },
-                    { title: 'Feeding Schedules', desc: 'Optimal nutrition for every growth stage', Icon: Utensils },
-                    { title: 'Disease Prevention', desc: 'Keep your flock healthy and productive', Icon: Bug },
-                  ].map((guide, idx) => (
+                    {
+                      title: 'Live Chickens',
+                      desc: 'Healthy broilers, day-old chicks, hens, and free-range birds for every flock size.',
+                      Icon: Bird,
+                      category: 'Live Chicken',
+                    },
+                    {
+                      title: 'Chicken Portions',
+                      desc: 'Fresh-cut wings, thighs, breasts, backs, and mixed portions for easy meals.',
+                      Icon: Drumstick,
+                      category: 'Tender Chicken Portions',
+                    },
+                    {
+                      title: 'Eggs',
+                      desc: 'Farm-fresh trays of large and jumbo eggs for households, bakeries, and caterers.',
+                      Icon: Egg,
+                      category: 'Eggs',
+                    },
+                    {
+                      title: 'Feed',
+                      desc: 'Grower and layer feed designed to support healthy growth and strong egg output.',
+                      Icon: Wheat,
+                      category: 'Feed',
+                    },
+                  ].map((product) => (
                     <Link
-                      key={idx}
-                      href="/knowledge"
-                      className={
-                        [
-                          "group flex items-start gap-4 p-4 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/15 transition-colors",
-                          "w-full max-w-[320px]",
-                        ].join(' ')
-                      }
+                      key={product.title}
+                      href={`/products?category=${encodeURIComponent(product.category)}`}
+                      className="group flex h-full flex-col gap-4 rounded-2xl border border-white/10 bg-white/10 p-5 text-left backdrop-blur-sm transition-all hover:-translate-y-1 hover:bg-white/15 hover:shadow-xl"
                     >
-                      <guide.Icon className="w-7 h-7 text-green-300 mt-1 shrink-0" />
-                        <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-white group-hover:text-green-300">{guide.title}</h3>
-                        <p className="text-gray-300 text-sm">{guide.desc}</p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400/20 text-green-200 ring-1 ring-white/10">
+                          <product.Icon className="h-6 w-6" />
+                        </div>
+                        <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-green-100">View range</span>
                       </div>
-                      <span className="text-yellow-400 mt-1"><ArrowRight className="w-4 h-4" /></span>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-lg font-semibold text-white group-hover:text-green-300">{product.title}</h3>
+                        <p className="mt-2 text-sm leading-6 text-gray-200">{product.desc}</p>
+                      </div>
+                      <span className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-yellow-300">
+                        Explore products
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </span>
                     </Link>
                   ))}
                 </div>
@@ -324,57 +333,7 @@ export default function Home()
         </div>
       </section>
 
-  {/*   <section className="py-16 bg-gray-50 relative pt-12">                                                    TESTIMONIALS 
-  Top torn paper divider 
-        <svg className="absolute top-0 left-0 right-0 h-8 w-full" viewBox="0 0 1200 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,8 Q8,4 16,8 T32,8 T48,8 T64,8 T80,8 T96,8 T112,8 T128,8 T144,8 T160,8 T176,8 T192,8 T208,8 T224,8 T240,8 T256,8 T272,8 T288,8 T304,8 T320,8 T336,8 T352,8 T368,8 T384,8 T400,8 T416,8 T432,8 T448,8 T464,8 T480,8 T496,8 T512,8 T528,8 T544,8 T560,8 T576,8 T592,8 T608,8 T624,8 T640,8 T656,8 T672,8 T688,8 T704,8 T720,8 T736,8 T752,8 T768,8 T784,8 T800,8 T816,8 T832,8 T848,8 T864,8 T880,8 T896,8 T912,8 T928,8 T944,8 T960,8 T976,8 T992,8 T1008,8 T1024,8 T1040,8 T1056,8 T1072,8 T1088,8 T1104,8 T1120,8 T1136,8 T1152,8 T1168,8 T1184,8 T1200,8 L1200,0 L0,0 Z" fill="white" stroke="none" />
-        </svg>
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">What Our Customers Say</h2>
-            <p className="text-gray-600">Trusted by farmers, restaurants, and families across the region</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {testimonials.slice(0, 4).map((t, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-6 shadow-sm border hover:shadow-md transition-shadow">
-                <div className="flex gap-1 mb-3">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
-                  ))}
-                </div>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">&ldquo;{t.text}&rdquo;</p>
-                <div>
-                  <p className="font-semibold text-gray-900 text-sm">{t.name}</p>
-                  <p className="text-xs text-gray-500">{t.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-  More testimonials row 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-            {testimonials.slice(4, 8).map((t, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-6 shadow-sm border hover:shadow-md transition-shadow">
-                <div className="flex gap-1 mb-3">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
-                  ))}
-                </div>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">&ldquo;{t.text}&rdquo;</p>
-                <div>
-                  <p className="font-semibold text-gray-900 text-sm">{t.name}</p>
-                  <p className="text-xs text-gray-500">{t.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-  Bottom torn paper divider 
-        <svg className="absolute bottom-0 left-0 right-0 h-8 w-full" viewBox="0 0 1200 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,16 Q8,20 16,16 T32,16 T48,16 T64,16 T80,16 T96,16 T112,16 T128,16 T144,16 T160,16 T176,16 T192,16 T208,16 T224,16 T240,16 T256,16 T272,16 T288,16 T304,16 T320,16 T336,16 T352,16 T368,16 T384,16 T400,16 T416,16 T432,16 T448,16 T464,16 T480,16 T496,16 T512,16 T528,16 T544,16 T560,16 T576,16 T592,16 T608,16 T624,16 T640,16 T656,16 T672,16 T688,16 T704,16 T720,16 T736,16 T752,16 T768,16 T784,16 T800,16 T816,16 T832,16 T848,16 T864,16 T880,16 T896,16 T912,16 T928,16 T944,16 T960,16 T976,16 T992,16 T1008,16 T1024,16 T1040,16 T1056,16 T1072,16 T1088,16 T1104,16 T1120,16 T1136,16 T1152,16 T1168,16 T1184,16 T1200,16 L1200,24 L0,24 Z" fill="white" stroke="none" />
-        </svg>
-      </section>  */}
-
-      <section className="relative z-20 mt-24 rounded-t-[40px] bg-gray-50 py-16 shadow-2xl" >                                             {/* GALLERY */}
+      <section className="relative z-20 mt-24 rounded-t-[40px] bg-gray-50 py-16 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-10">
             <Camera className="w-10 h-10 text-green-600 mx-auto mb-3" />
@@ -386,26 +345,13 @@ export default function Home()
               <button
                 key={idx}
                 onClick={() => setGalleryModal(idx)}
-                className="
-                            aspect-video 
-                            rounded-xl 
-                            overflow-hidden 
-                            shadow-sm 
-                            hover:shadow-lg 
-                            transition-all group
-                          "
+                className="aspect-video overflow-hidden rounded-xl shadow-sm transition-all hover:shadow-lg group"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img}
                   alt={`Farm gallery ${idx + 1}`}
-                  className="
-                              w-full h-full 
-                              object-cover 
-                              group-hover:scale-105 
-                              transition-transform 
-                              duration-500
-                            "
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </button>
             ))}
@@ -413,153 +359,87 @@ export default function Home()
         </div>
       </section>
 
-      
       {galleryModal !== null && (
-        <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-          onClick={() => setGalleryModal(null)}
-        >                                                                                                       {/* Gallery Modal */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4" onClick={() => setGalleryModal(null)}>
           <Image
             src={GALLERY_IMAGES[galleryModal]}
             alt=""
             width={1600}
             height={1200}
-            className="max-w-full max-h-[80vh] rounded-xl object-contain"
+            className="max-h-[80vh] max-w-full rounded-xl object-contain"
           />
           <button
             onClick={() => setGalleryModal(null)}
-            className="
-                        absolute 
-                        top-4 right-4 
-                        text-white text-xl 
-                        bg-black/50 
-                        w-10 h-10 
-                        rounded-full 
-                        flex items-center justify-center 
-                        hover:bg-black/70
-                      "
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-xl text-white hover:bg-black/70"
           >
+            ×
           </button>
         </div>
       )}
-      
-      <section className="py-38 md:py-56 bg-gray-50 md:sticky md:top-[0.7rem] md:z-30">                       {/* CTA SECTION */}
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="
-                          rounded-4xl 
-                          bg-green-800 
-                          px-6 py-12 
-                          shadow-2xl 
-                          ring-1 ring-black/10 
-                          sm:px-10 md:px-12
-                        "
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Order?</h2>
-            <p className="text-green-200 text-lg mb-8 max-w-xl mx-auto">
-              Whether you need a few birds for your family or thousands for your business, we&apos;re here to serve you. 
+
+      <section className="py-24 bg-gray-50 md:sticky md:top-[0.7rem] md:z-30">
+        <div className="mx-auto max-w-4xl px-4 text-center">
+          <div className="rounded-4xl bg-green-800 px-6 py-12 shadow-2xl ring-1 ring-black/10 sm:px-10 md:px-12">
+            <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">Ready to Order?</h2>
+            <p className="mx-auto mb-8 max-w-xl text-lg text-green-200">
+              Whether you need a few birds for your family or thousands for your business, we&apos;re here to serve you.
               <span className="font-bold text-yellow-300"> Order online or via WhatsApp today.</span>
             </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => router.push('/shop')}
-              className="
-                        bg-amber-500 
-                        hover:bg-amber-600 
-                        text-white 
-                        px-8 py-4 
-                        rounded-lg 
-                        font-semibold 
-                        flex items-center 
-                        justify-center 
-                        gap-2 transition-colors 
-                        text-lg
-                      "
-            >
-              <ShoppingCart className="w-5 h-5" />
-              Browse Products
-            </button>
-            <a
-              href={`https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(
-                'Hi! I would like to place a bulk order. Please share product availability.'
-              )}`}
-              target="_blank"
-              rel="noreferrer"
-              className="
-                        bg-green-500 
-                        hover:bg-green-600 
-                        text-white 
-                        px-8 py-4 
-                        rounded-lg 
-                        font-semibold 
-                        flex items-center justify-center 
-                        gap-2 
-                        transition-colors 
-                        text-lg
-                      "
-            >
-              <MessageCircle className="w-5 h-5" />
-              Bulk Order Enquiry
-            </a>
-            <a
-              href={`tel:${STORE_PHONE}`}
-              className="
-                          bg-white/20 
-                          hover:bg-white/30 
-                          text-white 
-                          px-8 py-4 
-                          rounded-lg 
-                          font-semibold 
-                          flex items-center 
-                          justify-center 
-                          gap-2 
-                          transition-colors 
-                          backdrop-blur-sm text-lg
-                        "
-            >
-              <Phone className="w-5 h-5" />
-              Call Now
-            </a>
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+              <button
+                onClick={() => router.push('/shop')}
+                className="flex items-center justify-center gap-2 rounded-lg bg-amber-500 px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-amber-600"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                Browse Products
+              </button>
+              <a
+                href={`https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent('Hi! I would like to place a bulk order. Please share product availability.')}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-center gap-2 rounded-lg bg-green-500 px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-green-600"
+              >
+                <MessageCircle className="h-5 w-5" />
+                Bulk Order Enquiry
+              </a>
+              <a
+                href={`tel:${STORE_PHONE}`}
+                className="flex items-center justify-center gap-2 rounded-lg bg-white/20 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/30"
+              >
+                <Phone className="h-5 w-5" />
+                Call Now
+              </a>
+            </div>
           </div>
         </div>
-      </div>
       </section>
-      
-      <section className="py-2 bg-green-400 md:sticky rounded-t-[40px] md:top-[0.7rem] md:z-40">              {/* DELIVERY INFO */}
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <Truck className="w-10 h-10 text-green-600 mx-auto mb-3" />
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Delivery & Pickup</h2>
-            <p className="text-gray-600">
-              We deliver across the region. {SHIPPING_RULES}.
-            </p>
+
+      <section className="rounded-t-[40px] bg-green-400 py-2 md:sticky md:top-[0.7rem] md:z-40">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="mb-10 text-center">
+            <Truck className="mx-auto mb-3 h-10 w-10 text-green-600" />
+            <h2 className="mb-3 text-3xl font-bold text-gray-900 md:text-4xl">Delivery & Pickup</h2>
+            <p className="text-gray-600">We deliver across the region. {SHIPPING_RULES}.</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { area: 'Local Area', days: 'Mon, Wed, Fri', time: 'Same day' },
               { area: 'Metro Area', days: 'Tue, Thu', time: 'Next day' },
               { area: 'Regional', days: 'Saturdays', time: '2-3 days' },
               { area: 'Nationwide', days: 'Mon - Fri', time: '3-5 days' },
             ].map((zone) => (
-              <div key={zone.area} className="bg-green-50 rounded-xl p-5 text-center">
-                <h3 className="font-bold text-gray-900 mb-2">{zone.area}</h3>
-                <p className="text-sm text-gray-600 mb-1">{zone.days}</p>
-                <p className="text-sm text-green-600 font-medium">{zone.time} delivery</p>
-                <p className="text-xs text-gray-500 mt-2">Minimum order applies</p>
+              <div key={zone.area} className="rounded-xl bg-green-50 p-5 text-center">
+                <h3 className="mb-2 font-bold text-gray-900">{zone.area}</h3>
+                <p className="mb-1 text-sm text-gray-600">{zone.days}</p>
+                <p className="text-sm font-medium text-green-600">{zone.time} delivery</p>
+                <p className="mt-2 text-xs text-gray-500">Minimum order applies</p>
               </div>
             ))}
           </div>
-          <div className="text-center mt-6">
-            <Link href="/contact" 
-                  className="
-                              inline-flex 
-                              items-center 
-                              gap-2 
-                              text-green-700 
-                              font-semibold 
-                              hover:text-green-800
-                            "
-            >
-              View Full Delivery Details <ArrowRight className="w-4 h-4" />
+          <div className="mt-6 text-center">
+            <Link href="/contact" className="inline-flex items-center gap-2 font-semibold text-green-700 hover:text-green-800">
+              View Full Delivery Details
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

@@ -7,7 +7,7 @@ This repository is the incremental Next.js migration target for the poultry web 
 - Router model: App Router (`app/` only)
 - Build status: passing (`npm run build`)
 - Migration mode: progressive (component + route migration in phases)
-- Route prefixes: `app/*` -> `/`, `/about`, `/contact`, `/knowledge`; `app/shop/*` -> `/shop/*`
+- Route prefixes: `app/*` -> `/`, `/about`, `/contact`, `/products`; `app/shop/*` -> `/shop/*`
 
 ## Run Locally
 
@@ -39,6 +39,8 @@ fred-andongndou-poultry-web/
 		about/
 			page.tsx
 		contact/
+			page.tsx
+		products/
 			page.tsx
 		knowledge/
 			page.tsx

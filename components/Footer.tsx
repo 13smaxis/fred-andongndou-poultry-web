@@ -166,7 +166,7 @@ export default function Footer() {
           <h4 className="text-lg font-bold mb-4">Quick Links</h4>
           <ul className="space-y-2">
             <li><Link href="/about" className="text-green-300 hover:text-white text-sm transition-colors">About Our Farm</Link></li>
-            <li><Link href="/knowledge" className="text-green-300 hover:text-white text-sm transition-colors">Poultry Guides</Link></li>
+            <li><Link href="/products" className="text-green-300 hover:text-white text-sm transition-colors">Products</Link></li>
             <li><Link href="/contact" className="text-green-300 hover:text-white text-sm transition-colors">Contact Us</Link></li>
             <li><Link href="/shop/cart" className="text-green-300 hover:text-white text-sm transition-colors">Shopping Cart</Link></li>
           </ul>

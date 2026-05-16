@@ -240,11 +240,11 @@ export default function Header()
               >
                 About
               </Link>
-              <Link href="/knowledge" onClick={hardNavigate("/knowledge")} className={`
+              <Link href="/products" onClick={hardNavigate("/products")} className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
-                                ${isActive("/knowledge") ? "text-green-700" : ""}`}>
-                Guides
+                                ${isActive("/products") ? "text-green-700" : ""}`}>
+                Products
               </Link>
               <Link href="/contact" onClick={hardNavigate("/contact")} className={`
                                 ${navLinkClass} 
@@ -326,7 +326,7 @@ export default function Header()
               <Link href="/" onClick={hardNavigate("/")} className={mobileNavLinkClass}>Home</Link>
               <Link href="/shop" onClick={hardNavigate("/shop")} className={mobileNavLinkClass}>Shop</Link>
               <Link href="/about" onClick={hardNavigate("/about")} className={mobileNavLinkClass}>About</Link>
-              <Link href="/knowledge" onClick={hardNavigate("/knowledge")} className={mobileNavLinkClass}>Guides</Link>
+              <Link href="/products" onClick={hardNavigate("/products")} className={mobileNavLinkClass}>Products</Link>
               <Link href="/contact" onClick={hardNavigate("/contact")} className={mobileNavLinkClass}>Contact</Link>
             </nav>
           </div>
