@@ -99,10 +99,7 @@ export default function Header()
     window.location.assign(href);
   };
 
-  const navLinkClass =
-    `relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-      isTransparent ? "text-white hover:text-amber-200" : "text-gray-700 hover:text-green-700"
-    }`;
+  const navLinkClass = "relative px-3 py-2 text-sm font-medium text-white transition-colors duration-200 hover:text-amber-200";
 
   const navHoverLineClass =
                             `after:content-[''] after:absolute 
@@ -117,11 +114,11 @@ export default function Header()
   const socialHoverLineClass =
     "relative pb-0.5 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-0.5 after:h-0.5 after:w-0 after:rounded-full after:bg-yellow-100 after:transition-all after:duration-300 hover:after:w-full";
 
-  const mobileNavLinkClass = "px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 rounded-lg font-medium";                    //-Mobile link styling
+  const mobileNavLinkClass = "px-4 py-3 text-white hover:bg-white/10 rounded-lg font-medium";                    //-Mobile link styling
 
-  const headerClassName = "fixed top-0 z-50 w-full";
+  const headerClassName = "lg:fixed lg:top-0 lg:z-50 w-full";
 
-  const mobileMenuClassName = "lg:hidden border-t";
+  const mobileMenuClassName = "lg:hidden border-t border-white/10 bg-green-800 text-white";
 
   const mobileMenuButtonClassName = isTransparent
     ? "lg:hidden p-2 text-white hover:bg-white/10 rounded-lg"
@@ -320,17 +317,15 @@ export default function Header()
           </div>
         </div>
 
-        {mobileMenuOpen && (
-          <div className={`${mobileMenuClassName} bg-white shadow-lg`}>
-            <nav className="flex flex-col p-4 gap-1">
+        <div className={`${mobileMenuClassName} overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+          <nav className="flex flex-col gap-1 p-4">
               <Link href="/" onClick={hardNavigate("/")} className={mobileNavLinkClass}>Home</Link>
               <Link href="/shop" onClick={hardNavigate("/shop")} className={mobileNavLinkClass}>Shop</Link>
               <Link href="/about" onClick={hardNavigate("/about")} className={mobileNavLinkClass}>About</Link>
               <Link href="/products" onClick={hardNavigate("/products")} className={mobileNavLinkClass}>Products</Link>
               <Link href="/contact" onClick={hardNavigate("/contact")} className={mobileNavLinkClass}>Contact</Link>
-            </nav>
-          </div>
-        )}
+          </nav>
+        </div>
       </header>
 
       <button

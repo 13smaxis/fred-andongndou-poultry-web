@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ArrowRight,
+  ChevronDown,
   Bird,
   Drumstick,
   Egg,
@@ -16,6 +17,7 @@ import {
   Droplets,
   ChevronRight,
 } from "lucide-react";
+import { useState } from "react";
 import { SHOP_CATEGORIES, SHOP_PRODUCTS, type ShopCategory, type ShopProduct } from "@/lib/shop-data";
 
 type ProductCategory = Exclude<ShopCategory, "All">;
@@ -86,6 +88,7 @@ function buildSearchUrl(category: ProductCategory, productId?: string) {
 export default function ProductsClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const selectedCategory = useMemo<ProductCategory>(() => {
     const category = searchParams.get("category");
@@ -113,6 +116,8 @@ export default function ProductsClient() {
     router.push(buildSearchUrl(product.category, product.id));
   };
 
+  const activeCategoryMeta = categoryMeta[selectedCategory];
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 md:py-10">
       <section className="relative overflow-hidden rounded-[32px] border border-white/10 bg-linear-to-br from-green-950 via-emerald-900 to-slate-950 px-6 py-8 text-white shadow-2xl md:px-8 md:py-10">
@@ -131,7 +136,55 @@ export default function ProductsClient() {
             </p>
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-8 sm:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileFiltersOpen((value) => !value)}
+              className="flex w-full items-center justify-between rounded-2xl border border-white/15 bg-white/10 px-4 py-4 text-left backdrop-blur-sm"
+            >
+              <span className="flex items-center gap-3">
+                <span className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br ${activeCategoryMeta.accent} text-white ring-1 ring-white/10`}>
+                  <activeCategoryMeta.icon className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100/70">Filter</span>
+                  <span className="block text-base font-semibold text-white">{activeCategoryMeta.title}</span>
+                </span>
+              </span>
+              <ChevronDown className={`h-5 w-5 text-white transition-transform ${mobileFiltersOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            <div className={`mt-3 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70 backdrop-blur-sm transition-all duration-300 ${mobileFiltersOpen ? "max-h-[24rem] opacity-100" : "max-h-0 opacity-0"}`}>
+              <div className="grid gap-2 p-2">
+                {productCategories.map((category) => {
+                  const meta = categoryMeta[category];
+                  const Icon = meta.icon;
+                  const isActive = selectedCategory === category;
+
+                  return (
+                    <button
+                      key={category}
+                      type="button"
+                      onClick={() => {
+                        handleCategoryChange(category);
+                        setMobileFiltersOpen(false);
+                      }}
+                      className={`flex items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors ${
+                        isActive ? "bg-white/15 text-white" : "text-slate-100 hover:bg-white/10"
+                      }`}
+                    >
+                      <span className={`flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br ${meta.accent} text-white ring-1 ring-white/10`}>
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className="text-sm font-semibold">{meta.title}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 hidden gap-3 sm:grid sm:grid-cols-2 xl:grid-cols-4">
             {productCategories.map((category) => {
               const meta = categoryMeta[category];
               const Icon = meta.icon;
