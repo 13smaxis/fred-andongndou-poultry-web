@@ -6,21 +6,18 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { MouseEvent } from "react";
 import { useCart } from "@/contexts/CartContext";
-import 
-{
+import {
   STORE_NAME,
   STORE_WHATSAPP,
   STORE_FACEBOOK_URL,
   STORE_INSTAGRAM_URL,
   SHIPPING_RULES,
 } from "@/lib/constants";
-import 
-{
+import {
   ShoppingCart,
   Menu,
   X,
   MessageCircle,
-  ArrowUp,
 } from "lucide-react";
 
 /*
@@ -333,13 +330,15 @@ export default function Header()
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Scroll to top"
         title="Scroll to top"
-        className={`fixed bottom-6 left-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-white shadow-lg shadow-green-900/20 ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-1 hover:bg-green-700 hover:shadow-xl hover:shadow-green-900/30 md:bottom-8 md:left-8 ${
+        className={`fixed bottom-24 right-0 z-40 flex h-28 w-11 items-center justify-center rounded-l-2xl bg-black text-white shadow-lg shadow-black/30 ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-1 hover:bg-zinc-900 md:bottom-28 ${
           showScrollTop
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none translate-y-4 opacity-0"
+            ? "translate-x-0 opacity-100"
+            : "pointer-events-none translate-x-5 opacity-0"
         }`}
       >
-        <ArrowUp className="h-5 w-5" />
+        <span className="rotate-180 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.3em] [writing-mode:vertical-rl]">
+          Back To Top
+        </span>
       </button>
 
       <a
