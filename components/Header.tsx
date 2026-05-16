@@ -120,9 +120,7 @@ export default function Header()
 
   const mobileMenuClassName = "lg:hidden border-t border-white/10 bg-green-800 text-white";
 
-  const mobileMenuButtonClassName = isTransparent
-    ? "lg:hidden p-2 text-white hover:bg-white/10 rounded-lg"
-    : "lg:hidden p-2 text-gray-700 hover:bg-green-50 rounded-lg";
+  const mobileMenuButtonClassName = "lg:hidden p-2 text-gray-700 hover:bg-gray-100 rounded-lg";
 
   const isActive = (href: string) => pathname === href;
 
@@ -214,7 +212,6 @@ export default function Header()
                     className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass}
-                                ${isActive("/") ? "text-green-700" : ""}
                               `}
               >
                 Home
@@ -225,7 +222,6 @@ export default function Header()
                     className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
-                                ${isActive("/shop") ? "text-green-700" : ""}
                               `}
               >
                 Shop
@@ -233,20 +229,20 @@ export default function Header()
               <Link href="/about" onClick={hardNavigate("/about")} className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
-                                ${isActive("/about") ? "text-green-700" : ""}`}
+                                `}
               >
                 About
               </Link>
               <Link href="/products" onClick={hardNavigate("/products")} className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
-                                ${isActive("/products") ? "text-green-700" : ""}`}>
+                                `}>
                 Products
               </Link>
               <Link href="/contact" onClick={hardNavigate("/contact")} className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
-                                ${isActive("/contact") ? "text-green-700" : ""}`}>Contact</Link>
+                                `}>Contact</Link>
             </nav>
           </div>
 
@@ -285,7 +281,7 @@ export default function Header()
           {/* Mobile row below header: logo left, cart + hamburger right */}
           <div className="lg:hidden w-full">
             <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-              <Link href="/" className={`flex items-center gap-2 transition-opacity duration-300 ${isScrolled ? 'pointer-events-none opacity-0 -translate-y-2' : 'opacity-100'}`} onClick={hardNavigate("/")}>
+              <Link href="/" className="flex items-center gap-2" onClick={hardNavigate("/")}>
                 <Image
                   src="/logo_alpha.png"
                   alt={`${STORE_NAME} logo`}
