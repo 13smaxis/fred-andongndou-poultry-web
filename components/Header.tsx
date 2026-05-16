@@ -99,7 +99,9 @@ export default function Header()
     window.location.assign(href);
   };
 
-  const navLinkClass = "relative px-3 py-2 text-sm font-medium text-white transition-colors duration-200 hover:text-amber-200";
+  const navLinkClass = `relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+    isTransparent ? "text-white hover:text-amber-200" : "text-gray-700 hover:text-green-700"
+  }`;
 
   const navHoverLineClass =
                             `after:content-[''] after:absolute 
@@ -116,7 +118,7 @@ export default function Header()
 
   const mobileNavLinkClass = "px-4 py-3 text-white hover:bg-white/10 rounded-lg font-medium";                    //-Mobile link styling
 
-  const headerClassName = "lg:fixed lg:top-0 lg:z-50 w-full";
+  const headerClassName = "fixed top-0 z-50 w-full";
 
   const mobileMenuClassName = "lg:hidden border-t border-white/10 bg-green-800 text-white";
 
@@ -212,6 +214,7 @@ export default function Header()
                     className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass}
+                                ${isActive("/") ? "text-green-700" : ""}
                               `}
               >
                 Home
@@ -222,6 +225,7 @@ export default function Header()
                     className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
+                                ${isActive("/shop") ? "text-green-700" : ""}
                               `}
               >
                 Shop
@@ -229,20 +233,20 @@ export default function Header()
               <Link href="/about" onClick={hardNavigate("/about")} className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
-                                `}
+                                ${isActive("/about") ? "text-green-700" : ""}`}
               >
                 About
               </Link>
               <Link href="/products" onClick={hardNavigate("/products")} className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
-                                `}>
+                                ${isActive("/products") ? "text-green-700" : ""}`}>
                 Products
               </Link>
               <Link href="/contact" onClick={hardNavigate("/contact")} className={`
                                 ${navLinkClass} 
                                 ${navHoverLineClass} 
-                                `}>Contact</Link>
+                                ${isActive("/contact") ? "text-green-700" : ""}`}>Contact</Link>
             </nav>
           </div>
 

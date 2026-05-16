@@ -174,7 +174,7 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-16 bg-gray-700">                                                                 {/* FEATURED PRODUCTS */}
+      <section className="py-16 bg-gray-700">                                                                   {/* FEATURED PRODUCTS */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
             <div className="w-full text-center">                                                                {/* Heading container */}
@@ -214,7 +214,7 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-0.5 bg-gray-700">                                                                {/* STOCK AVAILABILITY */}
+      <section className="py-0.5 bg-gray-700">                                                                  {/* STOCK AVAILABILITY */}
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="rounded-4xl bg-gray-700 p-3">
             <div className="relative rounded-4xl overflow-hidden border border-white/10 shadow-2xl">
@@ -227,7 +227,6 @@ export default function Home()
                                 inset-0 
                               " 
               />                                                                                                {/* No overlay for this section to keep it brighter for readability bg-linear-to-br from-black/40 via-slate-900/35 to-black/25 */}
-              
               <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
                 <div className="text-center mb-6">
                   <Calendar className="w-10 h-10 text-white mx-auto mb-3" />
@@ -261,11 +260,16 @@ export default function Home()
         </div>
       </section>
 
-      <section className="py-px bg-gray-700 md:sticky md:top-[0.7rem] md:z-10">
+      <section className="py-px bg-gray-700 md:sticky md:top-[0.7rem] md:z-10">                                 {/* OUR PRODUCTS SECTION*/}
         <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
-          <div className="rounded-4xl bg-gray-700 p-3">
+          <div className="rounded-4xl bg-gray-700 p-3 mb-32">
             <div className="relative overflow-hidden rounded-4xl border border-white/10 shadow-2xl">
-              <div className="absolute inset-0 bg-fixed bg-center bg-cover" style={{ backgroundImage: `url(${HERO_IMAGE})` }} />
+              <div className="
+                              absolute 
+                              inset-0 
+                              bg-fixed bg-center bg-cover" 
+                   style={{ backgroundImage: `url(${HERO_IMAGE})` }} 
+              />
               <div className="absolute inset-0" />
               <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
                 <div className="mb-6 text-center">
@@ -273,9 +277,7 @@ export default function Home()
                   <h2 className="mb-1 text-2xl font-bold text-white md:text-3xl">
                     Our <span className="text-yellow-400">Products</span>
                   </h2>
-                  <p className="inline-flex rounded-lg bg-amber-800 px-4 py-2 text-center text-lg text-gray-200">
-                    Browse the four product ranges we stock for homes, kitchens, and farms
-                  </p>
+                 
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -308,20 +310,56 @@ export default function Home()
                     <Link
                       key={product.title}
                       href={`/products?category=${encodeURIComponent(product.category)}`}
-                      className="group flex h-full flex-col gap-4 rounded-2xl border border-white/10 bg-white/10 p-5 text-left backdrop-blur-sm transition-all hover:-translate-y-1 hover:bg-white/15 hover:shadow-xl"
+                      className="
+                                  group 
+                                  flex h-full flex-col 
+                                  gap-4 
+                                  rounded-2xl 
+                                  border border-white/10 bg-white/10 p-5 text-left backdrop-blur-sm transition-all hover:-translate-y-1 hover:bg-white/15 hover:shadow-xl"
                     >
                       <div className="flex items-center justify-between">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400/20 text-green-200 ring-1 ring-white/10">
+                        <div className="
+                                        flex h-12 w-12 
+                                        items-center 
+                                        justify-center 
+                                        rounded-2xl 
+                                        bg-emerald-400/20 
+                                        text-green-200 
+                                        ring-1 ring-white/10
+                                      "
+                        >
                           <product.Icon className="h-6 w-6" />
                         </div>
-                        <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-green-100">View range</span>
+                        <span className="
+                                          rounded-full 
+                                          bg-white/10 
+                                          px-3 py-1 
+                                          text-xs font-medium text-green-100
+                                        "
+                                      >
+                                  View range
+                        </span>
                       </div>
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-lg font-semibold text-white group-hover:text-green-300">{product.title}</h3>
+                        <h3 className="
+                                        text-lg 
+                                        font-semibold text-white 
+                                        group-hover:text-green-300
+                                      "
+                        >
+                            {product.title}
+                        </h3>
                         <p className="mt-2 text-sm leading-6 text-gray-200">{product.desc}</p>
                       </div>
-                      <span className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-yellow-300">
-                        Explore products
+                      <span className="
+                                        mt-auto 
+                                        inline-flex 
+                                        items-center 
+                                        gap-2 
+                                        text-sm font-semibold text-yellow-300
+                                      "
+                      >
+                          Explore products
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </span>
                     </Link>
@@ -333,7 +371,7 @@ export default function Home()
         </div>
       </section>
 
-      <section className="relative z-20 mt-24 rounded-t-[40px] bg-gray-50 py-16 shadow-2xl">
+      <section className="relative z-20 mt-24 rounded-t-[40px] bg-gray-50 py-16 shadow-2xl">                    {/* GALLERY SECTION */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-10">
             <Camera className="w-10 h-10 text-green-600 mx-auto mb-3" />
