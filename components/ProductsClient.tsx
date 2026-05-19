@@ -119,8 +119,20 @@ export default function ProductsClient() {
   const activeCategoryMeta = categoryMeta[selectedCategory];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 md:py-10">
-      <section className="relative overflow-hidden rounded-[32px] border border-white/10 bg-linear-to-br from-green-950 via-emerald-900 to-slate-950 px-6 py-8 text-white shadow-2xl md:px-8 md:py-10">
+    <div className="mx-auto max-w-7xl px-4 py-8 md:py-10  ">
+      <section className="
+                          relative 
+                          overflow-hidden 
+                          rounded-4xl 
+                          border border-white/10 
+                          bg-linear-to-br from-green-950 via-emerald-900 to-slate-950 
+                          px-6 py-8 
+                          text-white 
+                          shadow-2xl 
+                          md:px-8 md:py-10
+                          md:sticky md:top-[0.7rem] md:z-10
+                        "
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(250,204,21,0.18),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.22),transparent_34%)]" />
         <div className="relative z-10">
           <div className="max-w-3xl">
@@ -132,7 +144,8 @@ export default function ProductsClient() {
               Browse poultry products with a focused category view.
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-emerald-50/90 md:text-base">
-              Use the four filters below to jump between live chickens, tender portions, eggs, and feed. Each selection opens a product detail view with specs and nutrition at a glance.
+              Switch effortlessly between live chickens, tender portions, eggs and feed. 
+              Each click opens clear product details with specs and nutrition at a glance.
             </p>
           </div>
 
@@ -140,7 +153,18 @@ export default function ProductsClient() {
             <button
               type="button"
               onClick={() => setMobileFiltersOpen((value) => !value)}
-              className="flex w-full items-center justify-between rounded-2xl border border-white/15 bg-white/10 px-4 py-4 text-left backdrop-blur-sm"
+              className="
+                          flex 
+                          w-full 
+                          items-center 
+                          justify-between 
+                          rounded-2xl 
+                          border border-white/15 
+                          bg-white/10 
+                          px-4 py-4 
+                          text-left 
+                          backdrop-blur-sm
+                        "
             >
               <span className="flex items-center gap-3">
                 <span className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br ${activeCategoryMeta.accent} text-white ring-1 ring-white/10`}>
@@ -154,7 +178,18 @@ export default function ProductsClient() {
               <ChevronDown className={`h-5 w-5 text-white transition-transform ${mobileFiltersOpen ? "rotate-180" : ""}`} />
             </button>
 
-            <div className={`mt-3 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70 backdrop-blur-sm transition-all duration-300 ${mobileFiltersOpen ? "max-h-[24rem] opacity-100" : "max-h-0 opacity-0"}`}>
+            <div className={`
+                              mt-3 
+                              overflow-hidden 
+                              rounded-2xl 
+                              border border-white/10 
+                              bg-slate-950/70 
+                              backdrop-blur-sm 
+                              transition-all 
+                              duration-300 
+                              ${mobileFiltersOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
+                            `}
+            >
               <div className="grid gap-2 p-2">
                 {productCategories.map((category) => {
                   const meta = categoryMeta[category];
@@ -169,9 +204,8 @@ export default function ProductsClient() {
                         handleCategoryChange(category);
                         setMobileFiltersOpen(false);
                       }}
-                      className={`flex items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors ${
-                        isActive ? "bg-white/15 text-white" : "text-slate-100 hover:bg-white/10"
-                      }`}
+                      className={`flex items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors ${isActive ? "bg-white/15 text-white" : "text-slate-100 hover:bg-white/10"
+                        }`}
                     >
                       <span className={`flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br ${meta.accent} text-white ring-1 ring-white/10`}>
                         <Icon className="h-5 w-5" />
@@ -195,11 +229,10 @@ export default function ProductsClient() {
                   key={category}
                   type="button"
                   onClick={() => handleCategoryChange(category)}
-                  className={`group rounded-2xl border p-4 text-left transition-all hover:-translate-y-0.5 ${
-                    isActive
+                  className={`group rounded-2xl border p-4 text-left transition-all hover:-translate-y-0.5 ${isActive
                       ? "border-amber-300/50 bg-white/15 shadow-[0_18px_40px_rgba(0,0,0,0.24)]"
                       : "border-white/10 bg-white/8 hover:bg-white/12"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br ${meta.accent} text-white ring-1 ring-white/10`}>
@@ -344,13 +377,12 @@ export default function ProductsClient() {
                     key={product.id}
                     type="button"
                     onClick={() => handleProductChange(product)}
-                    className={`group overflow-hidden rounded-2xl border text-left transition-all hover:-translate-y-0.5 ${
-                      isActive
+                    className={`group overflow-hidden rounded-2xl border text-left transition-all hover:-translate-y-0.5 ${isActive
                         ? "border-green-500 bg-green-50 shadow-[0_14px_36px_rgba(16,185,129,0.14)]"
                         : "border-gray-200 bg-white hover:border-green-200 hover:shadow-lg"
-                    }`}
+                      }`}
                   >
-                    <div className="relative aspect-[4/3] overflow-hidden bg-gray-50">
+                    <div className="relative aspect-4/3 overflow-hidden bg-gray-50">
                       <Image src={product.image} alt={product.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" unoptimized />
                     </div>
                     <div className="p-4">

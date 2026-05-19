@@ -34,58 +34,74 @@ Required variables:
 ## Current App Tree (Checkpoint)
 
 ```text
-fred-andongndou-poultry-web/
-	app/
-		about/
-			page.tsx
-		contact/
-			page.tsx
-		products/
-			page.tsx
-		knowledge/
-			page.tsx
-		shop/
-			cart/
-				page.tsx
-			checkout/
-				page.tsx
-			collections/
-				[handle]/
-					page.tsx
-			order-confirmation/
-				[orderId]/
-					page.tsx
-			products/
-				[handle]/
-					page.tsx
-		favicon.ico
-		globals.css
-		layout.tsx
-		not-found.tsx
-		page.tsx
-	components/
-		theme-provider.tsx
-		ui/
-			button.tsx
-			dropdown-menu.tsx
-			sonner.tsx
-			toast.tsx
-			toaster.tsx
-			tooltip.tsx
-	hooks/
-		use-toast.ts
-	lib/
-		utils.ts
-	public/
-		file.svg
-		globe.svg
-		next.svg
-		vercel.svg
-		window.svg
-	next.config.ts
-	package.json
-	postcss.config.mjs
-	tsconfig.json
+.
+└── fred-andongndou-poultry-web/
+    ├── app/
+    │   ├── globals.css
+    │   ├── layout.tsx
+    │   ├── not-found.tsx
+    │   ├── page.tsx
+    │   ├── about/
+    │   │   └── page.tsx
+    │   ├── contact/
+    │   │   └── page.tsx
+    │   ├── knowledge/
+    │   │   └── page.tsx
+    │   ├── products/
+    │   │   └── page.tsx
+    │   └── shop/
+    │       ├── page.tsx
+    │       └── cart/
+    │           └── page.tsx
+    ├── components/
+    │   ├── app-providers.tsx
+    │   ├── Footer.tsx
+    │   ├── Header.tsx
+    │   ├── HeroCarousel.tsx
+    │   ├── ProductCard.tsx
+    │   ├── ProductsClient.tsx
+    │   ├── ShopClient.tsx
+    │   ├── StockAvailabilityCarousel.tsx
+    │   ├── theme-provider.tsx
+    │   ├── TrustBadgesMarquee.tsx
+    │   ├── about/
+    │   │   ├── AnimatedStatCard.tsx
+    │   │   ├── CertificationsAnimated.tsx
+    │   │   └── TimelineAnimated.tsx
+    │   └── ui/
+    │       ├── button.tsx
+    │       ├── dropdown-menu.tsx
+    │       ├── sonner.tsx
+    │       ├── toast.tsx
+    │       ├── toaster.tsx
+    │       └── tooltip.tsx
+    ├── contexts/
+    │   └── CartContext.tsx
+    ├── hooks/
+    │   └── use-toast.ts
+    ├── images/
+    ├── lib/
+    │   ├── constants.ts
+    │   ├── shop-data.ts
+    │   └── utils.ts
+    ├── public/
+    │   ├── robots.txt
+    │   └── sitemap.xml
+    ├── scripts/
+    │   ├── fix-vscode-agent-tools.mjs
+    │   └── fix-vscode-agent-tools.ps1/
+    │       └── AGENTS.md
+    ├── CLAUDE.md
+    ├── components.json
+    ├── eslint.config.mjs
+    ├── next-env.d.ts
+    ├── next.config.ts
+    ├── package.json
+    ├── postcss.config.mjs
+    ├── README.md
+    ├── tailwind.config.ts
+    ├── tsconfig.json
+    └── tsconfig.node.json
 ```
 
 ## Notes

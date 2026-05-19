@@ -6,6 +6,7 @@ import {
   STORE_EMAIL,
   STORE_ADDRESS,
   STORE_WHATSAPP,
+  HERO_IMAGE,
 } from "@/lib/constants";
 import {
   Phone,
@@ -51,14 +52,17 @@ export default function ContactPage() {
 
   return (
     <>
-      <div className="bg-green-800 py-12 md:py-16">
-        <div className="mx-auto max-w-7xl px-4 text-center">
-          <h1 className="mb-3 text-3xl font-bold text-white md:text-4xl">Contact Us</h1>
-          <p className="mx-auto max-w-xl text-green-200">
-            Have questions? Need a bulk order quote? We&apos;re here to help. Reach out via phone, WhatsApp, or the form below.
-          </p>
+      <section className="relative">
+        <div
+          className="h-64 sm:h-80 md:h-96 w-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+        />
+        <div className="-mt-12 sm:-mt-16 md:-mt-20">
+          <svg viewBox="0 0 1440 120" className="w-full h-24 block" preserveAspectRatio="none">
+            <path d="M0,40 C360,120 1080,0 1440,60 L1440,120 L0,120 Z" fill="#ffffff"/>
+          </svg>
         </div>
-      </div>
+      </section>
 
       <div className="mx-auto max-w-7xl px-4 py-12">
         <div className="mb-16 grid gap-8 lg:grid-cols-3">
