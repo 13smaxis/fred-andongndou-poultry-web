@@ -38,7 +38,7 @@ export default function CartPage()
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8">
+    <div className="mx-auto max-w-5xl px-4 py-32">
       <div className="mb-8 flex items-center justify-between">
         {cart.length > 0 && (
           <button onClick={clearCart} className="text-sm font-medium text-red-500 hover:text-red-700">

@@ -130,7 +130,6 @@ export default function ProductsClient() {
                           text-white 
                           shadow-2xl 
                           md:px-8 md:py-10
-                          md:sticky md:top-[0.7rem] md:z-10
                         "
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(250,204,21,0.18),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.22),transparent_34%)]" />
@@ -230,8 +229,8 @@ export default function ProductsClient() {
                   type="button"
                   onClick={() => handleCategoryChange(category)}
                   className={`group rounded-2xl border p-4 text-left transition-all hover:-translate-y-0.5 ${isActive
-                      ? "border-amber-300/50 bg-white/15 shadow-[0_18px_40px_rgba(0,0,0,0.24)]"
-                      : "border-white/10 bg-white/8 hover:bg-white/12"
+                      ? "border-amber-300/50 bg-white/15 shadow-2xl"
+                      : "border-white/10 bg-white/8 shadow-2xl hover:bg-white/12"
                     }`}
                 >
                   <div className="flex items-center justify-between gap-3">
@@ -254,7 +253,7 @@ export default function ProductsClient() {
       </section>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <aside className="overflow-hidden rounded-[30px] border border-gray-200 bg-white shadow-sm lg:sticky lg:top-24 lg:h-fit">
+        <aside className="overflow-hidden rounded-[30px] border border-gray-200 bg-white shadow-2xl lg:sticky lg:top-24 lg:h-fit">
           <div className={`relative aspect-square bg-linear-to-br ${activeMeta.accent} p-5`}>
             <div className="absolute left-5 top-5 z-10 flex items-center gap-2 rounded-full bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm">
               <Sparkles className="h-4 w-4" />
@@ -305,7 +304,7 @@ export default function ProductsClient() {
 
         <section className="space-y-6">
           <div className="grid gap-6 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
-            <article className="rounded-[30px] border border-gray-200 bg-white p-6 shadow-sm">
+            <article className="rounded-[30px] border border-gray-200 bg-white p-6 shadow-2xl">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-green-50 text-green-700">
                   <Leaf className="h-5 w-5" />
@@ -319,7 +318,7 @@ export default function ProductsClient() {
               <p className="mt-4 text-sm leading-7 text-gray-600">{activeMeta.description}</p>
             </article>
 
-            <article className="rounded-[30px] border border-gray-200 bg-white p-6 shadow-sm">
+            <article className="rounded-[30px] border border-gray-200 bg-white p-6 shadow-2xl">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-50 text-amber-600">
                   <Droplets className="h-5 w-5" />
@@ -357,7 +356,7 @@ export default function ProductsClient() {
             </article>
           </div>
 
-          <article className="rounded-[30px] border border-gray-200 bg-white p-6 shadow-sm">
+          <article className="rounded-[30px] border border-gray-200 bg-white p-6 shadow-2xl">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.25em] text-green-600">More in this category</p>
@@ -378,8 +377,8 @@ export default function ProductsClient() {
                     type="button"
                     onClick={() => handleProductChange(product)}
                     className={`group overflow-hidden rounded-2xl border text-left transition-all hover:-translate-y-0.5 ${isActive
-                        ? "border-green-500 bg-green-50 shadow-[0_14px_36px_rgba(16,185,129,0.14)]"
-                        : "border-gray-200 bg-white hover:border-green-200 hover:shadow-lg"
+                        ? "border-green-500 bg-green-50 shadow-[0_26px_80px_rgba(16,185,129,0.18)]"
+                        : "border-gray-200 bg-white shadow-2xl hover:border-green-200 hover:shadow-2xl"
                       }`}
                   >
                     <div className="relative aspect-4/3 overflow-hidden bg-gray-50">
