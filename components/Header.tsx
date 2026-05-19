@@ -115,7 +115,7 @@ export default function Header()
 
   const mobileNavLinkClass = "px-4 py-3 text-white hover:bg-white/10 rounded-lg font-medium";                    //-Mobile link styling
 
-  const headerClassName = "fixed top-0 z-50 w-full";
+  const headerClassName = "w-full lg:fixed lg:top-0 lg:z-50";
 
   const mobileMenuClassName = "lg:hidden border-t border-white/10 bg-green-800 text-white";
 

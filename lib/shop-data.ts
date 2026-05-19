@@ -64,7 +64,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: wingsSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
-        price: 15.99,
+        price: 16.49,
     },
     {
         id: "chicken-drumsticks-premium",
@@ -86,7 +86,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: mixedPortionSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
-        price: 16.99,
+        price: 17.49,
     },
     {
         id: "chicken-thighs-premium",
@@ -108,7 +108,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: backsSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
-        price: 14.99,
+        price: 13.99,
     },
     {
         id: "chicken-breasts-premium",
@@ -132,7 +132,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: broilersSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
-        price: 15.99,
+        price: 16.99,
     },
     {
         id: "broilers-day-old-chicks",
@@ -143,7 +143,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: chicksSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
-        price: 12.99,
+        price: 9.49,
     },
     {
         id: "point-of-lay-hens-premium",
@@ -154,7 +154,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: hensSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
-        price: 14.99,
+        price: 12.49,
     },
      {
         id: "free-range-broilers-premium",
@@ -165,7 +165,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: freeRangeSrc,
         tags: ["featured", "bestseller"],
         inStock: true,
-        price: 15.99,
+        price: 16.49,
     },
 
     /*-------------- Eggs --------------*/
@@ -178,7 +178,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: eggsSrc,
         tags: ["featured"],
         inStock: true,
-        price: 12.99,
+        price: 7.99,
     },
     {
         id: "farm-eggs-jumbo",
@@ -189,7 +189,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: jumboEggsSrc,
         tags: ["bestseller"],
         inStock: true,
-        price: 19.99,
+        price: 11.99,
     },
 
     /*-------------- Feed --------------*/
@@ -202,7 +202,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: growerFeedSrc,
         tags: ["discount"],
         inStock: true,
-        price: 14.99,
+        price: 18.49,
     },
     {
         id: "layer-feed-25kg",
@@ -213,7 +213,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
         image: layerFeedSrc,
         tags: ["discount"], 
         inStock: true,
-        price: 12.99,
+        price: 15.99,
     },
 ];
 

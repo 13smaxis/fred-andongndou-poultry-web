@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { SHOP_CATEGORIES, SHOP_PRODUCTS, type ShopCategory, type ShopProduct } from "@/lib/shop-data";
+import { formatEuroPrice } from "@/lib/utils";
 
 type ProductCategory = Exclude<ShopCategory, "All">;
 
@@ -129,7 +130,7 @@ export default function ProductsClient() {
                           px-6 py-8 
                           text-white 
                           shadow-2xl 
-                          md:px-8 md:py-10
+                          md:sticky md:top-0 md:z-0 md:px-8 md:py-10
                         "
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(250,204,21,0.18),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.22),transparent_34%)]" />
@@ -252,7 +253,7 @@ export default function ProductsClient() {
         </div>
       </section>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+      <div className="relative z-20 mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <aside className="overflow-hidden rounded-[30px] border border-gray-200 bg-white shadow-2xl lg:sticky lg:top-24 lg:h-fit">
           <div className={`relative aspect-square bg-linear-to-br ${activeMeta.accent} p-5`}>
             <div className="absolute left-5 top-5 z-10 flex items-center gap-2 rounded-full bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm">
@@ -288,7 +289,7 @@ export default function ProductsClient() {
               </div>
               <div className="rounded-2xl bg-gray-50 p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-gray-500">Price</p>
-                <p className="mt-2 font-semibold text-gray-900">${activeProduct.price.toFixed(2)}</p>
+                <p className="mt-2 font-semibold text-gray-900">{formatEuroPrice(activeProduct.price)}</p>
               </div>
             </div>
 

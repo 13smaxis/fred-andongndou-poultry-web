@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
 import { STORE_WHATSAPP } from "@/lib/constants";
 import { SHOP_PRODUCTS } from "@/lib/shop-data";
+import { formatEuroPrice } from "@/lib/utils";
 import 
 {
   Minus,
@@ -18,7 +19,7 @@ import
 
 export default function CartPage() 
 {
-  const { cart, cartCount, removeFromCart, updateQuantity, clearCart } = useCart();
+  const { cart, cartCount, cartTotal, removeFromCart, updateQuantity, clearCart } = useCart();
 
   const resolveCartImage = (productId: string, image?: string) => {
     if (image) return image;
@@ -29,10 +30,14 @@ export default function CartPage()
 
   const handleWhatsAppOrder = () => {
     const items = cart
-      .map((i) => `- ${i.name}${i.variant_title ? ` (${i.variant_title})` : ""} x${i.quantity}`)
+      .map(
+        (i) =>
+          `- ${i.name}${i.variant_title ? ` (${i.variant_title})` : ""} x${i.quantity} @ ${formatEuroPrice(i.price)} = ${formatEuroPrice(i.price * i.quantity)}`,
+      )
       .join("\n");
+    const total = formatEuroPrice(cartTotal);
     const msg = encodeURIComponent(
-      `Hi! I'd like to place an order:\n\n${items}\n\nPlease confirm availability and delivery.`,
+      `Hi! I'd like to place an order:\n\n${items}\n\nTotal: ${total}\n\nPlease confirm availability and delivery.`,
     );
     window.open(`https://wa.me/${STORE_WHATSAPP}?text=${msg}`, "_blank");
   };
@@ -85,8 +90,16 @@ export default function CartPage()
                   />
                 )}
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-semibold text-gray-900">{item.name}</h3>
-                  {item.variant_title && <p className="text-sm text-gray-500">{item.variant_title}</p>}
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <h3 className="font-semibold text-gray-900">{item.name}</h3>
+                      {item.variant_title && <p className="text-sm text-gray-500">{item.variant_title}</p>}
+                    </div>
+                    <div className="text-right text-sm font-semibold text-blue-600">
+                      <div>{formatEuroPrice(item.price)} each</div>
+                      <div>{formatEuroPrice(item.price * item.quantity)} total</div>
+                    </div>
+                  </div>
                   <div className="mt-3 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <button
@@ -130,8 +143,8 @@ export default function CartPage()
                   </span>
                 </div>
                 <div className="flex justify-between border-t pt-3">
-                  <span className="font-bold text-gray-900">Pricing</span>
-                  <span className="text-sm font-medium text-gray-500">Provided on confirmation</span>
+                  <span className="font-bold text-gray-900">Total amount</span>
+                  <span className="text-sm font-semibold text-blue-600">{formatEuroPrice(cartTotal)}</span>
                 </div>
               </div>
 

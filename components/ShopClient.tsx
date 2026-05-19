@@ -7,6 +7,7 @@ import { useCart } from "@/contexts/CartContext";
 import { STORE_WHATSAPP } from "@/lib/constants";
 import { SHOP_CATEGORIES, SHOP_PRODUCTS, SHOP_PROMOTIONS, type ShopCategory, type ShopProduct } from "@/lib/shop-data";
 import { useSearchParams } from "next/navigation";
+import { formatEuroPrice } from "@/lib/utils";
 
 export default function ShopClient() {
   const { addToCart } = useCart();
@@ -51,7 +52,7 @@ export default function ShopClient() {
       name: product.name,
       variant_title: undefined,
       sku: product.id,
-      price: 0,
+      price: product.price,
       image: product.image,
     });
   };
@@ -132,7 +133,7 @@ export default function ShopClient() {
                 <div className="p-4">
                   <h4 className="mt-1 text-base font-semibold text-gray-900">{product.name}</h4>
                   <p className="mt-2 text-sm text-gray-600">{product.description}</p>
-                  <p className="mt-2 text-sm text-blue-600">{product.price}</p>
+                  <p className="mt-2 text-sm text-blue-600">{formatEuroPrice(product.price)}</p>
                   <div className="mt-4 flex gap-2">
                     <button
                       onClick={() => handleAddToCart(product)}
