@@ -27,7 +27,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-green-900 text-white mt-auto">
-      <div className="bg-green-800 py-10">
+      {/* <div className="bg-green-800 py-10">                                                                  SUBSCRIBE SECTION - COMMENTED OUT FOR NOW, CAN BE RE-ENABLED LATER
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
           <p className="text-green-200 mb-6 max-w-lg mx-auto">
@@ -70,7 +70,7 @@ export default function Footer() {
             </form>
           )}
         </div>
-      </div>
+      </div> */}
 
       <div className="
                       max-w-7xl mx-auto 
