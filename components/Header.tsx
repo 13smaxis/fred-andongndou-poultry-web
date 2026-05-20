@@ -115,11 +115,11 @@ export default function Header()
 
   const mobileNavLinkClass = "px-4 py-3 text-white hover:bg-white/10 rounded-lg font-medium";                    //-Mobile link styling
 
-  const headerClassName = "w-full lg:fixed lg:top-0 lg:z-50";
+  const headerClassName = "w-full fixed top-0 z-50 bg-green-600 lg:bg-transparent";
 
-  const mobileMenuClassName = "lg:hidden border-t border-white/10 bg-green-800 text-white";
+  const mobileMenuClassName = "lg:hidden border-t border-white/10 bg-green-600 text-white";
 
-  const mobileMenuButtonClassName = "lg:hidden p-2 text-gray-700 hover:bg-gray-100 rounded-lg";
+  const mobileMenuButtonClassName = "lg:hidden p-2 text-white hover:bg-white/10 rounded-lg";
 
   const isActive = (href: string) => pathname === href;
 

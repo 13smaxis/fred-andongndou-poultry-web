@@ -130,7 +130,6 @@ export default function ProductsClient() {
                           px-6 py-8 
                           text-white 
                           shadow-2xl 
-                          md:sticky md:top-0 md:z-0 md:px-8 md:py-10
                         "
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(250,204,21,0.18),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.22),transparent_34%)]" />
